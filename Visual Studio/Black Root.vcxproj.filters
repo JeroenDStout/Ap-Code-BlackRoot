@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Formats">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{ec3cd106-e2f2-465d-a75b-e9d55d8fe2ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{d93a4d09-6ab2-4ab4-97ce-e484ebc9384d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{854be858-24fc-4e57-bb59-d464920c6521}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Exceptions">
+      <UniqueIdentifier>{97fce091-080c-4b77-91d7-9ab4ba990513}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="../Pubc/Assert.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/Exception Origin.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/Exception.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/Files.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/JSON Merge.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/JSON.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/Math Types Complex.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/Number Types.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/Repo.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/RepoVersion.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/Rotor.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/Distribution.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/TemplateUtility.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/Threaded IO Stream.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/Transformation.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/Tuple.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/Tensor.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/Math Types.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="../Pubc/Files.cpp">
+      <Filter>Formats</Filter>
+    </ClCompile>
+    <ClCompile Include="../Pubc/Repo.cpp">
+      <Filter>Formats</Filter>
+    </ClCompile>
+    <ClCompile Include="../Pubc/Threaded IO Stream.cpp">
+      <Filter>Formats</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
