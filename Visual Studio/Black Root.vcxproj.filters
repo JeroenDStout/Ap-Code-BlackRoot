@@ -18,75 +18,75 @@
     <Filter Include="IO">
       <UniqueIdentifier>{854be858-24fc-4e57-bb59-d464920c6521}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Exceptions">
+    <Filter Include="Debug">
       <UniqueIdentifier>{97fce091-080c-4b77-91d7-9ab4ba990513}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="../Pubc/Assert.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="../Pubc/Exception Origin.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="../Pubc/Exception.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="../Pubc/Files.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="../Pubc/JSON Merge.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="../Pubc/JSON.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="../Pubc/Math Types Complex.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="../Pubc/Number Types.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="../Pubc/Repo.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="../Pubc/RepoVersion.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="../Pubc/Rotor.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="../Pubc/Distribution.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="../Pubc/TemplateUtility.h">
-      <Filter>Core</Filter>
+    <ClInclude Include="../Pubc/Files.h">
+      <Filter>IO</Filter>
     </ClInclude>
     <ClInclude Include="../Pubc/Threaded IO Stream.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="../Pubc/Transformation.h">
-      <Filter>Core</Filter>
+      <Filter>Utility</Filter>
     </ClInclude>
     <ClInclude Include="../Pubc/Tuple.h">
-      <Filter>Core</Filter>
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/Transformation.h">
+      <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="../Pubc/Tensor.h">
-      <Filter>Core</Filter>
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/TemplateUtility.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/Rotor.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/Number Types.h">
+      <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="../Pubc/Math Types.h">
-      <Filter>Core</Filter>
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/Math Types Complex.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/JSON.h">
+      <Filter>Formats</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/JSON Merge.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/Exception.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/Exception Origin.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/Assert.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="../Pubc/Distribution.h">
+      <Filter>Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="../Pubc/Files.cpp">
-      <Filter>Formats</Filter>
+      <Filter>IO</Filter>
     </ClCompile>
     <ClCompile Include="../Pubc/Repo.cpp">
-      <Filter>Formats</Filter>
+      <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="../Pubc/Threaded IO Stream.cpp">
-      <Filter>Formats</Filter>
+      <Filter>Utility</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
