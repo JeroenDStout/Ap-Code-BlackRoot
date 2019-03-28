@@ -7,7 +7,7 @@
 #pragma once
 
 #include <cstddef>
-#include "BlackRoot\Tuple.h"
+#include "BlackRoot\Pubc\Tuple.h"
 
 namespace BlackRoot {
 namespace Math {
