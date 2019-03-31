@@ -30,8 +30,8 @@ namespace Math {
 //          Utility
 // -----------------------------------------------------------------------------------------------------
         
-    //BR_U_TYPE_CHECK(equivalent_matrix_type, EquivalentMatrixType)
-    //BR_U_TYPE_CHECK(vector_type, VectorType)
+    BR_U_TYPE_CHECK(equivalent_matrix_type, EquivalentMatrixType)
+    BR_U_TYPE_CHECK(vector_type, VectorType)
 
 // -----------------------------------------------------------------------------------------------------
 //          Vector, Co-vector
