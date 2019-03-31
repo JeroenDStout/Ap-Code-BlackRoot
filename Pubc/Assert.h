@@ -6,8 +6,7 @@
 
 #pragma once
 
-#include <sstream>
-
+#include "BlackRoot/Pubc/Stringstream.h"
 #include "BlackRoot/Pubc/Exception.h"
 
 namespace BlackRoot

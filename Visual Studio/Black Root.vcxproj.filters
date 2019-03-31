@@ -77,6 +77,9 @@
     <ClInclude Include="../Pubc/Distribution.h">
       <Filter>Math</Filter>
     </ClInclude>
+    <ClInclude Include="Pubc\Stringstream.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="../Pubc/Files.cpp">

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <sstream>
+#include "BlackRoot/Pubc/Stringstream.h"
 
 #include "RepoVersion.h"
 

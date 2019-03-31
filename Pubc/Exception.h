@@ -8,8 +8,9 @@
 
 #include <exception>
 #include <string>
-#include <sstream>
 #include <thread>
+
+#include "BlackRoot/Pubc/Stringstream.h"
 
 #define BR_GENERATE_DEBUG_INFO
 

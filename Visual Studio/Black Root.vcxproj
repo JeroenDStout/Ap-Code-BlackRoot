@@ -162,6 +162,7 @@
     <ClInclude Include="../Pubc/Tuple.h" />
     <ClInclude Include="../Pubc/Tensor.h" />
     <ClInclude Include="../Pubc/Math Types.h" />
+    <ClInclude Include="Pubc\Stringstream.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="../Pubc/Files.cpp" />

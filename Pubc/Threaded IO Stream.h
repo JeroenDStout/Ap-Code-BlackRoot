@@ -7,8 +7,9 @@
 #pragma once
 
 #include <iostream>
-#include <sstream>
 #include <mutex>
+
+#include "BlackRoot/Pubc/Stringstream.h"
 
 namespace BlackRoot {
 namespace Util {

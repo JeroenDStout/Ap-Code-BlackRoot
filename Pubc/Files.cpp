@@ -1,6 +1,6 @@
 #include <fstream>
-#include <sstream>
 
+#include "BlackRoot/Pubc/Stringstream.h"
 #include "BlackRoot/Pubc/Number Types.h"
 #include "BlackRoot/Pubc/Files.h"
 #include "BlackRoot/Pubc/Exception Origin.h"

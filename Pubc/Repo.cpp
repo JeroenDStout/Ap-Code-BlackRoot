@@ -1,7 +1,7 @@
 #include <string>
-#include <sstream>
 
 #include "BlackRoot/Pubc/Repo.h"
+#include "BlackRoot/Pubc/Stringstream.h"
 #include "BlackRoot/repo_version.h"
 
 namespace BlackRoot {
