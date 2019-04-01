@@ -303,12 +303,27 @@ FileManipLength BaseFileStream::Read(void *buffer, FileManipLength byteCount)
     }
 #endif
     
+    FSize bytesRead    = 0;
+
 #if _WIN32
-    DWORD bytesRead;
-    ::ReadFile(this->Win_File, buffer, byteCount, &bytesRead, nullptr);
+    using limit = std::numeric_limits<DWORD>;
+
+    void            *bufferParce = buffer;
+    FileManipLength bytesToRead  = byteCount;
+
+    DWORD rd;
+    while (bytesToRead > limit::max()) {
+        ::ReadFile(this->Win_File, buffer, limit::max(), &rd, nullptr);
+        bytesRead += (FSize)(rd);
+        bytesToRead -= limit::max();
+    }
+    if (bytesToRead > 0) {
+        ::ReadFile(this->Win_File, buffer, (DWORD)(bytesToRead), &rd, nullptr);
+        bytesRead += (FSize)(rd);
+    }
 #endif
 
-    return (FSize)bytesRead;
+    return bytesRead;
 }
 
 FileManipLength BaseFileStream::Write(void *buffer, FileManipLength byteCount)
@@ -319,9 +334,24 @@ FileManipLength BaseFileStream::Write(void *buffer, FileManipLength byteCount)
     }
 #endif
     
+    FSize bytesWritten    = 0;
+
 #if _WIN32
-    DWORD bytesWritten;
-    ::WriteFile(this->Win_File, buffer, byteCount, &bytesWritten, nullptr);
+    using limit = std::numeric_limits<DWORD>;
+
+    void            *bufferParce = buffer;
+    FileManipLength bytesToWrite = byteCount;
+
+    DWORD rd;
+    while (bytesToWrite > limit::max()) {
+        ::WriteFile(this->Win_File, buffer, limit::max(), &rd, nullptr);
+        bytesWritten += (FSize)(rd);
+        bytesToWrite -= limit::max();
+    }
+    if (bytesToWrite > 0) {
+        ::ReadFile(this->Win_File, buffer, (DWORD)(bytesToWrite), &rd, nullptr);
+        bytesWritten += (FSize)(rd);
+    }
 #endif
 
     return (uint32)bytesWritten;
