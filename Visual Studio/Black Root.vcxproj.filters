@@ -23,12 +23,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="../Pubc/Repo.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="../Pubc/RepoVersion.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="../Pubc/Files.h">
       <Filter>IO</Filter>
     </ClInclude>
@@ -80,16 +74,28 @@
     <ClInclude Include="Pubc\Stringstream.h">
       <Filter>Utility</Filter>
     </ClInclude>
+    <ClInclude Include="..\Pubc\Version.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pubc\Version Reg.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pubc\Register.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="../Pubc/Files.cpp">
       <Filter>IO</Filter>
     </ClCompile>
-    <ClCompile Include="../Pubc/Repo.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="../Pubc/Threaded IO Stream.cpp">
       <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pubc\Version.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pubc\Version Reg.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

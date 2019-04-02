@@ -1,14 +1,12 @@
 #pragma once
 
-#include <string>
 #include "BlackRoot/Pubc/Stringstream.h"
-
-#include "RepoVersion.h"
+#include "BlackRoot/Pubc/Version Reg.h"
 
 namespace BlackRoot {
 namespace Core {
 
-	BR_REPO_VERSION_DECLARE(BlackRoot)
-
+	BR_VERSION_DECLARE(BlackRoot)
+        
 }
 }

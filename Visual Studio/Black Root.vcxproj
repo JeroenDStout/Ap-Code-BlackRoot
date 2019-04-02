@@ -100,6 +100,7 @@
       <PreprocessorDefinitions>__PROJECT__=BlackRoot;__PROJECTSTR__="Black Root";%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <PreBuildEvent />
+    <Lib />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -152,8 +153,9 @@
     <ClInclude Include="../Pubc/JSON.h" />
     <ClInclude Include="../Pubc/Math Types Complex.h" />
     <ClInclude Include="../Pubc/Number Types.h" />
-    <ClInclude Include="../Pubc/Repo.h" />
-    <ClInclude Include="../Pubc/RepoVersion.h" />
+    <ClInclude Include="..\Pubc\Register.h" />
+    <ClInclude Include="..\Pubc\Version Reg.h" />
+    <ClInclude Include="..\Pubc\Version.h" />
     <ClInclude Include="../Pubc/Rotor.h" />
     <ClInclude Include="../Pubc/Distribution.h" />
     <ClInclude Include="../Pubc/TemplateUtility.h" />
@@ -166,7 +168,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="../Pubc/Files.cpp" />
-    <ClCompile Include="../Pubc/Repo.cpp" />
+    <ClCompile Include="..\Pubc\Version Reg.cpp" />
+    <ClCompile Include="..\Pubc\Version.cpp" />
     <ClCompile Include="../Pubc/Threaded IO Stream.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
