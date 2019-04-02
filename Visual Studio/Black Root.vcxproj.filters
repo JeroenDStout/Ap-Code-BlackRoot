@@ -71,9 +71,6 @@
     <ClInclude Include="../Pubc/Distribution.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="Pubc\Stringstream.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
     <ClInclude Include="..\Pubc\Version.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -82,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="..\Pubc\Register.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pubc\Stringstream.h">
+      <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

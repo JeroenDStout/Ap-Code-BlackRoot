@@ -154,6 +154,7 @@
     <ClInclude Include="../Pubc/Math Types Complex.h" />
     <ClInclude Include="../Pubc/Number Types.h" />
     <ClInclude Include="..\Pubc\Register.h" />
+    <ClInclude Include="..\Pubc\Stringstream.h" />
     <ClInclude Include="..\Pubc\Version Reg.h" />
     <ClInclude Include="..\Pubc\Version.h" />
     <ClInclude Include="../Pubc/Rotor.h" />
@@ -164,7 +165,6 @@
     <ClInclude Include="../Pubc/Tuple.h" />
     <ClInclude Include="../Pubc/Tensor.h" />
     <ClInclude Include="../Pubc/Math Types.h" />
-    <ClInclude Include="Pubc\Stringstream.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="../Pubc/Files.cpp" />
