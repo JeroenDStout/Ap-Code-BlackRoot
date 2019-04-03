@@ -307,10 +307,11 @@ FileManipLength BaseFileStream::Read(void *buffer, FileManipLength byteCount)
     }
 #endif
     
-    FSize bytesRead    = 0;
+    FileManipLength bytesRead    = 0;
 
 #if _WIN32
     using limit = std::numeric_limits<DWORD>;
+    static_assert(limit::max() <= std::numeric_limits<FileManipLength>::max(), "Bad size");
 
     void            *bufferParce = buffer;
     FileManipLength bytesToRead  = byteCount;
@@ -318,12 +319,12 @@ FileManipLength BaseFileStream::Read(void *buffer, FileManipLength byteCount)
     DWORD rd;
     while (bytesToRead > limit::max()) {
         ::ReadFile(this->Win_File, buffer, limit::max(), &rd, nullptr);
-        bytesRead += (FSize)(rd);
+        bytesRead += (FileManipLength)(rd);
         bytesToRead -= limit::max();
     }
     if (bytesToRead > 0) {
         ::ReadFile(this->Win_File, buffer, (DWORD)(bytesToRead), &rd, nullptr);
-        bytesRead += (FSize)(rd);
+        bytesRead += (FileManipLength)(rd);
     }
 #endif
 
@@ -338,10 +339,11 @@ FileManipLength BaseFileStream::Write(void *buffer, FileManipLength byteCount)
     }
 #endif
     
-    FSize bytesWritten    = 0;
+    FileManipLength bytesWritten    = 0;
 
 #if _WIN32
     using limit = std::numeric_limits<DWORD>;
+    static_assert(limit::max() <= std::numeric_limits<FileManipLength>::max(), "Bad size");
 
     void            *bufferParce = buffer;
     FileManipLength bytesToWrite = byteCount;
@@ -349,16 +351,16 @@ FileManipLength BaseFileStream::Write(void *buffer, FileManipLength byteCount)
     DWORD rd;
     while (bytesToWrite > limit::max()) {
         ::WriteFile(this->Win_File, buffer, limit::max(), &rd, nullptr);
-        bytesWritten += (FSize)(rd);
+        bytesWritten += (FileManipLength)(rd);
         bytesToWrite -= limit::max();
     }
     if (bytesToWrite > 0) {
         ::ReadFile(this->Win_File, buffer, (DWORD)(bytesToWrite), &rd, nullptr);
-        bytesWritten += (FSize)(rd);
+        bytesWritten += (FileManipLength)(rd);
     }
 #endif
 
-    return (uint32)bytesWritten;
+    return bytesWritten;
 }
 
 BaseFileStream::FCont BaseFileStream::ReadUntilEnd()
