@@ -21,6 +21,10 @@ IFileStream::IFileStream(const std::string originPath, FileMode::Access::Type ac
 {
 }
 
+IFileStream::~IFileStream()
+{
+}
+
 BlackRoot::Debug::Exception * IFileStream::CreateException(const std::string str)
 {
     return new BlackRoot::Debug::OriginException(this->DbOriginInfo, (std::stringstream(str) << ", with path «" << this->OriginPath << "»").str(), {});
@@ -30,27 +34,27 @@ BlackRoot::Debug::Exception * IFileStream::CreateException(const std::string str
 //              Base File Manager
 // ------------------------------------------------------------------------------------------------------
 
-bool BaseFileManager::ManagerIsReadOnly()
+bool BaseFileSource::ManagerIsReadOnly()
 {
     return false;
 }
 
-void BaseFileManager::Copy(const FilePath from, const FilePath to)
+void BaseFileSource::Copy(const FilePath from, const FilePath to)
 {
     std::experimental::filesystem::copy(from, to);
 }
 
-void BaseFileManager::CopyFile(const FilePath from, const FilePath to)
+void BaseFileSource::CopyFile(const FilePath from, const FilePath to)
 {
     std::experimental::filesystem::copy_file(from, to);
 }
 
-bool BaseFileManager::Exists(const FilePath path)
+bool BaseFileSource::Exists(const FilePath path)
 {
     return std::experimental::filesystem::exists(path);
 }
 
-bool BaseFileManager::FileExists(const FilePath path)
+bool BaseFileSource::FileExists(const FilePath path)
 {
     namespace fs = std::experimental::filesystem;
 
@@ -58,7 +62,7 @@ bool BaseFileManager::FileExists(const FilePath path)
     return fs::status_known(s) && s.type() == fs::file_type::regular;
 }
 
-bool BaseFileManager::DirectoryExists(const FilePath path)
+bool BaseFileSource::DirectoryExists(const FilePath path)
 {
     namespace fs = std::experimental::filesystem;
 
@@ -66,37 +70,37 @@ bool BaseFileManager::DirectoryExists(const FilePath path)
     return fs::status_known(s) && s.type() == fs::file_type::directory;
 }
 
-BaseFileManager::FSize BaseFileManager::FileSize(const FilePath path)
+BaseFileSource::FSize BaseFileSource::FileSize(const FilePath path)
 {
     return std::experimental::filesystem::file_size(path);
 }
 
-BaseFileManager::FTime BaseFileManager::LastWriteTime(const FilePath path)
+BaseFileSource::FTime BaseFileSource::LastWriteTime(const FilePath path)
 {
     return std::experimental::filesystem::last_write_time(path);
 }
 
-void BaseFileManager::Remove(const FilePath path)
+void BaseFileSource::Remove(const FilePath path)
 {
     std::experimental::filesystem::remove(path);
 }
 
-void BaseFileManager::RemoveAll(const FilePath path)
+void BaseFileSource::RemoveAll(const FilePath path)
 {
     std::experimental::filesystem::remove_all(path);
 }
 
-void BaseFileManager::Rename(const FilePath from, const FilePath to)
+void BaseFileSource::Rename(const FilePath from, const FilePath to)
 {
     std::experimental::filesystem::rename(from, to);
 }
 
-void BaseFileManager::CreateDirectories(const FilePath path)
+void BaseFileSource::CreateDirectories(const FilePath path)
 {
     std::experimental::filesystem::create_directories(path);
 }
 
-BaseFileManager::DirCon BaseFileManager::GetDirectoryContents(const FilePath path)
+BaseFileSource::DirCon BaseFileSource::GetDirectoryContents(const FilePath path)
 {
     DirCon dir;
     for(auto& p : std::experimental::filesystem::directory_iterator(path)) {
@@ -105,7 +109,7 @@ BaseFileManager::DirCon BaseFileManager::GetDirectoryContents(const FilePath pat
     return dir;
 }
 
-BaseFileManager::Stream * BaseFileManager::OpenFile(const FilePath fPath, const FileMode::OpenInstr instr, BlackRoot::Debug::Info dbInfo)
+BaseFileSource::Stream * BaseFileSource::OpenFile(const FilePath fPath, const FileMode::OpenInstr instr, BlackRoot::Debug::Info dbInfo)
 {    
 #if _WIN32
     using convert_type = std::codecvt_utf8<wchar_t>;
@@ -159,7 +163,7 @@ BaseFileManager::Stream * BaseFileManager::OpenFile(const FilePath fPath, const 
     return stream;
 }
 
-BaseFileManager::FSize BaseFileManager::ReadFile(const FilePath fPath, void ** out, const FileMode::OpenInstr instr)
+BaseFileSource::FSize BaseFileSource::ReadFile(const FilePath fPath, void ** out, const FileMode::OpenInstr instr)
 {
     FilePath path = this->BasePath / fPath;
 
@@ -180,7 +184,7 @@ BaseFileManager::FSize BaseFileManager::ReadFile(const FilePath fPath, void ** o
     return length;
 }
 
-BaseFileManager::FCont BaseFileManager::ReadFile(const FilePath fPath, const FileMode::OpenInstr instr)
+BaseFileSource::FCont BaseFileSource::ReadFile(const FilePath fPath, const FileMode::OpenInstr instr)
 {
     FilePath path = this->BasePath / fPath;
 
@@ -202,7 +206,7 @@ BaseFileManager::FCont BaseFileManager::ReadFile(const FilePath fPath, const Fil
     return contents;
 }
 
-BaseFileManager::FStr BaseFileManager::ReadFileAsString(const FilePath fPath, const FileMode::OpenInstr instr)
+BaseFileSource::FStr BaseFileSource::ReadFileAsString(const FilePath fPath, const FileMode::OpenInstr instr)
 {
     FilePath path = this->BasePath / fPath;
 

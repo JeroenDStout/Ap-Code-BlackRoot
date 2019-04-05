@@ -26,10 +26,10 @@
 namespace BlackRoot {
 namespace IO {
 
-    class IFileManager;
+    class IFileSource;
     class IFileStream;
 
-    class BaseFileManager;
+    class BaseFileSource;
     class BaseFile;
 
     using FileSize      = std::uintmax_t;
@@ -117,7 +117,7 @@ namespace IO {
         std::vector<FilePath>::iterator end()   { return Paths.end(); }
     };
 
-    class IFileManager {
+    class IFileSource {
     public:
         using FSize   = FileSize;
         using FTime   = FileTime;
@@ -126,7 +126,7 @@ namespace IO {
         using FCont   = std::vector<char>;
         using FStr    = std::string;
 
-        virtual ~IFileManager() = 0 {};
+        virtual ~IFileSource() = 0 {};
 
         virtual bool     ManagerIsReadOnly() = 0;
 
@@ -169,8 +169,8 @@ namespace IO {
 
         virtual void CloseAndRelease() = 0;
 
-        using FSize   = IFileManager::FSize;
-        using FCont   = IFileManager::FCont;
+        using FSize   = IFileSource::FSize;
+        using FCont   = IFileSource::FCont;
 
         virtual bool  CanRead()  const { return 0 != (AccessType & FileMode::Access::Read); }
         virtual bool  CanWrite() const { return 0 != (AccessType & FileMode::Access::Write); }
@@ -193,12 +193,12 @@ namespace IO {
         virtual BlackRoot::Debug::Exception * CreateException(const std::string);
     };
 
-    class BaseFileManager : public IFileManager {
+    class BaseFileSource : public IFileSource {
     public:
         FilePath    BasePath;
 
-        BaseFileManager(FilePath base) { ; }
-        ~BaseFileManager() override { ; }
+        BaseFileSource(FilePath base) { ; }
+        ~BaseFileSource() override { ; }
 
         bool     ManagerIsReadOnly() override;
 
