@@ -11,12 +11,12 @@ namespace BlackRoot {
 namespace Util {
 
     struct JSONMerge {
-        BlackRoot::IO::IFileManager *FileManager;
+        BlackRoot::IO::IFileSource *FileManager;
 
         BlackRoot::Format::JSON     JSON;
         
-        JSONMerge(BlackRoot::IO::IFileManager *, BlackRoot::Format::JSON &&);
-        JSONMerge(BlackRoot::IO::IFileManager *, const BlackRoot::Format::JSON &);
+        JSONMerge(BlackRoot::IO::IFileSource *, BlackRoot::Format::JSON &&);
+        JSONMerge(BlackRoot::IO::IFileSource *, const BlackRoot::Format::JSON &);
 
         void MergeRecursively();
     };

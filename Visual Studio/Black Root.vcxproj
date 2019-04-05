@@ -170,6 +170,7 @@
     <ClCompile Include="..\Pubc\Version Reg.cpp" />
     <ClCompile Include="..\Pubc\Version.cpp" />
     <ClCompile Include="../Pubc/Threaded IO Stream.cpp" />
+    <ClCompile Include="JSON Merge.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
