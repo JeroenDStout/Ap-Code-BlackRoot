@@ -24,6 +24,9 @@
     <Filter Include="Meta">
       <UniqueIdentifier>{6dcebe2e-979d-4039-94ae-62b6edde18d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="System">
+      <UniqueIdentifier>{120413bb-533d-4f6e-a659-b750648f2897}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="../Pubc/Files.h">
@@ -86,6 +89,9 @@
     <ClInclude Include="..\Pubc\Stringstream.h">
       <Filter>Utility</Filter>
     </ClInclude>
+    <ClInclude Include="..\Pubc\Sys Thread.h">
+      <Filter>System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="../Pubc/Files.cpp">
@@ -102,6 +108,9 @@
     </ClCompile>
     <ClCompile Include="..\Pubc\JSON Merge.cpp">
       <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pubc\Sys Thread.cpp">
+      <Filter>System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -170,6 +170,7 @@
     <ClInclude Include="../Pubc/Number Types.h" />
     <ClInclude Include="..\Pubc\Register.h" />
     <ClInclude Include="..\Pubc\Stringstream.h" />
+    <ClInclude Include="..\Pubc\Sys Thread.h" />
     <ClInclude Include="..\Pubc\Version Reg.h" />
     <ClInclude Include="..\Pubc\Version.h" />
     <ClInclude Include="../Pubc/Rotor.h" />
@@ -184,6 +185,7 @@
   <ItemGroup>
     <ClCompile Include="../Pubc/Files.cpp" />
     <ClCompile Include="..\Pubc\JSON Merge.cpp" />
+    <ClCompile Include="..\Pubc\Sys Thread.cpp" />
     <ClCompile Include="..\Pubc\Version Reg.cpp" />
     <ClCompile Include="..\Pubc\Version.cpp" />
     <ClCompile Include="../Pubc/Threaded IO Stream.cpp" />
