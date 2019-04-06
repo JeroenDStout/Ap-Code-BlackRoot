@@ -19,7 +19,11 @@ SET time=%%F
 
 set /p licence=<licence_name.txt
 
+cd ../
+IF not exist ".genc" (mkdir ".genc")
+cd ".genc/"
+
 echo %NL% %~1%NL%  Licence: %licence%%NL%  Version: %version%%NL%  Branch:  %branch%%NL%  Time:    %time%%NL%
 
-echo #define REPO_VERSION_DATA { "%~1", "%licence%", "%version%", "%branch%", "%time%" } >repo_version.h
-echo repo_version = { "name" : "%~1", "version" : "%version%", "branch" : "%branch%", "time" : "%time%" } >repo_version.py
+echo #define REPO_VERSION_DATA { "%~1", "%licence%", "%version%", "%branch%", "%time%" } >def_repo_version.h
+echo { "repo" : { "name" : "%~1", "version" : "%version%", "branch" : "%branch%", "time" : "%time%" } } >repo_version.json
