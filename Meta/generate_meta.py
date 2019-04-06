@@ -58,7 +58,7 @@ enum_h += " }"
     
 if not first:
     enum_list.sort();
-    print("~~ And was built using \n~~  " + ", ".join(enum_list));
+    print("~~ And is built using \n~~  " + ", ".join(enum_list));
     
 print("~~")
     
