@@ -150,7 +150,7 @@ std::string VersionRegistry::GetFullContributionString()
 	    ss << elem.Name;
     }
 
-    ss << "\nAnd was built using \n ";
+    ss << "\nAnd is built using \n ";
 
     first = true;
 
