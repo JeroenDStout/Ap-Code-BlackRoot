@@ -12,12 +12,46 @@ namespace BlackRoot {
 namespace Repo {
 
 	struct VersionInformation {
-		const char * Name;
-		const char * Licence;
-		const char * Version;
-		const char * BranchName;
-		const char * BranchTime;
+		std::string Name;
+		std::string Licence;
+		std::string Version;
+		std::string BranchName;
+		std::string BranchTime;
 	};
+
+    struct Contributor {
+        std::string Name;
+
+        Contributor(const char *s)
+        : Name(s) { ; }
+        Contributor(std::string s)
+        : Name(s) { ; }
+    };
+
+    struct Library {
+        std::string Name;
+        
+        Library(const char *s)
+        : Name(s) { ; }
+        Library(std::string s)
+        : Name(s) { ; }
+    };
+
+    struct ProjectContributors {
+        std::string                 Project;
+        std::vector<Contributor>    Contibutors;
+
+        void Add(Contributor);
+        void Sort();
+    };
+
+    struct ProjectLibraries {
+        std::string                 Project;
+        std::vector<Library>        Libraries;
+
+        void Add(Library);
+        void Sort();
+    };
 
     using VersionInformationFunc = const VersionInformation &(__cdecl *)();
     using VersionInformationList = std::vector<VersionInformation>;
@@ -26,15 +60,32 @@ namespace Repo {
     protected:
         static VersionRegistry * Registry;
         
-        VersionInformationList  Versions;
+        VersionInformationList              PerProjectVersions;
+        VersionInformation                  FullProjectVersion;
+        std::vector<ProjectContributors>    PerProjectContributors;
+        ProjectContributors                 FullProjectContributors;
+        std::vector<ProjectLibraries>       PerProjectLibraries;
+        ProjectLibraries                    FullProjectLibraries;
 
     public:
         static VersionRegistry * GetRegistry();
+        
+        static void SetMainProjectVersion(VersionInformation);
 
         static void AddVersion(VersionInformation);
+        static void AddContributors(std::string, std::vector<Contributor>);
+        static void AddLibraries(std::string, std::vector<Library>);
 
         static VersionInformationList GetVersionList();
+        
+        static std::string            GetBootString();
+        
+        static std::string            GetMainProjectString();
         static std::string            GetVersionString();
+        static std::string            GetFullContributionString();
+        
+        ProjectContributors &  GetProjectContributorList(std::string);
+        ProjectLibraries &     GetProjectLibraryList(std::string);
     };
 
     namespace Helper {
@@ -42,6 +93,24 @@ namespace Repo {
         struct RegisterVersion {
             RegisterVersion(VersionInformationFunc x) {
                 VersionRegistry::AddVersion(x());
+            }
+        };
+
+        struct RegisterContributors {
+            RegisterContributors(std::string p, std::vector<Contributor> c) {
+                VersionRegistry::AddContributors(p, c);
+            }
+        };
+
+        struct RegisterLibraries {
+            RegisterLibraries(std::string p, std::vector<Library> l) {
+                VersionRegistry::AddLibraries(p, l);
+            }
+        };
+
+        struct RegisterMainProject {
+            RegisterMainProject(VersionInformationFunc x) {
+                VersionRegistry::SetMainProjectVersion(x());
             }
         };
 
@@ -92,6 +161,14 @@ namespace Repo {
     { \
         return 0; \
     }
+
+#define BR_CONTRIBUTE_DEFINE(x) \
+    BlackRoot::Repo::Helper::RegisterContributors __RegisterContributors_##x(__PROJECTSTR__, GEN_CONTRIBUTIONS);\
+    BlackRoot::Repo::Helper::RegisterLibraries    __RegisterLibraries_##x(__PROJECTSTR__, GEN_LIBRARIES);
+
+#define BR_PROJECT_DEFINE(x) \
+    BlackRoot::Repo::Helper::RegisterMainProject  __RegisterMainProject_##x(&(BR_VERSION_HELPER2(x, _GetRepoVersion)));\
+    
 
 }
 }

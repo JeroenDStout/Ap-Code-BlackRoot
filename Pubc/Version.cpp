@@ -7,12 +7,14 @@
 #include "BlackRoot/Pubc/Version Reg.h"
 #include "BlackRoot/Pubc/Version.h"
 
-#include "BlackRoot/repo_version.h"
+#include "BlackRoot/.genc/def_repo_version.h"
+#include "BlackRoot/.genc/def_contribute.h"
 
 namespace BlackRoot {
 namespace Core {
 
 	BR_VERSION_DEFINE(BlackRoot);
+    BR_CONTRIBUTE_DEFINE(BlackRoot);
 
 }
 }

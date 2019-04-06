@@ -21,6 +21,9 @@
     <Filter Include="Debug">
       <UniqueIdentifier>{97fce091-080c-4b77-91d7-9ab4ba990513}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Meta">
+      <UniqueIdentifier>{6dcebe2e-979d-4039-94ae-62b6edde18d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="../Pubc/Files.h">
@@ -97,8 +100,20 @@
     <ClCompile Include="..\Pubc\Version Reg.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="JSON Merge.cpp">
+    <ClCompile Include="..\Pubc\JSON Merge.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\Meta\libraries.json">
+      <Filter>Meta</Filter>
+    </Text>
+    <Text Include="..\Meta\contributors.json">
+      <Filter>Meta</Filter>
+    </Text>
+    <Text Include="..\Meta\generate_meta.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\Meta\generate_meta.txt" />
   </ItemGroup>
 </Project>
