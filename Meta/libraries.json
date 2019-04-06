@@ -1,0 +1,6 @@
+{ 
+	"libraries" : [
+	{	"name" : "nlohmann's json",
+		"url"  : "github.com/nlohmann/json"
+	} ]
+}
