@@ -22,7 +22,16 @@ namespace Util {
         ~Cout()
         {
             std::lock_guard<std::mutex> guard(Mutex);
+#ifdef _WIN32
+            std::string str = this->str();
+            while (str.length() > 256) {
+                std::cout << str.substr(0, 256);
+                str = str.erase(0, 256);
+            }
+            std::cout << str;
+#else
             std::cout << this->str();
+#endif
         }
     };
 
