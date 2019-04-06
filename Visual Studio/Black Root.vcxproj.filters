@@ -111,9 +111,13 @@
     <Text Include="..\Meta\contributors.json">
       <Filter>Meta</Filter>
     </Text>
-    <Text Include="..\Meta\generate_meta.py" />
+    <Text Include="..\Meta\generate_meta.py">
+      <Filter>Meta</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\Meta\generate_meta.txt" />
+    <CustomBuild Include="..\Meta\generate_meta.txt">
+      <Filter>Meta</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>
