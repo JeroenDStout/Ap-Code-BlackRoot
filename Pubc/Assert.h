@@ -25,20 +25,22 @@ namespace Debug
 	
 	#endif
 
-	#define _DbAssertFatalMsg(_tst, _msg)										\
-				do {															\
-				if (!(_tst))													\
-				{	std::stringstream ss;                                       \
-                    throw new BlackRoot::Debug::Exception((std::stringstream("Fatal assertion failed: «") << #_tst << "»" << std::endl << "  (" << #_tst << ")").str()); \
-				}																\
+	#define _DbAssertFatalMsg(_tst, _msg) \
+				do { \
+				    if (!(_tst)) { \
+				    	std::stringstream ss; \
+                        ss << _msg << std::endl << "  (" << #_tst << ")"; \
+                        throw new BlackRoot::Debug::Exception(ss.str()); \
+				    } \
 				} while (0)
 
-	#define _DbAssertFatal(_tst)										        \
-				do {															\
-				if (!(_tst))													\
-				{	std::stringstream ss;                                       \
-                    throw new BlackRoot::Debug::Exception((std::stringstream("Fatal assertion failed: «") << #_tst << "»").str()); \
-				}																\
+	#define _DbAssertFatal(_tst) \
+				do { \
+				    if (!(_tst)) { \
+				    	std::stringstream ss; \
+                        ss << "Assertion failed: " << #_tst; \
+                        throw new BlackRoot::Debug::Exception(ss.str()); \
+				    } \
 				} while (0)
 
 	#define	DbAssertFatal(x)			_DbAssertFatal(x)
