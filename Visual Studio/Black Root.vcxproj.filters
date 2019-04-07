@@ -92,6 +92,9 @@
     <ClInclude Include="..\Pubc\Sys Thread.h">
       <Filter>System</Filter>
     </ClInclude>
+    <ClInclude Include="..\Pubc\Sys Path.h">
+      <Filter>System</Filter>
+    </ClInclude>
     <ClInclude Include="..\Pubc\Files Types.h">
       <Filter>IO</Filter>
     </ClInclude>
@@ -113,6 +116,9 @@
       <Filter>Utility</Filter>
     </ClCompile>
     <ClCompile Include="..\Pubc\Sys Thread.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pubc\Sys Path.cpp">
       <Filter>System</Filter>
     </ClCompile>
   </ItemGroup>
