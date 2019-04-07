@@ -92,6 +92,9 @@
     <ClInclude Include="..\Pubc\Sys Thread.h">
       <Filter>System</Filter>
     </ClInclude>
+    <ClInclude Include="..\Pubc\Files Types.h">
+      <Filter>IO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="../Pubc/Files.cpp">

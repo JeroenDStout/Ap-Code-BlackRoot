@@ -6,10 +6,9 @@
 
 #include <string>
 #include <vector>
-#include <chrono>
-#include <experimental/filesystem>
 
 #if _WIN32
+#undef  NOMINMAX
 #define NOMINMAX
 #include <windows.h>
 #undef CopyFile
@@ -22,6 +21,7 @@
 #endif
 
 #include "BlackRoot/Pubc/Exception.h"
+#include "BlackRoot/Pubc/Files Types.h"
 
 namespace BlackRoot {
 namespace IO {
@@ -31,12 +31,6 @@ namespace IO {
 
     class BaseFileSource;
     class BaseFile;
-
-    using FileSize      = std::uintmax_t;
-    using FileManipLength = std::size_t;
-    using FileTime      = std::chrono::system_clock::time_point;
-
-    using FilePath      = std::experimental::filesystem::path;
 
     namespace FileMode {
         struct Access {
