@@ -6,12 +6,7 @@
 
 using namespace BlackRoot::Util;
 
-JSONMerge::JSONMerge(BlackRoot::IO::IFileSource *fm, BlackRoot::Format::JSON && json)
-: JSON(json), FileManager(fm)
-{
-}
-
-JSONMerge::JSONMerge(BlackRoot::IO::IFileSource *fm, const BlackRoot::Format::JSON & json)
+JSONMerge::JSONMerge(BlackRoot::IO::IFileSource *fm, BlackRoot::Format::JSON * json)
 : JSON(json), FileManager(fm)
 {
 }
