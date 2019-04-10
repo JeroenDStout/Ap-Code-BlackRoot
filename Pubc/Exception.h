@@ -72,8 +72,10 @@ namespace Debug {
         if (pos != std::string::npos) {
             file.erase(0, pos+1);
         }
-        std::stringstream ss;
-        ss << project << ", " << file;
+
+        this->Location = project;
+        this->Location += ", ";
+        this->Location += file;
     }
 
     inline Exception::Exception(const Debug::Info info)
