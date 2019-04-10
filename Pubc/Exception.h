@@ -8,6 +8,7 @@
 #include <string>
 #include <thread>
 
+#include "BlackRoot/Pubc/Sys Path.h"
 #include "BlackRoot/Pubc/Stringstream.h"
 
 #define BR_GENERATE_DEBUG_INFO
@@ -46,10 +47,10 @@ namespace Debug {
         std::string         PrettyDescription;
 
     public:
-        Exception(const Debug::Info = BRGenDbgInfo);
-        Exception(const std::string, const Debug::Info = BRGenDbgInfo);
-        Exception(Exception *, const Debug::Info = BRGenDbgInfo);
-        Exception(const std::string, Exception *, const Debug::Info = BRGenDbgInfo);
+        Exception(const Debug::Info);
+        Exception(const std::string, const Debug::Info);
+        Exception(Exception *, const Debug::Info);
+        Exception(const std::string, Exception *, const Debug::Info);
         ~Exception() override;
 
         virtual void CreatePrettyDescription();
@@ -67,9 +68,9 @@ namespace Debug {
     inline Info::Info(const char * project, const char * path, int line)
     : Thread(std::this_thread::get_id()), Line(line) {
         std::string file = path;
-        auto pos = file.rfind('/');
+        auto pos = file.rfind(BlackRoot::System::DirSeperator);
         if (pos != std::string::npos) {
-            file.erase(0, pos);
+            file.erase(0, pos+1);
         }
         std::stringstream ss;
         ss << project << ", " << file;
