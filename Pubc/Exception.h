@@ -121,7 +121,7 @@ namespace Debug {
             ss << this->InnerException->GetPrettyDescription();
         }
 
-        this->Description = ss.str();
+        this->PrettyDescription = ss.str();
     }
     
 }
