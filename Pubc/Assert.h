@@ -30,7 +30,7 @@ namespace Debug
 				    if (!(_tst)) { \
 				    	std::stringstream ss; \
                         ss << _msg << std::endl << "  (" << #_tst << ")"; \
-                        throw new BlackRoot::Debug::Exception(ss.str()); \
+                        throw new BlackRoot::Debug::Exception(ss.str(), BRGenDbgInfo); \
 				    } \
 				} while (0)
 
@@ -39,7 +39,7 @@ namespace Debug
 				    if (!(_tst)) { \
 				    	std::stringstream ss; \
                         ss << "Assertion failed: " << #_tst; \
-                        throw new BlackRoot::Debug::Exception(ss.str()); \
+                        throw new BlackRoot::Debug::Exception(ss.str(), BRGenDbgInfo); \
 				    } \
 				} while (0)
 

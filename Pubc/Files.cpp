@@ -132,7 +132,7 @@ BaseFileSource::Stream * BaseFileSource::OpenFile(const FilePath fPath, const Fi
     DWORD creation = 0x0;
     switch (instr.MCreation) {
     default:
-        throw new BlackRoot::Debug::Exception((std::stringstream("Invalid creation parameters opening file: «") << converter.to_bytes(path).c_str() << "»").str());
+        throw new BlackRoot::Debug::Exception((std::stringstream("Invalid creation parameters opening file: «") << converter.to_bytes(path).c_str() << "»").str(), BRGenDbgInfo);
     case FileMode::Creation::CreateAlways:
         creation = CREATE_ALWAYS; break;
     case FileMode::Creation::CreateNew:
@@ -150,7 +150,7 @@ BaseFileSource::Stream * BaseFileSource::OpenFile(const FilePath fPath, const Fi
 
     HANDLE handle = ::CreateFileW(path.c_str(), access, shareMode, securityAttr, creation, attribute, NULL);
     if (handle == INVALID_HANDLE_VALUE) {
-        throw new BlackRoot::Debug::Exception((std::stringstream("{WIN} Cannot create file: «") << converter.to_bytes(path).c_str() << "»").str());
+        throw new BlackRoot::Debug::Exception((std::stringstream("{WIN} Cannot create file: «") << converter.to_bytes(path).c_str() << "»").str(), BRGenDbgInfo);
     }
 #endif
 
@@ -169,7 +169,7 @@ BaseFileSource::FSize BaseFileSource::ReadFile(const FilePath fPath, void ** out
 
     std::ifstream file(path, std::ios::binary);
     if (!file) {
-        throw new BlackRoot::Debug::Exception((std::stringstream("Cannot read file: «") << path << "»").str());
+        throw new BlackRoot::Debug::Exception((std::stringstream("Cannot read file: «") << path << "»").str(), BRGenDbgInfo);
     }
 
     file.seekg(0, std::ios::end);
@@ -190,7 +190,7 @@ BaseFileSource::FCont BaseFileSource::ReadFile(const FilePath fPath, const FileM
 
     std::ifstream file(path, std::ios::binary);
     if (!file) {
-        throw new BlackRoot::Debug::Exception((std::stringstream("Cannot read file: «") << path << "»").str());
+        throw new BlackRoot::Debug::Exception((std::stringstream("Cannot read file: «") << path << "»").str(), BRGenDbgInfo);
     }
 
     file.seekg(0, std::ios::end);
