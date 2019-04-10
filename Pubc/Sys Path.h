@@ -13,15 +13,5 @@ namespace System {
 
     extern const char * DirSeperator;
 
-    inline BlackRoot::IO::FilePath GetCurrentPath()
-    {
-        return std::experimental::filesystem::current_path();
-    }
-
-    inline BlackRoot::IO::FilePath MakePathCanonical(BlackRoot::IO::FilePath path)
-    {
-        return std::experimental::filesystem::canonical(path);
-    }
-
 }
 }
