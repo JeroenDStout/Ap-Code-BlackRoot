@@ -111,17 +111,27 @@ namespace Debug {
     {
         std::stringstream ss;
 
+        bool anyLine = false;
+
         ss << "- <" << this->GetType() << ">:" << std::endl;
+
         if (this->Info.HasInfo()) {
             std::hash<std::thread::id> hasher;
-            ss << "In " << this->Info.Location << ", l. " << this->Info.Line << ", thread " << std::hex << hasher(this->Info.Thread) << std::dec << std::endl;
+            ss << "In " << this->Info.Location << ", l. " << this->Info.Line << ", thread " << std::hex << hasher(this->Info.Thread) << std::dec;
+            anyLine = true;
         }
+
         if (this->Description.length() > 0) {
-            ss << "  " << this->Description << std::endl;
+            if (anyLine) ss << std::endl;
+            ss << "  " << this->Description;
+            anyLine = true;
         }
+
         if (nullptr != this->GetInnerException()) {
+            if (anyLine) ss << std::endl;
             ss << std::endl << std::endl;
             ss << this->InnerException->GetPrettyDescription();
+            anyLine = true;
         }
 
         this->PrettyDescription = ss.str();
