@@ -113,12 +113,15 @@ namespace IO {
 
     class IFileSource {
     public:
-        using FSize   = FileSize;
-        using FTime   = FileTime;
-        using Stream  = IFileStream;
-        using DirCon  = DirectoryContents;
-        using FCont   = std::vector<char>;
-        using FStr    = std::string;
+        using FilePath  = FilePath;
+        using FSize     = FileSize;
+        using FTime     = FileTime;
+        using OpenInstr = FileMode::OpenInstr;
+
+        using Stream    = IFileStream;
+        using DirCon    = DirectoryContents;
+        using FCont     = std::vector<char>;
+        using FStr      = std::string;
 
         virtual ~IFileSource() = 0 {};
 
@@ -142,11 +145,11 @@ namespace IO {
 
         virtual DirCon   GetDirectoryContents(const FilePath) = 0;
 
-        virtual Stream * OpenFile(const FilePath, const FileMode::OpenInstr, BlackRoot::Debug::Info = BRGenDbgInfo) = 0;
+        virtual Stream * OpenFile(const FilePath, const OpenInstr, BlackRoot::Debug::Info = BRGenDbgInfo) = 0;
 
-        virtual FSize    ReadFile(const FilePath, void **out, const FileMode::OpenInstr) = 0;
-        virtual FCont    ReadFile(const FilePath, const FileMode::OpenInstr) = 0;
-        virtual FStr     ReadFileAsString(const FilePath, const FileMode::OpenInstr) = 0;
+        virtual FSize    ReadFile(const FilePath, void **out, const OpenInstr) = 0;
+        virtual FCont    ReadFile(const FilePath, const OpenInstr) = 0;
+        virtual FStr     ReadFileAsString(const FilePath, const OpenInstr) = 0;
     };
 
     class IFileStream {
@@ -190,8 +193,9 @@ namespace IO {
     class BaseFileSource : public IFileSource {
     public:
         FilePath    BasePath;
-
-        BaseFileSource(FilePath base) { ; }
+        
+        BaseFileSource() { ; }
+        BaseFileSource(FilePath base) : BasePath(base) { ; }
         ~BaseFileSource() override { ; }
 
         bool     ManagerIsReadOnly() override;
