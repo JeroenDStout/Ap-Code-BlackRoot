@@ -195,6 +195,9 @@ BaseFileSource::FCont BaseFileSource::ReadFile(const FilePath fPath, const FileM
 
     file.seekg(0, std::ios::end);
     uint32 length = (uint32)file.tellg();
+    if (length == 0) {
+        return FCont{};
+    }
 
     file.seekg(0);
 
@@ -217,6 +220,9 @@ BaseFileSource::FStr BaseFileSource::ReadFileAsString(const FilePath fPath, cons
 
     file.seekg(0, std::ios::end);
     uint32 length = (uint32)file.tellg();
+    if (length == 0) {
+        return FStr{};
+    }
 
     file.seekg(0);
 
