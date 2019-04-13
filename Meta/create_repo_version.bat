@@ -20,8 +20,8 @@ SET time=%%F
 set /p licence=<licence_name.txt
 
 cd ../
-IF not exist ".genc" (mkdir ".genc")
-cd ".genc/"
+IF not exist "-genc" (mkdir "-genc")
+cd "-genc/"
 
 echo %NL% %~1%NL%  Licence: %licence%%NL%  Version: %version%%NL%  Branch:  %branch%%NL%  Time:    %time%%NL%
 
