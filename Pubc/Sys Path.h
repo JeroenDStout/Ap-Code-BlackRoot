@@ -13,5 +13,7 @@ namespace System {
 
     extern const char * DirSeperator;
 
+    BlackRoot::IO::FilePath GetExecutablePath();
+
 }
 }
