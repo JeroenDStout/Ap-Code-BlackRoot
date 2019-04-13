@@ -365,7 +365,7 @@ FileManipLength BaseFileStream::Write(void *buffer, FileManipLength byteCount)
         bytesToWrite -= limit::max();
     }
     if (bytesToWrite > 0) {
-        ::ReadFile(this->Win_File, buffer, (DWORD)(bytesToWrite), &rd, nullptr);
+        ::WriteFile(this->Win_File, buffer, (DWORD)(bytesToWrite), &rd, nullptr);
         bytesWritten += (FileManipLength)(rd);
     }
 #endif
