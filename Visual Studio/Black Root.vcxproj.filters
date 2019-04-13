@@ -101,6 +101,9 @@
     <ClInclude Include="..\Pubc\Threaded Caller.h">
       <Filter>Utility</Filter>
     </ClInclude>
+    <ClInclude Include="..\Pubc\FileSource Snooper.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="../Pubc/Files.cpp">

@@ -149,6 +149,7 @@
     <ClInclude Include="../Pubc/Math Types Complex.h" />
     <ClInclude Include="../Pubc/Number Types.h" />
     <ClInclude Include="..\Pubc\Files Types.h" />
+    <ClInclude Include="..\Pubc\FileSource Snooper.h" />
     <ClInclude Include="..\Pubc\Register.h" />
     <ClInclude Include="..\Pubc\Stringstream.h" />
     <ClInclude Include="..\Pubc\Sys Path.h" />
