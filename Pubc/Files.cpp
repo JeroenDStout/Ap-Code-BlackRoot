@@ -115,7 +115,7 @@ BaseFileSource::Stream * BaseFileSource::OpenFile(const FilePath fPath, const Fi
     using convert_type = std::codecvt_utf8<wchar_t>;
     std::wstring_convert<convert_type, wchar_t> converter;
 
-    std::wstring path = L"\?";
+    std::wstring path = L"\\\\?\\";
     path += (this->BasePath / fPath);
 
     DWORD access = 0x0;
