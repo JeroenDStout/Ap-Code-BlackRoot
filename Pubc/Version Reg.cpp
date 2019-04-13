@@ -112,6 +112,7 @@ std::string VersionRegistry::GetMainProjectString()
     ss << "***" << std::endl;
     ss << "*** " << reg.FullProjectVersion.Name << std::endl;
     ss << "***  " << reg.FullProjectVersion.Version << std::endl;
+    ss << "***  " << reg.FullProjectVersion.BuildTool << std::endl;
     ss << "***";
 
     return ss.str();
@@ -129,7 +130,8 @@ std::string VersionRegistry::GetVersionString()
         }
         first = false;
 	    ss << version.Name << " " << version.Version << " (" << version.BranchName << ")" << std::endl;
-	    ss << " " << version.Licence;
+	    ss << " " << version.Licence << std::endl;
+	    ss << " " << version.BuildTool;
     }
 
 	return ss.str();

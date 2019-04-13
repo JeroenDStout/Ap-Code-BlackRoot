@@ -17,6 +17,7 @@ namespace Repo {
 		std::string Version;
 		std::string BranchName;
 		std::string BranchTime;
+		std::string BuildTool;
 	};
 
     struct Contributor {
@@ -115,7 +116,29 @@ namespace Repo {
         };
 
     };
+    
+#define STRING2(x) #x
+#define STRING(x) STRING2(x)
 
+#ifdef _MSC_VER
+    #ifdef _WIN64
+    #define BR_WINV "x64"
+    #elif defined _WIN32
+    #define BR_WINV "x86"
+    #else
+    #error No code for build
+    #endif
+
+    #ifdef _DEBUG
+    #define BR_RUNV "debug"
+    #else
+    #define BR_RUNV "release"
+    #endif
+
+    #define BR_BUILD_TOOL "MSC v." STRING(_MSC_VER) " " BR_WINV " " BR_RUNV
+#else
+#error No code for build
+#endif
 
 #define BR_VERSION_HELPER(x, y) x ## y
 #define BR_VERSION_HELPER2(x, y) BR_VERSION_HELPER(x, y)
@@ -151,7 +174,8 @@ namespace Repo {
 		ss << RepoVersion.Name << " " << RepoVersion.Version << std::endl; \
 		ss << " Licence: " << RepoVersion.Licence << std::endl; \
 		ss << " Branch:  " << RepoVersion.BranchName << std::endl; \
-		ss << " Time:    " << RepoVersion.BranchTime; \
+		ss << " Time:    " << RepoVersion.BranchTime << std::endl; \
+		ss << " Build:   " << RepoVersion.BuildTool; \
 		return ss.str();\
 	} \
     \

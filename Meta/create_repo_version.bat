@@ -25,5 +25,5 @@ cd "-genc/"
 
 echo %NL% %~1%NL%  Licence: %licence%%NL%  Version: %version%%NL%  Branch:  %branch%%NL%  Time:    %time%%NL%
 
-echo #define REPO_VERSION_DATA { "%~1", "%licence%", "%version%", "%branch%", "%time%" } >def_repo_version.h
+echo #define REPO_VERSION_DATA { "%~1", "%licence%", "%version%", "%branch%", "%time%", BR_BUILD_TOOL } >def_repo_version.h
 echo { "repo" : { "name" : "%~1", "version" : "%version%", "branch" : "%branch%", "time" : "%time%" } } >repo_version.json
