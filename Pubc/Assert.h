@@ -25,20 +25,20 @@ namespace Debug
 	
 	#endif
 
-	#define _DbAssertFatalMsg(_tst, _msg) \
-				do { \
-				    if (!(_tst)) { \
-				    	std::stringstream ss; \
-                        ss << _msg << std::endl << "  (" << #_tst << ")"; \
-                        throw new BlackRoot::Debug::Exception(ss.str(), BRGenDbgInfo); \
-				    } \
-				} while (0)
-
 	#define _DbAssertFatal(_tst) \
 				do { \
 				    if (!(_tst)) { \
 				    	std::stringstream ss; \
                         ss << "Assertion failed: " << #_tst; \
+                        throw new BlackRoot::Debug::Exception(ss.str(), BRGenDbgInfo); \
+				    } \
+				} while (0)
+
+	#define _DbAssertFatalMsg(_tst, _msg) \
+				do { \
+				    if (!(_tst)) { \
+				    	std::stringstream ss; \
+                        ss << _msg << " : " << #_tst; \
                         throw new BlackRoot::Debug::Exception(ss.str(), BRGenDbgInfo); \
 				    } \
 				} while (0)
