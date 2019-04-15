@@ -67,6 +67,9 @@ namespace Repo {
         ProjectContributors                 FullProjectContributors;
         std::vector<ProjectLibraries>       PerProjectLibraries;
         ProjectLibraries                    FullProjectLibraries;
+        
+        ProjectContributors &  GetProjectContributorList(std::string);
+        ProjectLibraries &     GetProjectLibraryList(std::string);
 
     public:
         static VersionRegistry * GetRegistry();
@@ -77,6 +80,10 @@ namespace Repo {
         static void AddContributors(std::string, std::vector<Contributor>);
         static void AddLibraries(std::string, std::vector<Library>);
 
+        static VersionInformation     GetMainProjectVersion();
+        static ProjectContributors    GetMainProjectContributors();
+        static ProjectLibraries       GetMainProjectLibraries();
+
         static VersionInformationList GetVersionList();
         
         static std::string            GetBootString();
@@ -84,9 +91,6 @@ namespace Repo {
         static std::string            GetMainProjectString();
         static std::string            GetVersionString();
         static std::string            GetFullContributionString();
-        
-        ProjectContributors &  GetProjectContributorList(std::string);
-        ProjectLibraries &     GetProjectLibraryList(std::string);
     };
 
     namespace Helper {

@@ -99,6 +99,21 @@ VersionInformationList VersionRegistry::GetVersionList()
     return VersionRegistry::GetRegistry()->PerProjectVersions;
 }
 
+VersionInformation VersionRegistry::GetMainProjectVersion()
+{
+    return VersionRegistry::GetRegistry()->FullProjectVersion;
+}
+
+ProjectContributors VersionRegistry::GetMainProjectContributors()
+{
+    return VersionRegistry::GetRegistry()->FullProjectContributors;
+}
+
+ProjectLibraries VersionRegistry::GetMainProjectLibraries()
+{
+    return VersionRegistry::GetRegistry()->FullProjectLibraries;
+}
+
 std::string VersionRegistry::GetMainProjectString()
 {
     auto & reg  = *VersionRegistry::GetRegistry();
