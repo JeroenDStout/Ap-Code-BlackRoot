@@ -148,6 +148,7 @@
     <ClInclude Include="../Pubc/JSON.h" />
     <ClInclude Include="../Pubc/Math Types Complex.h" />
     <ClInclude Include="../Pubc/Number Types.h" />
+    <ClInclude Include="..\Pubc\File Wildcard.h" />
     <ClInclude Include="..\Pubc\Files Types.h" />
     <ClInclude Include="..\Pubc\FileSource Snooper.h" />
     <ClInclude Include="..\Pubc\Register.h" />
@@ -168,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="../Pubc/Files.cpp" />
+    <ClCompile Include="..\Pubc\File Wildcard.cpp" />
     <ClCompile Include="..\Pubc\JSON Merge.cpp" />
     <ClCompile Include="..\Pubc\Sys Path.cpp" />
     <ClCompile Include="..\Pubc\Sys Thread.cpp" />

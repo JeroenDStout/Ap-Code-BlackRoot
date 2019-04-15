@@ -64,35 +64,35 @@ namespace Debug
 		const char *__DEBUGTextA = "BR Exception while " act " in " __FUNCTION__; \
 		const char *__DEBUGTextB = "STD Exception while " act L" in " __FUNCTION__ ": " std::endl "  "; \
 		const char *__DEBUGTextC = "Unknown throw in " act L" in " __FUNCTION__; \
-		try {
+		try
 	
 	#define DbFunctionTry \
 		const char *__DEBUGTextA = "Exception in " __FUNCTION__; \
 		const char *__DEBUGTextB = "STD Exception in " __FUNCTION__ ": "; \
 		const char *__DEBUGTextC = "Unknown throw in " __FUNCTION__; \
-		try {
+		try
 
 	#define DbFunctionCatch \
 		catch (BlackRoot::Debug::Exception *e) { \
-			throw new BlackRoot::Debug::Exception(__DEBUGTextA, e); \
+			throw new BlackRoot::Debug::Exception(__DEBUGTextA, e, BRGenDbgInfo); \
 		} \
 		catch (std::exception & ex) { \
-			throw new BlackRoot::Debug::Exception((std::stringstream(__DEBUGTextB) << ex.what()).str()); \
+			throw new BlackRoot::Debug::Exception((std::stringstream() << __DEBUGTextB << ex.what()).str(), BRGenDbgInfo); \
 		} \
 		catch (...) { \
-			throw new BlackRoot::Debug::Exception(__DEBUGTextC); \
-		} }
+			throw new BlackRoot::Debug::Exception(__DEBUGTextC, BRGenDbgInfo); \
+		}
 
 	#define DbFunctionCatchEx(extra) \
 		catch (BlackRoot::Debug::Exception *e) { \
-			throw new BlackRoot::Debug::Exception((std::stringstream(__DEBUGTextA) << std::endl << "  " << extra, e); \
+			throw new BlackRoot::Debug::Exception((std::stringstream() << __DEBUGTextA << std::endl << "  " << extra, e, BRGenDbgInfo); \
 		} \
 		catch (std::exception & ex) { \
-			throw new BlackRoot::Debug::Exception((std::stringstream(__DEBUGTextB) << ex.what() << std::endl << "  " << extra).str()); \
+			throw new BlackRoot::Debug::Exception((std::stringstream() << __DEBUGTextB << ex.what() << std::endl << "  " << extra).str(), BRGenDbgInfo); \
 		} \
 		catch (...) { \
-			throw new BlackRoot::Debug::Exception(__DEBUGTextC, GenDebugInfo); \
-		} }
+			throw new BlackRoot::Debug::Exception(__DEBUGTextC, BRGenDbgInfo); \
+		}
 
 #else
 

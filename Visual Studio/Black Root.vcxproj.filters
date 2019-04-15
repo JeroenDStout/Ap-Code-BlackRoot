@@ -104,6 +104,9 @@
     <ClInclude Include="..\Pubc\FileSource Snooper.h">
       <Filter>Utility</Filter>
     </ClInclude>
+    <ClInclude Include="..\Pubc\File Wildcard.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="../Pubc/Files.cpp">
@@ -128,6 +131,9 @@
       <Filter>System</Filter>
     </ClCompile>
     <ClCompile Include="..\Pubc\Threaded Caller.cpp">
+      <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pubc\File Wildcard.cpp">
       <Filter>Utility</Filter>
     </ClCompile>
   </ItemGroup>
