@@ -110,11 +110,11 @@ namespace Math {
         static t && Interpret(TupleType && rh) { return std::move(*(t*)(&rh)); } \
         static const t& Interpret(const TupleType & rh) { return *(const t*)(&rh); }
         
-        struct TupleAbstractMem {
+        struct Tuple1dAbstractMem {
             t e[size];
         };
-        struct TupleAbstract : public TupleAbstractMem, public Tuple1dDef<t, size> {
-            BR_MATH_F_TUPLE(TupleAbstract, TupleType);
+        struct Tuple1dAbstract : public Tuple1dDef<t, size>, public Tuple1dAbstractMem {
+            BR_MATH_F_TUPLE(Tuple1dAbstract, TupleType);
         };
     };
     

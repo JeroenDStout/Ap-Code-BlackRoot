@@ -64,7 +64,7 @@ namespace Math {
             return (lhs += rhs);
         }
         
-        VectorType & operator-= (const VectorType &rh) {
+        VectorType & operator-= (const VectorType &rhs) {
             std::transform(this->begin(), this->end(), rhs.begin(), this->begin(), std::minus<>());
             return *this;
         }
@@ -72,16 +72,16 @@ namespace Math {
             return (lhs -= rhs);
         }
         
-        VectorType & operator*= (const ScalarType &rh) {
-            std::transform(this->begin(), this->end(), this->begin(), std::bind2nd(std::multiplies<>(), rh));
+        VectorType & operator*= (const ScalarType &rhs) {
+            std::transform(this->begin(), this->end(), this->begin(), std::bind(std::multiplies<>(), std::placeholders::_1, rhs));
             return *this;
         }
         friend VectorType operator* (VectorType lhs, const ScalarType& rhs) {
             return (lhs *= rhs);
         }
         
-        VectorType & operator/= (const ScalarType &rh) {
-            std::transform(this->begin(), this->end(), this->begin(), std::bind2nd(std::divides<>(), rh));
+        VectorType & operator/= (const ScalarType &rhs) {
+            std::transform(this->begin(), this->end(), this->begin(), std::bind(std::divides<>(), std::placeholders::_1, rhs));
             return *this;
         }
         friend VectorType operator/ (VectorType lhs, const ScalarType& rhs) {
@@ -93,13 +93,15 @@ namespace Math {
 #define BR_MATH_F_VECTOR(t, p) \
     BR_MATH_F_TUPLE(t, p) \
         t& operator+= (const t& rhs) { return t::Interpret(this->AsVector() += rhs.AsVector()); } \
-        friend t operator+ (t lhs, const t& rhs) { return t::Interpret(lhs.AsVector() + rhs.AsVector()); } \
+        friend t operator+ (t lhs, const t& rhs) { return t::Interpret(lhs.AsVector() += rhs.AsVector()); } \
         t& operator-= (const t& rhs) { return t::Interpret(this->AsVector() -= rhs.AsVector()); } \
-        friend t operator- (t lhs, const t& rhs) { return t::Interpret(lhs.AsVector() - rhs.AsVector()); } \
-        t& operator*= (const ScalarType& rhs) { return t::Interpret(this->AsVector() -= rhs); } \
-        friend t operator* (t lhs, const ScalarType& rhs) { return t::Interpret(lhs.AsVector() - rhs); }
+        friend t operator- (t lhs, const t& rhs) { return t::Interpret(lhs.AsVector() -= rhs.AsVector()); } \
+        t& operator*= (const ScalarType& rhs) { return t::Interpret(this->AsVector() *= rhs); } \
+        friend t operator* (t lhs, const ScalarType& rhs) { return t::Interpret(lhs.AsVector() *= rhs); } \
+        t& operator/= (const ScalarType& rhs) { return t::Interpret(this->AsVector() /= rhs); } \
+        friend t operator/ (t lhs, const ScalarType& rhs) { return t::Interpret(lhs.AsVector() /= rhs); }
         
-        struct VectorAbstract : public TupleAbstractMem, public VectorType {
+        struct VectorAbstract : public VectorType, public Tuple1dAbstractMem {
             BR_MATH_F_VECTOR(VectorAbstract, VectorDef);
         };
     };
