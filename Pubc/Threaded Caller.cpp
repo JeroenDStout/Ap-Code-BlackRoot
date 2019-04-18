@@ -13,6 +13,7 @@ using namespace BlackRoot::Util;
 ThreadedCaller::ThreadedCaller(Function f)
 : InnerFunction(f)
 {
+    this->RequestedCallCount = 0;
 }
 
 ThreadedCaller::~ThreadedCaller()
@@ -27,7 +28,7 @@ void ThreadedCaller::InternalLaunchThread()
     InnerThread * innerThread = new InnerThread;
     this->Threads.push_back(innerThread);
 
-    innerThread->Thread = std::thread([&]{
+    innerThread->Thread = std::thread([=]{
         while (true) {
                 // Wait for an event that requires us to wake up
             std::unique_lock<std::mutex> threadlk(this->MtThreads);
@@ -39,6 +40,7 @@ void ThreadedCaller::InternalLaunchThread()
                     // If there are too many threads, exit this thread
                 if (this->Threads.size() > this->TargetThreadCount) {
                     this->Threads.erase(std::remove(this->Threads.begin(), this->Threads.end(), innerThread), this->Threads.end());
+                    this->CvThreadCountChange.notify_all();
                     return;
                 }
                 
