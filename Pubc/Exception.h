@@ -58,7 +58,7 @@ namespace Debug {
         const Exception * GetInnerException() const { return this->InnerException; }
         virtual const char * GetType() const { return "Exception"; }
         
-        virtual const std::string GetPrettyDescription() const { return this->PrettyDescription; }
+        virtual const std::string & GetPrettyDescription() const { return this->PrettyDescription; }
         const char * what() const override { return this->GetPrettyDescription().c_str(); }
     };
 
