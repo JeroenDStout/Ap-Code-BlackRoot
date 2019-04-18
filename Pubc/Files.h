@@ -7,15 +7,6 @@
 #include <string>
 #include <vector>
 
-#if _WIN32
-#undef  NOMINMAX
-#define NOMINMAX
-#include <windows.h>
-#undef CopyFile
-#else
-#error No code for build
-#endif
-
 #ifdef _DEBUG
 #define BR_FILES_PARANOIA
 #endif
@@ -231,7 +222,7 @@ namespace IO {
 
     public:
 #if _WIN32
-        HANDLE   Win_File;
+        void    *Win_File;
 #endif
         
         BaseFileStream(const std::string originPath, FileMode::Access::Type, const BlackRoot::Debug::Info);

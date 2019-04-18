@@ -10,6 +10,15 @@
 #include "BlackRoot/Pubc/Exception Origin.h"
 #include "BlackRoot/Pubc/Assert.h"
 
+#if _WIN32
+#undef  NOMINMAX
+#define NOMINMAX
+#include <windows.h>
+#undef CopyFile
+#else
+#error No code for build
+#endif
+
 using namespace BlackRoot::IO;
 
 // ------------------------------------------------------------------------------------------------------
