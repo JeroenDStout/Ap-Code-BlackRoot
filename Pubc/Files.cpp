@@ -125,7 +125,7 @@ BaseFileSource::Stream * BaseFileSource::OpenFile(const FilePath fPath, const Fi
     std::wstring_convert<convert_type, wchar_t> converter;
 
     std::wstring path = L"\\\\?\\";
-    path += (this->BasePath / fPath);
+    path += fPath;
 
     DWORD access = 0x0;
     access |= (instr.MAccess & FileMode::Access::Read)?   GENERIC_READ  : 0;
@@ -174,7 +174,7 @@ BaseFileSource::Stream * BaseFileSource::OpenFile(const FilePath fPath, const Fi
 
 BaseFileSource::FSize BaseFileSource::ReadFile(const FilePath fPath, void ** out, const FileMode::OpenInstr instr)
 {
-    FilePath path = this->BasePath / fPath;
+    FilePath path = fPath;
 
     std::ifstream file(path, std::ios::binary);
     if (!file) {
@@ -195,7 +195,7 @@ BaseFileSource::FSize BaseFileSource::ReadFile(const FilePath fPath, void ** out
 
 BaseFileSource::FCont BaseFileSource::ReadFile(const FilePath fPath, const FileMode::OpenInstr instr)
 {
-    FilePath path = this->BasePath / fPath;
+    FilePath path = fPath;
 
     std::ifstream file(path, std::ios::binary);
     if (!file) {
@@ -220,7 +220,7 @@ BaseFileSource::FCont BaseFileSource::ReadFile(const FilePath fPath, const FileM
 
 BaseFileSource::FStr BaseFileSource::ReadFileAsString(const FilePath fPath, const FileMode::OpenInstr instr)
 {
-    FilePath path = this->BasePath / fPath;
+    FilePath path = fPath;
 
     std::ifstream file(path, std::ios::binary);
     if (!file) {

@@ -183,10 +183,7 @@ namespace IO {
 
     class BaseFileSource : public IFileSource {
     public:
-        FilePath    BasePath;
-        
         BaseFileSource() { ; }
-        BaseFileSource(FilePath base) : BasePath(base) { ; }
         ~BaseFileSource() override { ; }
 
         bool     ManagerIsReadOnly() override;
