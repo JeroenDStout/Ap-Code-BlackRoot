@@ -4,11 +4,13 @@
 
 #if _WIN32
 #include <windows.h>
+#include <shlobj.h>
 #else
 #error No code for build
 #endif
 
 #include "BlackRoot/Pubc/Assert.h"
+#include "BlackRoot/Pubc/Exception.h"
 #include "BlackRoot/Pubc/Sys Path.h"
 
 const char * BlackRoot::System::DirSeperator =
@@ -28,6 +30,27 @@ BlackRoot::IO::FilePath BlackRoot::System::GetExecutablePath()
     DWORD length = ::GetModuleFileNameW(nullptr, outFile, 2048);
     DbAssert(length < 2048);
 
+    using convert_type = std::codecvt_utf8<wchar_t>;
+    std::wstring_convert<convert_type, wchar_t> converter;
+
+    BlackRoot::IO::FilePath path = converter.to_bytes(outFile).c_str();
+    path = std::experimental::filesystem::canonical(path);
+
+    return path;
+#else
+#error No code for build
+#endif
+}
+
+BlackRoot::IO::FilePath BlackRoot::System::GetUserDocumentsPath()
+{
+#ifdef _WIN32
+    wchar_t * outFile;
+
+    if (!SUCCEEDED(::SHGetKnownFolderPath(FOLDERID_Documents, 0, 0, &outFile))) {
+        throw new BlackRoot::Debug::Exception("Cannot get user documents path", BRGenDbgInfo);
+    }
+    
     using convert_type = std::codecvt_utf8<wchar_t>;
     std::wstring_convert<convert_type, wchar_t> converter;
 
