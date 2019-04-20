@@ -39,28 +39,28 @@ namespace Math {
 
             // -- Downcast
 
-        TupleType& AsTuple() {
+        TupleType& as_tuple() {
             return *(TupleType*)(this);
         }
-        const TupleType& AsTuple() const {
+        const TupleType& as_tuple() const {
             return *(const TupleType*)(this);
         }
 
         template <int sub, typename = std::enable_if_t<sub <= Size>>
-        Tuple1dDef<t, sub>& AsSubTuple() {
+        Tuple1dDef<t, sub>& as_sub_tuple() {
             return *(Tuple1dDef<t, sub>*)(this);
         }
         template <int sub, typename = std::enable_if_t<sub <= Size>>
-        const Tuple1dDef<t, sub>& AsSubTuple() const {
+        const Tuple1dDef<t, sub>& as_sub_tuple() const {
             return *(const Tuple1dDef<t, sub>*)(this);
         }
 
             // -- Assignment
         
-        void SetTo(const ScalarType &sc) {
+        void set_to(const ScalarType &sc) {
             std::fill(this->begin(), this->end(), sc);
         }
-        TupleType& SetTo(const TupleType &rh) {
+        TupleType& set_to(const TupleType &rh) {
             return (*this = rh);
         }
         
@@ -101,7 +101,7 @@ namespace Math {
 
             // -- Functional
 
-        bool IsReal() const {
+        bool is_real() const {
             return !std::is_floating_point<t>::value ||
                 !std::any_of(this->begin(), this->end(), [](auto e) { return std::isnan(e); });
         }
@@ -111,10 +111,10 @@ namespace Math {
         t(const t &rh) { *this = rh; } \
         template<typename... Args, typename = typename std::enable_if<sizeof...(Args) == Size>::type> \
             t(Args... e) { int i = 0; for (const ScalarType p : std::initializer_list<ScalarType>({e...})) { (*this)[i++] = p; } } \
-        t& operator=(const t &rh) { return t::Interpret(this->AsTuple() = rh.AsTuple()); } \
-        static t& Interpret(TupleType & rh) { return *(t*)(&rh); } \
-        static t && Interpret(TupleType && rh) { return std::move(*(t*)(&rh)); } \
-        static const t& Interpret(const TupleType & rh) { return *(const t*)(&rh); }
+        t& operator=(const t &rh) { return t::interpret(this->as_tuple() = rh.as_tuple()); } \
+        static t& interpret(TupleType & rh) { return *(t*)(&rh); } \
+        static t && interpret(TupleType && rh) { return std::move(*(t*)(&rh)); } \
+        static const t& interpret(const TupleType & rh) { return *(const t*)(&rh); }
         
         struct Tuple1dAbstractMem {
             t e[size];
@@ -126,22 +126,24 @@ namespace Math {
     
     template<typename t, int rows, int columns>
     struct Tuple2dDef : Tuple1dDef<t, columns * rows> {
+        struct Tuple2dAbstract;
+
         typedef Tuple1dDef<t, columns>       TupleRowType;
         typedef Tuple2dDef<t, rows, columns> Tuple2dType;
 
             // -- Type
 
-        static const std::size_t ColumnCount = columns;
-        static const std::size_t RowCount    = rows;
-        static const bool        IsSquare    = ColumnCount == RowCount;
+        static const std::size_t Column_Count = columns;
+        static const std::size_t Row_Count    = rows;
+        static const bool        Is_Square    = Column_Count == Row_Count;
 
-        template <int sub, typename = std::enable_if_t<sub <= RowCount>>
-        Tuple2dDef<t, sub, ColumnCount>& AsSubTuple2d() {
-            return *(Tuple2dDef<t, sub, ColumnCount>*)(this);
+        template <int sub, typename = std::enable_if_t<sub <= Row_Count>>
+        Tuple2dDef<t, sub, Column_Count>& AsSubTuple2d() {
+            return *(Tuple2dDef<t, sub, Column_Count>*)(this);
         }
-        template <int sub, typename = std::enable_if_t<sub <= RowCount>>
-        const Tuple2dDef<t, sub, ColumnCount>& AsSubTuple2d() const {
-            return *(const Tuple2dDef<t, sub, ColumnCount>*)(this);
+        template <int sub, typename = std::enable_if_t<sub <= Row_Count>>
+        const Tuple2dDef<t, sub, Column_Count>& AsSubTuple2d() const {
+            return *(const Tuple2dDef<t, sub, Column_Count>*)(this);
         }
         
             // -- Operators
@@ -157,10 +159,10 @@ namespace Math {
         }
 
         TupleRowType& operator[](size_t i) {
-            return *(TupleRowType*)((ScalarType*)(this) + ColumnCount*i);
+            return *(TupleRowType*)((ScalarType*)(this) + Column_Count*i);
         }
         const TupleRowType& operator[](size_t i) const {
-            return *(const TupleRowType*)((const ScalarType*)(this) + ColumnCount*i);
+            return *(const TupleRowType*)((const ScalarType*)(this) + Column_Count*i);
         }
 
             // -- Iterators
