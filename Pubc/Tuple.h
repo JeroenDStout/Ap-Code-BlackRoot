@@ -4,12 +4,17 @@
 
 #pragma once
 
+/* TODO:
+ *  - Add easy conversions (i.e., tuple<i,3> ->tuple<f, 3>)
+ */
+
 #include <algorithm>
 #include <cstddef>
 #include <cmath>
 #include <iterator>
 #include <functional>
 #include <initializer_list>
+#include <type_traits>
 
 namespace BlackRoot {
 namespace Math {
@@ -69,7 +74,7 @@ namespace Math {
             return std::equal(this->begin(), this->end(), rh.begin());
         }
         bool operator !=(const TupleType &rh) const {
-            return std::not_equal_to(this->begin(), this->end(), rh.begin());
+            return !std::equal(this->begin(), this->end(), rh.begin());
         }
 
         ScalarType& operator[](size_t i) {
@@ -97,7 +102,8 @@ namespace Math {
             // -- Functional
 
         bool IsReal() const {
-            return std::all_of(this->begin(), this->end(), [](auto e) { return std::isnan(e); });
+            return !std::is_floating_point<t>::value ||
+                !std::any_of(this->begin(), this->end(), [](auto e) { return std::isnan(e); });
         }
 
 #define BR_MATH_F_TUPLE(t, p) \
