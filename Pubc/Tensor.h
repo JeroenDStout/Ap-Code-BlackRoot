@@ -176,10 +176,10 @@ namespace Math {
             sqrt(this->LengthSquared());
         }
 
-        void Normalize(ScalarType &t = (ScalarType)(1)) {
+        void Normalise(ScalarType &t = (ScalarType)(1)) {
             *this *= (t / this->Length());
         }
-        void NormalizeSafe(ScalarType &t = (ScalarType)(1)) {
+        void NormaliseSafe(ScalarType &t = (ScalarType)(1)) {
             auto l = this->LengthSquared();
             if (l > (ScalarType)(0)) {
                 *this *= (t / sqrt(l));
