@@ -23,14 +23,14 @@ namespace Math {
 
             // -- Type
 
-        static const size_t OperatingDimensionality  = 3;
+        static const size_t Operating_Dimensionality  = 3;
 
             // -- Downcast
         
-        QuaternionType& AsQuaternion() {
+        QuaternionType& as_quaternion() {
             return *(QuaternionType*)(this);
         }
-        const QuaternionType& AsQuaternion() const {
+        const QuaternionType& as_quaternion() const {
             return *(const QuaternionType*)(this);
         }
 
@@ -68,7 +68,7 @@ namespace Math {
 #define BR_MATH_F_QUATERNION(t, p) \
     BR_MATH_F_TUPLE(t, p)
         
-        struct QuaternionAbstract : public TupleAbstractMem, public QuaternionType {
+        struct QuaternionAbstract : public QuaternionType, public Tuple1dAbstractMem {
             BR_MATH_F_QUATERNION(QuaternionAbstract, QuaternionType);
         };
     };

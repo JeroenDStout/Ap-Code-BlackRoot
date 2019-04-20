@@ -42,15 +42,15 @@ namespace Math {
 
             // -- Type
         
-        static const bool   IsVector                 = true;
-        static const size_t OperatingDimensionality  = s;
+        static const bool   Is_Vector                 = true;
+        static const size_t Operating_Dimensionality  = s;
 
             // -- Downcast
 
-        VectorType& AsVector() {
+        VectorType& as_vector() {
             return *(VectorType*)(this);
         }
-        const VectorType& AsVector() const {
+        const VectorType& as_vector() const {
             return *(const VectorType*)(this);
         }
 
@@ -92,14 +92,14 @@ namespace Math {
 
 #define BR_MATH_F_VECTOR(t, p) \
     BR_MATH_F_TUPLE(t, p) \
-        t& operator+= (const t& rhs) { return t::Interpret(this->AsVector() += rhs.AsVector()); } \
-        friend t operator+ (t lhs, const t& rhs) { return t::Interpret(lhs.AsVector() += rhs.AsVector()); } \
-        t& operator-= (const t& rhs) { return t::Interpret(this->AsVector() -= rhs.AsVector()); } \
-        friend t operator- (t lhs, const t& rhs) { return t::Interpret(lhs.AsVector() -= rhs.AsVector()); } \
-        t& operator*= (const ScalarType& rhs) { return t::Interpret(this->AsVector() *= rhs); } \
-        friend t operator* (t lhs, const ScalarType& rhs) { return t::Interpret(lhs.AsVector() *= rhs); } \
-        t& operator/= (const ScalarType& rhs) { return t::Interpret(this->AsVector() /= rhs); } \
-        friend t operator/ (t lhs, const ScalarType& rhs) { return t::Interpret(lhs.AsVector() /= rhs); }
+        t& operator+= (const t& rhs) { return t::interpret(this->as_vector() += rhs.as_vector()); } \
+        friend t operator+ (t lhs, const t& rhs) { return t::interpret(lhs.as_vector() += rhs.as_vector()); } \
+        t& operator-= (const t& rhs) { return t::interpret(this->as_vector() -= rhs.as_vector()); } \
+        friend t operator- (t lhs, const t& rhs) { return t::interpret(lhs.as_vector() -= rhs.as_vector()); } \
+        t& operator*= (const ScalarType& rhs) { return t::interpret(this->as_vector() *= rhs); } \
+        friend t operator* (t lhs, const ScalarType& rhs) { return t::interpret(lhs.as_vector() *= rhs); } \
+        t& operator/= (const ScalarType& rhs) { return t::interpret(this->as_vector() /= rhs); } \
+        friend t operator/ (t lhs, const ScalarType& rhs) { return t::interpret(lhs.as_vector() /= rhs); }
         
         struct VectorAbstract : public VectorType, public Tuple1dAbstractMem {
             BR_MATH_F_VECTOR(VectorAbstract, VectorDef);
@@ -111,10 +111,10 @@ namespace Math {
 
             // -- Downcast
 
-        CovectorType& AsCovector() {
+        CovectorType& as_covector() {
             return *(VectorType*)(this);
         }
-        const CovectorType& AsCovector() const {
+        const CovectorType& as_covector() const {
             return *(const VectorType*)(this);
         }
 
@@ -135,16 +135,18 @@ namespace Math {
     template<typename t, int s>
     struct OrthoVectorDef : Math::VectorDef<t, s> {
         typedef OrthoVectorDef<t, s> OrthoVectorType;
+
+        struct OrthovectorAbstract;
         
         OrthoVectorType() { ; }
         OrthoVectorType(TupleType &rh) : VectorType(rh) { ; }
 
             // -- Downcast
 
-        OrthoVectorType& AsOrthoVector() {
+        OrthoVectorType& as_ortho_vector() {
             return *(OrthoVectorType*)(this);
         }
-        const OrthoVectorType& AsOrthoVector() const {
+        const OrthoVectorType& as_ortho_vector() const {
             return *(const OrthoVectorType*)(this);
         }
 
@@ -169,25 +171,25 @@ namespace Math {
 
             // Functional
 
-        ScalarType  LengthSquared() const {
+        ScalarType  length_squared() const {
             return (*this) * (*this);
         }
-        ScalarType  Length() const {
-            sqrt(this->LengthSquared());
+        ScalarType  length() const {
+            return sqrt(this->length_squared());
         }
 
-        void Normalise(ScalarType &t = (ScalarType)(1)) {
-            *this *= (t / this->Length());
+        void normalise(ScalarType t = (ScalarType)(1)) {
+            *this *= (t / this->length());
         }
-        void NormaliseSafe(ScalarType &t = (ScalarType)(1)) {
-            auto l = this->LengthSquared();
+        void normalise_safe(ScalarType t = (ScalarType)(1)) {
+            auto l = this->length_squared();
             if (l > (ScalarType)(0)) {
                 *this *= (t / sqrt(l));
             }
         }
         
         template<typename = typename std::enable_if<3 == Size>>
-        OrthoVectorType Cross(const OrthoVectorType &rhs) {
+        OrthovectorAbstract cross(const OrthoVectorType &rhs) {
             return std::move((*this) ^ rhs);
         }
 
@@ -196,9 +198,9 @@ namespace Math {
 #define BR_MATH_F_ORTHOVECTOR(t, p) \
     BR_MATH_F_VECTOR(t, p) \
         template<typename = typename std::enable_if<3 == Size>> \
-        t operator^ (const t& rhs) { return t::Interpret(this->AsOrthoVector() ^ rhs.AsOrthoVector()); }
+        t operator^ (const t& rhs) { auto q = this->as_ortho_vector() ^ rhs.as_ortho_vector(); return t::interpret(q); }
 
-        struct OrthovectorAbstract : public OrthoVectorType {//, public TupleAbstract {
+        struct OrthovectorAbstract : public OrthoVectorType, public Tuple1dAbstractMem {
             BR_MATH_F_ORTHOVECTOR(OrthovectorAbstract, OrthoVectorType);
         };
     };
@@ -207,31 +209,31 @@ namespace Math {
     
     template<typename t, int rows, int columns>
     struct MatrixDef : Math::Tuple2dDef<t, rows, columns> {
-        typedef MatrixDef<t, RowCount, ColumnCount>   MatrixType;
-        typedef MatrixDef<t, RowCount, ColumnCount>   EquivalentMatrixType;
+        typedef MatrixDef<t, Row_Count, Column_Count>   MatrixType;
+        typedef MatrixDef<t, Row_Count, Column_Count>   EquivalentMatrixType;
 
             // -- Type
 
-        static const size_t OperatingDimensionality  = ColumnCount;
+        static const size_t  Operating_Dimensionality  = Column_Count;
 
             // -- Downcast
         
-        MatrixType& AsMatrix() {
+        MatrixType& as_matrix() {
             return *(MatrixType*)(this);
         }
-        const MatrixType& AsMatrix() const {
+        const MatrixType& as_matrix() const {
             return *(const MatrixType*)(this);
         }
 
             // -- Multiplications
 
-        template< typename out = Math::VectorDef<ScalarType, RowCount>::VectorAbstract,
-                  typename = std::enable_if_t<std::is_same<out::VectorType, Math::VectorDef<ScalarType, RowCount>>::value> >
-        out Mul(const Math::VectorDef<ScalarType, ColumnCount>& rhs) const {
+        template< typename out = Math::VectorDef<ScalarType, Row_Count>::VectorAbstract,
+                  typename = std::enable_if_t<std::is_same<out::VectorType, Math::VectorDef<ScalarType, Row_Count>>::value> >
+        out mul(const Math::VectorDef<ScalarType, Column_Count>& rhs) const {
             out o;
-            for (int r = 0; r < RowCount; r++) {
+            for (int r = 0; r < Row_Count; r++) {
                 o[r] = (ScalarType)0;
-                for (int i = 0; i < ColumnCount; i++) {
+                for (int i = 0; i < Column_Count; i++) {
                     o[r] += (*this)[r][i] * rhs[i];
                 }
             }
@@ -239,13 +241,13 @@ namespace Math {
         }
 
         template< typename in, typename out = Math::MatrixDef<ScalarType, ColumnCount, in::RowCount>::MatrixAbstract,
-                  typename = std::enable_if_t<ColumnCount == in::RowCount> >
+                  typename = std::enable_if_t<Column_Count == in::Row_Count> >
         out operator* (in rhs) const {
             out o;
-            for (int r = 0; r < out::RowCount; r++) {
-                for (int c = 0; c < out::ColumnCount; c++) {
+            for (int r = 0; r < out::Row_Count; r++) {
+                for (int c = 0; c < out::Column_Count; c++) {
                     o[r][c] = (ScalarType)0;
-                    for (int i = 0; i < ColumnCount; i++) {
+                    for (int i = 0; i < Column_Count; i++) {
                         o[r][c] += (*this)[r][i] * rhs[i][c];
                     }
                 }
@@ -254,10 +256,10 @@ namespace Math {
         }
 
         template< typename v,
-                  typename = typename std::enable_if_t<IsSquare>,
-                  typename = std::enable_if_t<std::is_same<v::VectorType, Math::VectorDef<ScalarType, ColumnCount>>::value> >
+                  typename = typename std::enable_if_t<Is_Square>,
+                  typename = std::enable_if_t<std::is_same<v::VectorType, Math::VectorDef<ScalarType, Column_Count>>::value> >
         v operator* (v rhs) const {
-            return this->Mul<v>(rhs);
+            return this->mul<v>(rhs);
         }
 
             // -- Inheritance
@@ -279,7 +281,7 @@ namespace Math {
         OrthoOrthotopeType() { ; }
         OrthoOrthotopeType(TupleType &rh) : VectorType(rh) { ; }
 
-        ScalarType  Volume() const;
+        ScalarType  volume() const;
     };
 
 }
