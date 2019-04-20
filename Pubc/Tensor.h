@@ -161,12 +161,13 @@ namespace Math {
         }
 
         template<typename = typename std::enable_if<3 == Size>>
-        OrthoVectorType operator^ (const OrthoVectorType& rhs) const {
+        OrthovectorAbstract operator^ (const OrthoVectorType& rhs) const {
             OrthoVectorType::OrthovectorAbstract tmp;
+                // xyzzy !
             tmp[0] = (*this)[1] * rhs[2] - (*this)[2] * rhs[1];
-            tmp[1] = (*this)[0] * rhs[2] - (*this)[2] * rhs[0];
+            tmp[1] = (*this)[2] * rhs[0] - (*this)[0] * rhs[2];
             tmp[2] = (*this)[0] * rhs[1] - (*this)[1] * rhs[0];
-            return std::move(tmp);
+            return tmp;
         }
 
             // Functional
