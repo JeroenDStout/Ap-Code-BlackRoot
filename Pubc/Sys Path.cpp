@@ -42,13 +42,13 @@ BlackRoot::IO::FilePath BlackRoot::System::GetExecutablePath()
 #endif
 }
 
-BlackRoot::IO::FilePath BlackRoot::System::GetUserDocumentsPath()
+BlackRoot::IO::FilePath BlackRoot::System::GetRoamingPath()
 {
 #ifdef _WIN32
     wchar_t * outFile;
 
-    if (!SUCCEEDED(::SHGetKnownFolderPath(FOLDERID_Documents, 0, 0, &outFile))) {
-        throw new BlackRoot::Debug::Exception("Cannot get user documents path", BRGenDbgInfo);
+    if (!SUCCEEDED(::SHGetKnownFolderPath(FOLDERID_RoamingAppData, 0, 0, &outFile))) {
+        throw new BlackRoot::Debug::Exception("Cannot get roaming path", BRGenDbgInfo);
     }
     
     using convert_type = std::codecvt_utf8<wchar_t>;
