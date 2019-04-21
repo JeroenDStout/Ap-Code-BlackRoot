@@ -113,7 +113,10 @@ BaseFileSource::DirCon BaseFileSource::GetDirectoryContents(const FilePath path)
 {
     DirCon dir;
     for(auto& p : std::experimental::filesystem::directory_iterator(path)) {
-        dir.Paths.push_back(p.path());
+		DirCon::Element elem;
+		elem.Path	      = p.path();
+		elem.Is_Directory = p.status().type() == std::experimental::filesystem::file_type::directory;
+		elem.Is_File      = p.status().type() == std::experimental::filesystem::file_type::regular;
     }
     return dir;
 }

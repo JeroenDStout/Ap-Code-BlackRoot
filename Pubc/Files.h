@@ -96,10 +96,15 @@ namespace IO {
     }
 
     struct DirectoryContents {
-        std::vector<FilePath> Paths;
+		struct Element {
+			FilePath	Path;
+			bool		Is_File, Is_Directory;
+		};
 
-        std::vector<FilePath>::iterator begin() { return Paths.begin(); }
-        std::vector<FilePath>::iterator end()   { return Paths.end(); }
+        std::vector<Element> Paths;
+
+        std::vector<Element>::iterator begin() { return Paths.begin(); }
+        std::vector<Element>::iterator end()   { return Paths.end(); }
     };
 
     class IFileSource {

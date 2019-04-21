@@ -122,7 +122,7 @@ bool SmartFileWildcard::Check(FileSrc *fs)
 
                 for (auto & file : cont) {
                         // Get string with only direct path
-                    auto strFile = file.string();
+                    auto strFile = file.Path.string();
                     auto strFileSep = strFile.rfind(BlackRoot::System::DirSeperator);
                     strFile.erase(0, strFileSep + 1);
 
