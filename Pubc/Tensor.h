@@ -8,6 +8,8 @@
 #include "BlackRoot/Pubc/Tuple.h"
 #include "BlackRoot/Pubc/TemplateUtility.h"
 
+#include "BlackRoot/Pubc/Matrix Operations.h"
+
 namespace BlackRoot {
 namespace Math {
 
@@ -263,12 +265,20 @@ namespace Math {
             return this->mul<v>(rhs);
         }
 
+            // -- Operations
+		
+        template< typename = typename std::enable_if_t<Is_Square>,
+                  typename = typename std::enable_if_t<Column_Count <= 2> >
+        ScalarType det() const {
+			return Determinant<ScalarType, Column_Count>((ScalarType*)(this));
+        }
+
             // -- Inheritance
 
 #define BR_MATH_F_MATRIX(t, p) \
     BR_MATH_F_TUPLE_2D(t, p)
         
-        struct MatrixAbstract : public Tuple2dAbstractMem, public MatrixType {
+        struct MatrixAbstract : public MatrixType, public Tuple2dAbstractMem {
             BR_MATH_F_MATRIX(MatrixAbstract, MatrixType);
         };
     };
