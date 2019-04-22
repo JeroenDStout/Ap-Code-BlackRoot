@@ -87,15 +87,15 @@ namespace Math {
         }
 
 		template<int elem,
-			typename = std::enable_if_t<elem <= Size>>
+			typename = std::enable_if_t<(elem < Size)>>
         ScalarType& elem() {
-			return (*this)[elem];
+            return (*this)[elem];
         }
-
+        
 		template<int elem,
-			typename = std::enable_if_t<elem <= Size>>
+			typename = std::enable_if_t<(elem < Size)>>
         const ScalarType& elem() const {
-			return (*this)[elem];
+            return (*this)[elem];
         }
 
             // -- Iterators
@@ -182,29 +182,29 @@ namespace Math {
         }
 
 		template<int column, int row,
-			typename = std::enable_if_t<column <= Column_Count>,
-			typename = std::enable_if_t<row <= Row_Count>>
+			typename = std::enable_if_t<(column < Column_Count)>,
+			typename = std::enable_if_t<(row < Row_Count)>>
         ScalarType& elem() {
             return *((ScalarType*)(this) + Column_Count*row + column);
         }
 
 		template<int column, int row,
-			typename = std::enable_if_t<column <= Column_Count>,
-			typename = std::enable_if_t<row <= Row_Count>>
+			typename = std::enable_if_t<(column < Column_Count)>,
+			typename = std::enable_if_t<(row < Row_Count)>>
         const ScalarType& elem() const {
-            return *((const ScalarType*)(this) + Column_Count*row + column);
+            return *((ScalarType*)(this) + Column_Count*row + column);
         }
 
 		template<int row,
-			typename = std::enable_if_t<row <= Row_Count>>
+			typename = std::enable_if_t<(row < Row_Count)>>
         TupleRowType& row() {
             return *((TupleRowType*)(this) + row);
         }
 
 		template<int row,
-			typename = std::enable_if_t<row <= Row_Count>>
+			typename = std::enable_if_t<(row < Row_Count)>>
         const TupleRowType& row() const {
-            return *((const TupleRowType*)(this) + row);
+            return *((TupleRowType*)(this) + row);
         }
 
             // -- Iterators
