@@ -9,6 +9,10 @@
 
 namespace BlackRoot {
 namespace Math {
+
+    namespace Meta {
+        static const int Meta_Largest_Determinant = 3;
+    }
 	
 	template<typename scalar>
 	inline scalar Determinant(scalar x0y0) {

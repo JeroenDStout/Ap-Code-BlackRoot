@@ -268,7 +268,7 @@ namespace Math {
             // -- Operations
 		
         template< typename = typename std::enable_if_t<Is_Square>,
-                  typename = typename std::enable_if_t<Column_Count <= 2> >
+                  typename = typename std::enable_if_t<Column_Count <= Meta::Meta_Largest_Determinant> >
         ScalarType det() const {
 			return Determinant<ScalarType, Column_Count>((ScalarType*)(this));
         }
