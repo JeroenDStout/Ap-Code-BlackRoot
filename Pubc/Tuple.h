@@ -188,7 +188,7 @@ namespace Math {
         struct Tuple2dAbstractMem {
             t e[rows][columns];
         };
-        struct Tuple2dAbstract : public Tuple2dAbstractMem, public Tuple2dDef<t, rows, columns> {
+        struct Tuple2dAbstract : public Tuple2dDef<t, rows, columns>, public Tuple2dAbstractMem {
             BR_MATH_F_TUPLE(Tuple2dAbstract, Tuple2dType);
         };
     };
