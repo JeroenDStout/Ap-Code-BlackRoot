@@ -117,6 +117,7 @@ BaseFileSource::DirCon BaseFileSource::GetDirectoryContents(const FilePath path)
 		elem.Path	      = p.path();
 		elem.Is_Directory = p.status().type() == std::experimental::filesystem::file_type::directory;
 		elem.Is_File      = p.status().type() == std::experimental::filesystem::file_type::regular;
+		dir.Paths.push_back(elem);
     }
     return dir;
 }
