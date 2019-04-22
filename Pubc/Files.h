@@ -76,6 +76,13 @@ namespace IO {
                     .Attributes(Attributes::None);
                 return *this;
             }
+            OpenInstr & DefaultRead() {
+                this->Access(Access::Read)
+                    .Share(Share::Read)
+                    .Creation(Creation::OpenExisting)
+                    .Attributes(Attributes::None);
+                return *this;
+            }
             OpenInstr & Access(Access::Type t) {
                 this->MAccess = t;
                 return *this;
