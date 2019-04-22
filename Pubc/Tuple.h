@@ -76,12 +76,26 @@ namespace Math {
         bool operator !=(const TupleType &rh) const {
             return !std::equal(this->begin(), this->end(), rh.begin());
         }
+        
+            // -- Element access
 
         ScalarType& operator[](size_t i) {
             return (this->begin())[i];
         }
         const ScalarType& operator[](size_t i) const {
             return (this->begin())[i];
+        }
+
+		template<int elem,
+			typename = std::enable_if_t<elem <= Size>>
+        ScalarType& elem() {
+			return (*this)[elem];
+        }
+
+		template<int elem,
+			typename = std::enable_if_t<elem <= Size>>
+        const ScalarType& elem() const {
+			return (*this)[elem];
         }
 
             // -- Iterators
@@ -157,12 +171,40 @@ namespace Math {
         bool operator !=(const TupleType &rh) const {
             return TupleType::operator!=(rh);
         }
+        
+            // -- Element & Row access
 
         TupleRowType& operator[](size_t i) {
             return *(TupleRowType*)((ScalarType*)(this) + Column_Count*i);
         }
         const TupleRowType& operator[](size_t i) const {
             return *(const TupleRowType*)((const ScalarType*)(this) + Column_Count*i);
+        }
+
+		template<int column, int row,
+			typename = std::enable_if_t<column <= Column_Count>,
+			typename = std::enable_if_t<row <= Row_Count>>
+        ScalarType& elem() {
+            return *((ScalarType*)(this) + Column_Count*row + column);
+        }
+
+		template<int column, int row,
+			typename = std::enable_if_t<column <= Column_Count>,
+			typename = std::enable_if_t<row <= Row_Count>>
+        const ScalarType& elem() const {
+            return *((const ScalarType*)(this) + Column_Count*row + column);
+        }
+
+		template<int row,
+			typename = std::enable_if_t<row <= Row_Count>>
+        TupleRowType& row() {
+            return *((TupleRowType*)(this) + row);
+        }
+
+		template<int row,
+			typename = std::enable_if_t<row <= Row_Count>>
+        const TupleRowType& row() const {
+            return *((const TupleRowType*)(this) + row);
         }
 
             // -- Iterators
@@ -186,7 +228,7 @@ namespace Math {
     BR_MATH_F_TUPLE(t, p)
         
         struct Tuple2dAbstractMem {
-            t e[rows][columns];
+            t element[rows][columns];
         };
         struct Tuple2dAbstract : public Tuple2dDef<t, rows, columns>, public Tuple2dAbstractMem {
             BR_MATH_F_TUPLE(Tuple2dAbstract, Tuple2dType);
