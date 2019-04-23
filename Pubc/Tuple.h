@@ -31,6 +31,7 @@ namespace Math {
 
     protected:
         Tuple1dDef() { ; }
+        Tuple1dDef(Tuple1dDef&) = delete;
 
     public:
 
@@ -54,10 +55,30 @@ namespace Math {
         template <int sub, typename = std::enable_if_t<sub <= Size>>
         Tuple1dDef<t, sub>& as_sub_tuple() {
             return *(Tuple1dDef<t, sub>*)(this);
-        }
+        }   
         template <int sub, typename = std::enable_if_t<sub <= Size>>
         const Tuple1dDef<t, sub>& as_sub_tuple() const {
             return *(const Tuple1dDef<t, sub>*)(this);
+        }
+
+            // -- Upcast
+            
+        template <typename v,
+                  typename = std::enable_if_t<v::Size == Size>,
+                  typename = std::enable_if_t<
+                               std::is_same<v::ScalarType, ScalarType>::value>>
+        const v& as() const {
+            return *(const v*)(this);
+        }
+
+            // -- Implementation
+
+        TupleImpl& as_impl() {
+            return *(TupleImpl*)(this);
+        }
+
+        const TupleImpl& as_impl() const {
+            return *(const TupleImpl*)(this);
         }
 
             // -- Assignment
@@ -133,7 +154,8 @@ namespace Math {
         t& operator=(const t &rh) { return t::interpret(this->as_tuple() = rh.as_tuple()); } \
         static t& interpret(TupleType & rh) { return *(t*)(&rh); } \
         static t && interpret(TupleType && rh) { return std::move(*(t*)(&rh)); } \
-        static const t& interpret(const TupleType & rh) { return *(const t*)(&rh); }
+        static const t& interpret(const TupleType & rh) { return *(const t*)(&rh); } \
+        const t& copy() const { return *(const t*)(this); } \
         
         struct Tuple1dAbstractMem {
             t e[size];
@@ -149,9 +171,11 @@ namespace Math {
 
         typedef Tuple1dDef<t, columns>       TupleRowType;
         typedef Tuple2dDef<t, rows, columns> Tuple2dType;
+        using Tuple2dImpl  = Tuple2dAbstract;
 
     protected:
         Tuple2dDef() { ; }
+        Tuple2dDef(Tuple1dDef&) = delete;
 
     public:
 
@@ -168,6 +192,37 @@ namespace Math {
         template <int sub, typename = std::enable_if_t<sub <= Row_Count>>
         const Tuple2dDef<t, sub, Column_Count>& AsSubTuple2d() const {
             return *(const Tuple2dDef<t, sub, Column_Count>*)(this);
+        }
+
+            // -- Downcast
+
+        Tuple2dType& as_tuple2d() {
+            return *(Tuple2dType*)(this);
+        }
+
+        const Tuple2dType& as_tuple2d() const {
+            return *(const Tuple2dType*)(this);
+        }
+
+            // -- Implementation
+
+        Tuple2dImpl& as_impl() {
+            return *(Tuple2dImpl*)(this);
+        }
+
+        const Tuple2dImpl& as_impl() const {
+            return *(const Tuple2dImpl*)(this);
+        }
+
+            // -- Upcast
+            
+        template <typename v,
+                  typename = std::enable_if_t<v::Column_Count == Column_Count>,
+                  typename = std::enable_if_t<v::Row_Count == Row_Count>,
+                  typename = std::enable_if_t<
+                               std::is_same<v::ScalarType, ScalarType>::value>>
+        const v& as() const {
+            return *(const v*)(this);
         }
         
             // -- Operators
