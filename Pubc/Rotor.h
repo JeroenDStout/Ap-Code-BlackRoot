@@ -21,6 +21,11 @@ namespace Math {
         typedef QuaternionDef<t>     QuaternionType;
         typedef MatrixDef<t, 3, 3>   EquivalentMatrixType;
 
+    protected:
+        QuaternionDef() { ; }
+
+    public:
+
             // -- Type
 
         static const size_t Operating_Dimensionality  = 3;

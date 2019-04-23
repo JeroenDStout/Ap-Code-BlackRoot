@@ -42,6 +42,11 @@ namespace Math {
         typedef VectorDef<t, s>     VectorType;
         typedef CovectorDef<t, s>   CovectorType;
 
+    protected:
+        VectorDef() { ; }
+
+    public:
+
             // -- Type
         
         static const bool   Is_Vector                 = true;
@@ -139,10 +144,11 @@ namespace Math {
         typedef OrthoVectorDef<t, s> OrthoVectorType;
 
         struct OrthovectorAbstract;
-        
-        OrthoVectorType() { ; }
-        OrthoVectorType(TupleType &rh) : VectorType(rh) { ; }
 
+    protected:
+        OrthoVectorDef() { ; }
+
+    public:
             // -- Downcast
 
         OrthoVectorType& as_ortho_vector() {
@@ -215,6 +221,10 @@ namespace Math {
         typedef MatrixDef<t, Row_Count, Column_Count>   MatrixType;
         typedef MatrixDef<t, Row_Count, Column_Count>   EquivalentMatrixType;
 
+    protected:
+        MatrixDef() { ; }
+
+    public:
             // -- Type
 
         static const size_t  Operating_Dimensionality  = Column_Count;
@@ -288,10 +298,11 @@ namespace Math {
     template<typename t, int s>
     struct OrthoOrthotopeDef : Math::VectorDef<t, s> {
         typedef OrthoOrthotopeDef<t, s> OrthoOrthotopeType;
-        
-        OrthoOrthotopeType() { ; }
-        OrthoOrthotopeType(TupleType &rh) : VectorType(rh) { ; }
 
+    protected:
+        OrthoOrthotopeDef() { ; }
+
+    public:
         ScalarType  volume() const;
     };
 

@@ -29,6 +29,11 @@ namespace Math {
     struct Tuple1dDef {
         struct Tuple1dAbstract;
 
+    protected:
+        Tuple1dDef() { ; }
+
+    public:
+
             // -- Type
 
         using ScalarType = t;
@@ -144,6 +149,11 @@ namespace Math {
 
         typedef Tuple1dDef<t, columns>       TupleRowType;
         typedef Tuple2dDef<t, rows, columns> Tuple2dType;
+
+    protected:
+        Tuple2dDef() { ; }
+
+    public:
 
             // -- Type
 
