@@ -129,7 +129,7 @@ namespace Math {
         t() { ; } \
         t(const t &rh) { *this = rh; } \
         template<typename... Args, typename = typename std::enable_if<sizeof...(Args) == Size>::type> \
-            t(Args... e) { int i = 0; for (const ScalarType p : std::initializer_list<ScalarType>({e...})) { (*this)[i++] = p; } } \
+            t(Args... e) { int i = 0; for (const ScalarType p : std::initializer_list<ScalarType>({e...})) { this->as_tuple()[i++] = p; } } \
         t& operator=(const t &rh) { return t::interpret(this->as_tuple() = rh.as_tuple()); } \
         static t& interpret(TupleType & rh) { return *(t*)(&rh); } \
         static t && interpret(TupleType && rh) { return std::move(*(t*)(&rh)); } \
