@@ -253,8 +253,8 @@ namespace Math {
             return o;
         }
 
-        template< typename in, typename out = Math::MatrixDef<ScalarType, Column_Count, in::Row_Count>::MatrixAbstract,
-                  typename = std::enable_if_t<Column_Count == in::Row_Count> >
+        template< typename in, typename out = Math::MatrixDef<ScalarType, in::Column_Count, Row_Count>::MatrixAbstract,
+                  typename = std::enable_if_t<Row_Count == in::Column_Count> >
         out operator* (in rhs) const {
             out o;
             for (int r = 0; r < out::Row_Count; r++) {
