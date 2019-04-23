@@ -246,14 +246,14 @@ namespace Math {
             return *(const TupleRowType*)((const ScalarType*)(this) + Column_Count*i);
         }
 
-		template<int column, int row,
+		template<int row, int column,
 			typename = std::enable_if_t<(column < Column_Count)>,
 			typename = std::enable_if_t<(row < Row_Count)>>
         ScalarType& elem() {
             return *((ScalarType*)(this) + Column_Count*row + column);
         }
 
-		template<int column, int row,
+		template<int row, int column,
 			typename = std::enable_if_t<(column < Column_Count)>,
 			typename = std::enable_if_t<(row < Row_Count)>>
         const ScalarType& elem() const {
