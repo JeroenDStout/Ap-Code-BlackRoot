@@ -144,7 +144,7 @@ bool SmartFileWildcard::Check(FileSrc *fs)
                             fileFindEnd = strFile.length();
                         }
 
-                        auto matchString = strFile.substr(0, fileFindEnd);
+                        auto matchString = strFile.substr(wild, fileFindEnd);
 
                             // Modify this path, and if needed add the replaced value
                             // to the replacement key-value set
