@@ -263,13 +263,13 @@ namespace Math {
 		template<int row,
 			typename = std::enable_if_t<(row < Row_Count)>>
         TupleRowType& row() {
-            return *((TupleRowType*)(this) + row);
+            return (*this)[row];
         }
 
 		template<int row,
 			typename = std::enable_if_t<(row < Row_Count)>>
         const TupleRowType& row() const {
-            return *((TupleRowType*)(this) + row);
+            return (*this)[row];
         }
 
             // -- Iterators
