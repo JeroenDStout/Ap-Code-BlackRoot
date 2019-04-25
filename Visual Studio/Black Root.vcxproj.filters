@@ -110,6 +110,12 @@
     <ClInclude Include="..\Pubc\Matrix Operations.h">
       <Filter>Math</Filter>
     </ClInclude>
+    <ClInclude Include="..\Pubc\Sys Sound.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pubc\Sys Alert.h">
+      <Filter>System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="../Pubc/Files.cpp">
@@ -138,6 +144,12 @@
     </ClCompile>
     <ClCompile Include="..\Pubc\File Wildcard.cpp">
       <Filter>Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pubc\Sys Sound.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Pubc\Sys Alert.cpp">
+      <Filter>System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

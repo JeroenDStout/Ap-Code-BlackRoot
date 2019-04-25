@@ -154,7 +154,9 @@
     <ClInclude Include="..\Pubc\Matrix Operations.h" />
     <ClInclude Include="..\Pubc\Register.h" />
     <ClInclude Include="..\Pubc\Stringstream.h" />
+    <ClInclude Include="..\Pubc\Sys Alert.h" />
     <ClInclude Include="..\Pubc\Sys Path.h" />
+    <ClInclude Include="..\Pubc\Sys Sound.h" />
     <ClInclude Include="..\Pubc\Sys Thread.h" />
     <ClInclude Include="..\Pubc\Threaded Caller.h" />
     <ClInclude Include="..\Pubc\Version Reg.h" />
@@ -172,7 +174,9 @@
     <ClCompile Include="../Pubc/Files.cpp" />
     <ClCompile Include="..\Pubc\File Wildcard.cpp" />
     <ClCompile Include="..\Pubc\JSON Merge.cpp" />
+    <ClCompile Include="..\Pubc\Sys Alert.cpp" />
     <ClCompile Include="..\Pubc\Sys Path.cpp" />
+    <ClCompile Include="..\Pubc\Sys Sound.cpp" />
     <ClCompile Include="..\Pubc\Sys Thread.cpp" />
     <ClCompile Include="..\Pubc\Threaded Caller.cpp" />
     <ClCompile Include="..\Pubc\Version Reg.cpp" />
