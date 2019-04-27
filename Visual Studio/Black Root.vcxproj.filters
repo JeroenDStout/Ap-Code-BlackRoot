@@ -30,6 +30,9 @@
     <Filter Include="String">
       <UniqueIdentifier>{fd7b053e-d82e-4f49-9f69-615c81e5465c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Identify">
+      <UniqueIdentifier>{7fafa95c-d5ea-40a5-88ba-3d757b66c264}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="../Pubc/Files.h">
@@ -118,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="..\Pubc\String Convert.h">
       <Filter>String</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Pubc\UUID.h">
+      <Filter>Identify</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

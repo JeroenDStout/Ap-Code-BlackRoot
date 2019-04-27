@@ -164,6 +164,7 @@
     <ClInclude Include="..\Pubc\Sys Sound.h" />
     <ClInclude Include="..\Pubc\Sys Thread.h" />
     <ClInclude Include="..\Pubc\Threaded Caller.h" />
+    <ClInclude Include="..\Pubc\UUID.h" />
     <ClInclude Include="..\Pubc\Version Reg.h" />
     <ClInclude Include="..\Pubc\Version.h" />
     <ClInclude Include="../Pubc/Rotor.h" />
