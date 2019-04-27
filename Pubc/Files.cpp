@@ -146,7 +146,7 @@ BaseFileSource::Stream * BaseFileSource::OpenFile(const FilePath fPath, const Fi
     switch (instr.MCreation) {
     default:
         throw new BlackRoot::Debug::Exception((std::stringstream("Invalid creation parameters opening file: «")
-            << St::Wide_To_String(path) << "»").str(), BRGenDbgInfo);
+            << St::Wide_To_UTF8(path) << "»").str(), BRGenDbgInfo);
     case FileMode::Creation::CreateAlways:
         creation = CREATE_ALWAYS; break;
     case FileMode::Creation::CreateNew:
@@ -165,7 +165,7 @@ BaseFileSource::Stream * BaseFileSource::OpenFile(const FilePath fPath, const Fi
     HANDLE handle = ::CreateFileW(path.c_str(), access, shareMode, securityAttr, creation, attribute, NULL);
     if (handle == INVALID_HANDLE_VALUE) {
         throw new BlackRoot::Debug::Exception((std::stringstream("{WIN} Cannot create file: «")
-            << St::Wide_To_String(path) << "»").str(), BRGenDbgInfo);
+            << St::Wide_To_UTF8(path) << "»").str(), BRGenDbgInfo);
     }
 #endif
 
