@@ -4,11 +4,12 @@
 
 #include <fstream>
 
-#include "BlackRoot/Pubc/Stringstream.h"
+#include "BlackRoot/Pubc/Assert.h"
+#include "BlackRoot/Pubc/Exception Origin.h"
 #include "BlackRoot/Pubc/Number Types.h"
 #include "BlackRoot/Pubc/Files.h"
-#include "BlackRoot/Pubc/Exception Origin.h"
-#include "BlackRoot/Pubc/Assert.h"
+#include "BlackRoot/Pubc/Stringstream.h"
+#include "BlackRoot/Pubc/String Convert.h"
 
 #if _WIN32
 #undef  NOMINMAX
@@ -124,10 +125,9 @@ BaseFileSource::DirCon BaseFileSource::GetDirectoryContents(const FilePath path)
 
 BaseFileSource::Stream * BaseFileSource::OpenFile(const FilePath fPath, const FileMode::OpenInstr instr, BlackRoot::Debug::Info dbInfo)
 {    
-#if _WIN32
-    using convert_type = std::codecvt_utf8<wchar_t>;
-    std::wstring_convert<convert_type, wchar_t> converter;
+    namespace St = BlackRoot::Strings;
 
+#if _WIN32
     std::wstring path = L"\\\\?\\";
     path += fPath;
 
@@ -145,7 +145,8 @@ BaseFileSource::Stream * BaseFileSource::OpenFile(const FilePath fPath, const Fi
     DWORD creation = 0x0;
     switch (instr.MCreation) {
     default:
-        throw new BlackRoot::Debug::Exception((std::stringstream("Invalid creation parameters opening file: «") << converter.to_bytes(path).c_str() << "»").str(), BRGenDbgInfo);
+        throw new BlackRoot::Debug::Exception((std::stringstream("Invalid creation parameters opening file: «")
+            << St::Wide_To_String(path) << "»").str(), BRGenDbgInfo);
     case FileMode::Creation::CreateAlways:
         creation = CREATE_ALWAYS; break;
     case FileMode::Creation::CreateNew:
@@ -163,7 +164,8 @@ BaseFileSource::Stream * BaseFileSource::OpenFile(const FilePath fPath, const Fi
 
     HANDLE handle = ::CreateFileW(path.c_str(), access, shareMode, securityAttr, creation, attribute, NULL);
     if (handle == INVALID_HANDLE_VALUE) {
-        throw new BlackRoot::Debug::Exception((std::stringstream("{WIN} Cannot create file: «") << converter.to_bytes(path).c_str() << "»").str(), BRGenDbgInfo);
+        throw new BlackRoot::Debug::Exception((std::stringstream("{WIN} Cannot create file: «")
+            << St::Wide_To_String(path) << "»").str(), BRGenDbgInfo);
     }
 #endif
 

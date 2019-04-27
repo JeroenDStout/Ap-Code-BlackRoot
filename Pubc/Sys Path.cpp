@@ -12,6 +12,7 @@
 #include "BlackRoot/Pubc/Assert.h"
 #include "BlackRoot/Pubc/Exception.h"
 #include "BlackRoot/Pubc/Sys Path.h"
+#include "BlackRoot/Pubc/String Convert.h"
 
 const char * BlackRoot::System::DirSeperator =
 #ifdef _WIN32
@@ -30,10 +31,7 @@ BlackRoot::IO::FilePath BlackRoot::System::GetExecutablePath()
     DWORD length = ::GetModuleFileNameW(nullptr, outFile, 2048);
     DbAssert(length < 2048);
 
-    using convert_type = std::codecvt_utf8<wchar_t>;
-    std::wstring_convert<convert_type, wchar_t> converter;
-
-    BlackRoot::IO::FilePath path = converter.to_bytes(outFile).c_str();
+    BlackRoot::IO::FilePath path = BlackRoot::Strings::Wide_To_String(outFile, length);
     path = std::experimental::filesystem::canonical(path);
 
     return path;
@@ -51,10 +49,7 @@ BlackRoot::IO::FilePath BlackRoot::System::GetRoamingPath()
         throw new BlackRoot::Debug::Exception("Cannot get roaming path", BRGenDbgInfo);
     }
     
-    using convert_type = std::codecvt_utf8<wchar_t>;
-    std::wstring_convert<convert_type, wchar_t> converter;
-
-    BlackRoot::IO::FilePath path = converter.to_bytes(outFile).c_str();
+    BlackRoot::IO::FilePath path = BlackRoot::Strings::Wide_To_String(outFile, wcslen(outFile));
     path = std::experimental::filesystem::canonical(path);
 
     return path;
