@@ -39,8 +39,14 @@ namespace Math {
 
     template<typename t, int s>
     struct VectorDef : Math::Tuple1dDef<t, s> {
-        typedef VectorDef<t, s>     VectorType;
-        typedef CovectorDef<t, s>   CovectorType;
+        struct VectorAbstract;
+        
+        using Tuple1dType   = Tuple1dDef<t, s>;
+        using ScalarType    = Tuple1dType::ScalarType;
+        using TupleType     = Tuple1dType::TupleType;
+
+        using VectorType    = VectorDef<t, s>;
+        using CovectorType  = CovectorDef<t, s>;
 
     protected:
         VectorDef() { ; }
@@ -98,6 +104,8 @@ namespace Math {
             // -- Inheritance
 
 #define BR_MATH_F_VECTOR(t, p) \
+    using TupleType       = typename VectorType::TupleType; \
+    \
     BR_MATH_F_TUPLE(t, p) \
         t& operator+= (const t& rhs) { return t::interpret(this->as_vector() += rhs.as_vector()); } \
         friend t operator+ (t lhs, const t& rhs) { return t::interpret(lhs.as_vector() += rhs.as_vector()); } \
@@ -141,9 +149,16 @@ namespace Math {
 
     template<typename t, int s>
     struct OrthoVectorDef : Math::VectorDef<t, s> {
-        typedef OrthoVectorDef<t, s> OrthoVectorType;
+        struct OrthoVectorAbstract;
 
-        struct OrthovectorAbstract;
+        using VectorType    = VectorDef<t, s>;
+        
+        using Tuple1dType   = VectorType::Tuple1dType;
+        using CovectorType  = VectorType::CovectorType;
+        using ScalarType    = Tuple1dType::ScalarType;
+        using TupleType     = Tuple1dType::TupleType;
+
+        using OrthoVectorType  = OrthoVectorDef<t, s>;
 
     protected:
         OrthoVectorDef() { ; }
@@ -169,7 +184,7 @@ namespace Math {
         }
 
         template<typename = typename std::enable_if<3 == Size>>
-        OrthovectorAbstract operator^ (const OrthoVectorType& rhs) const {
+        OrthoVectorAbstract operator^ (const OrthoVectorType& rhs) const {
             OrthoVectorType::OrthovectorAbstract tmp;
                 // xyzzy !
             tmp[0] = (*this)[1] * rhs[2] - (*this)[2] * rhs[1];
@@ -198,19 +213,25 @@ namespace Math {
         }
         
         template<typename = typename std::enable_if<3 == Size>>
-        OrthovectorAbstract cross(const OrthoVectorType &rhs) {
+        OrthoVectorAbstract cross(const OrthoVectorType &rhs) {
             return std::move((*this) ^ rhs);
         }
 
             // -- Inheritance
         
 #define BR_MATH_F_ORTHOVECTOR(t, p) \
+    using VectorType      = typename OrthoVectorType::VectorType; \
+    \
     BR_MATH_F_VECTOR(t, p) \
-        template<typename = typename std::enable_if<3 == Size>> \
-        t operator^ (const t& rhs) { auto q = this->as_ortho_vector() ^ rhs.as_ortho_vector(); return t::interpret(q); }
+    \
+    template<typename = typename std::enable_if<3 == Size>> \
+    t operator^ (const t& rhs) { auto q = this->as_ortho_vector() ^ rhs.as_ortho_vector(); return t::interpret(q); }
 
-        struct OrthovectorAbstract : public OrthoVectorType, public Tuple1dAbstractMem {
-            BR_MATH_F_ORTHOVECTOR(OrthovectorAbstract, OrthoVectorType);
+            // -- Abstract
+
+        struct OrthoVectorAbstract : public OrthoVectorType, public Tuple1dAbstractMem {
+            using OrthoVectorType = OrthoVectorType;
+            BR_MATH_F_ORTHOVECTOR(OrthoVectorAbstract, OrthoVectorType);
         };
     };
 
@@ -286,6 +307,8 @@ namespace Math {
             // -- Inheritance
 
 #define BR_MATH_F_MATRIX(t, p) \
+    using TupleType       = typename MatrixType::TupleType; \
+    \
     BR_MATH_F_TUPLE_2D(t, p)
         
         struct MatrixAbstract : public MatrixType, public Tuple2dAbstractMem {

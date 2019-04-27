@@ -18,8 +18,15 @@ namespace Math {
 
     template<typename t>
     struct QuaternionDef : Math::Tuple1dDef<t, 4> {
-        typedef QuaternionDef<t>     QuaternionType;
-        typedef MatrixDef<t, 3, 3>   EquivalentMatrixType;
+        struct QuaternionAbstract;
+        
+        using Tuple1dType           = Tuple1dDef<t, 4>;
+
+        using ScalarType            = typename Tuple1dType::ScalarType;
+        using TupleType             = typename Tuple1dType::TupleType;
+
+        using QuaternionType        = QuaternionDef<t>;
+        using EquivalentMatrixType  = MatrixDef<t, 3, 3>;
 
     protected:
         QuaternionDef() { ; }
@@ -74,6 +81,7 @@ namespace Math {
     BR_MATH_F_TUPLE(t, p)
         
         struct QuaternionAbstract : public QuaternionType, public Tuple1dAbstractMem {
+            using QuaternionType = QuaternionType;
             BR_MATH_F_QUATERNION(QuaternionAbstract, QuaternionType);
         };
     };

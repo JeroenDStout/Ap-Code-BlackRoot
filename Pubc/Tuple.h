@@ -146,21 +146,24 @@ namespace Math {
                 !std::any_of(this->begin(), this->end(), [](auto e) { return std::isnan(e); });
         }
 
-#define BR_MATH_F_TUPLE(t, p) \
-        t() { ; } \
-        t(const t &rh) { *this = rh; } \
+#define BR_MATH_F_TUPLE(type, base_type) \
+        using ScalarType    = typename base_type::ScalarType; \
+        \
+        type() { ; } \
+        type(const type &rh) { *this = rh; } \
         template<typename... Args, typename = typename std::enable_if<sizeof...(Args) == Size>::type> \
-            t(Args... e) { int i = 0; for (const ScalarType p : std::initializer_list<ScalarType>({e...})) { this->as_tuple()[i++] = p; } } \
-        t& operator=(const t &rh) { return t::interpret(this->as_tuple() = rh.as_tuple()); } \
-        static t& interpret(TupleType & rh) { return *(t*)(&rh); } \
-        static t && interpret(TupleType && rh) { return std::move(*(t*)(&rh)); } \
-        static const t& interpret(const TupleType & rh) { return *(const t*)(&rh); } \
-        const t& copy() const { return *(const t*)(this); } \
+            type(Args... e) { int i = 0; for (const ScalarType p : std::initializer_list<ScalarType>({e...})) { this->as_tuple()[i++] = p; } } \
+        type& operator=(const type &rh) { return type::interpret(this->as_tuple() = rh.as_tuple()); } \
+        static type& interpret(TupleType & rh) { return *(type*)(&rh); } \
+        static type && interpret(TupleType && rh) { return std::move(*(type*)(&rh)); } \
+        static const type& interpret(const TupleType & rh) { return *(const type*)(&rh); } \
+        const type& copy() const { return *(const type*)(this); }
         
         struct Tuple1dAbstractMem {
-            t e[size];
+            ScalarType e[size];
         };
         struct Tuple1dAbstract : public Tuple1dDef<t, size>, public Tuple1dAbstractMem {
+            using TupleType = Tuple1dDef<t, size>;
             BR_MATH_F_TUPLE(Tuple1dAbstract, TupleType);
         };
     };
@@ -168,10 +171,15 @@ namespace Math {
     template<typename t, int rows, int columns>
     struct Tuple2dDef : Tuple1dDef<t, columns * rows> {
         struct Tuple2dAbstract;
+        
+        using Tuple1dType   = Tuple1dDef<t, columns * rows>;
+        using Tuple2dType   = Tuple2dDef<t, rows, columns>;
 
-        typedef Tuple1dDef<t, columns>       TupleRowType;
-        typedef Tuple2dDef<t, rows, columns> Tuple2dType;
-        using Tuple2dImpl  = Tuple2dAbstract;
+        using ScalarType    = typename Tuple1dType::ScalarType;
+        using TupleType     = typename Tuple1dType::TupleType;
+
+        using TupleRowType  = Tuple1dDef<t, columns>;
+        using Tuple2dImpl   = Tuple2dAbstract;
 
     protected:
         Tuple2dDef() { ; }

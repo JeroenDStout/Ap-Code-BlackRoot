@@ -8,150 +8,124 @@
 #include "BlackRoot/Pubc/Tensor.h"
 #include "BlackRoot/Pubc/Rotor.h"
 #include "BlackRoot/Pubc/Transformation.h"
-#include "BlackRoot/Pubc/Distribution.h"
 
 namespace BlackRoot {
 namespace Math {
 
     template<typename n>
     struct Vector2d : public Math::OrthoVectorDef<n, 2> {
-        typedef Vector2d<n> Type;
+        using Vector2dType     = Vector2d<n>;
+        using OrthoVectorType  = Math::OrthoVectorDef<n, 2>;
+
+        BR_MATH_F_ORTHOVECTOR(Vector2dType, OrthoVectorType);
 
         ScalarType  x, y;
-        
-        BR_MATH_F_ORTHOVECTOR(Type, OrthoVectorType);
     };
 
     template<typename n>
     struct Vector3d : public Math::OrthoVectorDef<n, 3> {
-        typedef Vector3d<n> Type;
+        using Vector3dType     = Vector3d<n>;
+        using OrthoVectorType  = Math::OrthoVectorDef<n, 3>;
+        
+        BR_MATH_F_ORTHOVECTOR(Vector3dType, OrthoVectorType);
 
         ScalarType  x, y, z;
         
-        BR_MATH_F_ORTHOVECTOR(Type, OrthoVectorType);
     };
 
     template<typename n>
     struct Vector4d : public Math::OrthoVectorDef<n, 4> {
-        typedef Vector4d<n> Type;
+        using Vector4dType     = Vector4d<n>;
+        using OrthoVectorType  = Math::OrthoVectorDef<n, 4>;
+        
+        BR_MATH_F_ORTHOVECTOR(Vector4dType, OrthoVectorType);
 
         ScalarType  x, y, z, w;
-        
-        BR_MATH_F_ORTHOVECTOR(Type, OrthoVectorType);
     };
 
     template<typename n, int s>
     struct VectorNd : public Math::OrthoVectorDef<n, s> {
-        typedef VectorNd<n, s> Type;
+        using VectorNdType     = VectorNd<n, s>;
+        using OrthoVectorType  = Math::OrthoVectorDef<n, s>;
+
+        BR_MATH_F_ORTHOVECTOR(VectorNdType, OrthoVectorType);
 
         ScalarType  elem[s];
-        
-        BR_MATH_F_ORTHOVECTOR(Type, OrthoVectorType);
     };
 
     template<typename n>
     struct Colour3d : public Math::OrthoVectorDef<n, 3> {
-        typedef Colour3d<n> Type;
+        using Colour3dType     = Colour3d<n>;
+        using OrthoVectorType  = Math::OrthoVectorDef<n, 3>;
+
+        BR_MATH_F_ORTHOVECTOR(Colour3dType, OrthoVectorType);
 
         ScalarType  r, g, b;
-        
-        BR_MATH_F_ORTHOVECTOR(Type, OrthoVectorType);
     };
 
     template<typename n>
-    struct Colour4d : public Math::OrthoVectorDef<n, 3> {
-        typedef Colour4d<n> Type;
+    struct Colour4d : public Math::OrthoVectorDef<n, 4> {
+        using Colour4dType     = Colour4d<n>;
+        using OrthoVectorType  = Math::OrthoVectorDef<n, 4>;
+
+        BR_MATH_F_ORTHOVECTOR(Colour4dType, OrthoVectorType);
 
         ScalarType  r, g, b, a;
-        
-        BR_MATH_F_ORTHOVECTOR(Type, OrthoVectorType);
-    };
-
-    template<typename n>
-    struct Area2d : public Math::OrthoOrthotopeDef<n, 2> {
-        typedef Area2d<n> Type;
-
-        ScalarType  w, h;
-        
-        BR_MATH_F_ORTHOVECTOR(Type, OrthoVectorType);
-    };
-
-    template<typename n>
-    struct Area3d : public Math::OrthoOrthotopeDef<n, 3> {
-        typedef Area3d<n> Type;
-
-        ScalarType  w, h, d;
-        
-        BR_MATH_F_ORTHOVECTOR(Type, OrthoVectorType);
-    };
-
-    template<typename n>
-    struct Area4d : public Math::OrthoOrthotopeDef<n, 4> {
-        typedef Area4d<n> Type;
-
-        ScalarType  w, h, d, x;
-        
-        BR_MATH_F_ORTHOVECTOR(Type, OrthoVectorType);
     };
 
     template<typename n>
     struct Matrix2x2 : public Math::MatrixDef<n, 2, 2> {
-        typedef Matrix2x2<n> Type;
+        using Matrix2x2Type    = Matrix2x2<n>;
+        using MatrixType       = Math::MatrixDef<n, 2, 2>;
+
+        BR_MATH_F_MATRIX(Matrix2x2Type, MatrixType);
 
         ScalarType  xx, xy,
                     yx, yy;
-        
-        BR_MATH_F_MATRIX(Type, LinarMapType);
     };
 
     template<typename n>
     struct Matrix3x3 : public Math::MatrixDef<n, 3, 3> {
-        typedef Matrix3x3<n> Type;
+        using Matrix3x3Type    = Matrix3x3<n>;
+        using MatrixType       = Math::MatrixDef<n, 3, 3>;
+
+        BR_MATH_F_MATRIX(Matrix3x3Type, MatrixType);
 
         ScalarType  xx, xy, xz,
                     yx, yy, yz,
                     zx, zy, zz;
-        
-        BR_MATH_F_MATRIX(Type, LinarMapType);
     };
 
     template<typename n>
     struct Matrix4x4 : public Math::MatrixDef<n, 4, 4> {
-        typedef Matrix4x4<n> Type;
+        using Matrix4x4Type    = Matrix4x4<n>;
+        using MatrixType       = Math::MatrixDef<n, 4, 4>;
+
+        BR_MATH_F_MATRIX(Matrix4x4Type, MatrixType);
 
         ScalarType  xx, xy, xz, xw,
                     yx, yy, yz, yw,
                     zx, zy, zz, zw,
                     wx, wy, wz, ww;
-        
-        BR_MATH_F_MATRIX(Type, LinarMapType);
     };
 
     template<typename n, int rows, int columns>
     struct MatrixNxN : public Math::MatrixDef<n, rows, columns> {
-        typedef MatrixNxN<n, rows, columns> Type;
+        using MatrixNxNType    = MatrixNxN<n, rows, columns>;
+        using MatrixType       = Math::MatrixDef<n, rows, columns>;
+
+        BR_MATH_F_MATRIX(MatrixNxNType, MatrixType);
 
         ScalarType  elem[rows][columns];
-        
-        BR_MATH_F_MATRIX(Type, MatrixType);
     };
 
     template<typename n>
     struct Quaternion : public Math::QuaternionDef<n> {
-        typedef Quaternion<n> Type;
+        using QuaternionType   = Math::QuaternionDef<n>;
+
+        BR_MATH_F_QUATERNION(Quaternion, QuaternionType);
 
         ScalarType  x, y, z, w;
-        
-        BR_MATH_F_QUATERNION(Type, QuaternionType);
-    };
-
-    template<typename n>
-    struct GaussDist : public Math::GaussianDistDef<n> {
-        typedef GaussDist<n> Type;
-
-        ScalarType  mean, deviation;
-        
-        BR_MATH_F_GAUSSIAN_DIST(Type, GaussianDistType);
     };
     
     template<int n>              using Vec         = VectorNd<float, n>;
@@ -198,20 +172,20 @@ namespace Math {
     using  DCol4    = Colour4d<double>;
     using  UCol4    = Colour4d<uint8_t>;
 
-    using  Rect     = Area2d<float>;
-    using  DRect    = Area2d<double>;
-    using  URect    = Area2d<uint8_t>;
-    using  IRect    = Area2d<int>;
+    //using  Rect     = Area2d<float>;
+    //using  DRect    = Area2d<double>;
+    //using  URect    = Area2d<uint8_t>;
+    //using  IRect    = Area2d<int>;
 
-    using  Box      = Area3d<float>;
-    using  DBox     = Area3d<double>;
-    using  UBox     = Area3d<uint8_t>;
-    using  IBox     = Area3d<int>;
+    //using  Box      = Area3d<float>;
+    //using  DBox     = Area3d<double>;
+    //using  UBox     = Area3d<uint8_t>;
+    //using  IBox     = Area3d<int>;
 
-    using  Box4     = Area4d<float>;
-    using  DBox4    = Area4d<double>;
-    using  UBox4    = Area4d<uint8_t>;
-    using  IBox4    = Area4d<int>;
+    //using  Box4     = Area4d<float>;
+    //using  DBox4    = Area4d<double>;
+    //using  UBox4    = Area4d<uint8_t>;
+    //using  IBox4    = Area4d<int>;
 
     using  Quat     = Quaternion<float>;
     using  DQuat    = Quaternion<double>;
@@ -227,9 +201,6 @@ namespace Math {
 
     using  TrQuat   = TranslatedMap<Quaternion<float>, Vector3d<float>>;
     using  DTrQuat  = TranslatedMap<Quaternion<double>, Vector3d<double>>;
-    
-    using  Gauss    = GaussDist<float>;
-    using  DGauss   = GaussDist<double>;
 
 };
 };
