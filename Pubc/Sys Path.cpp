@@ -31,7 +31,7 @@ BlackRoot::IO::FilePath BlackRoot::System::GetExecutablePath()
     DWORD length = ::GetModuleFileNameW(nullptr, outFile, 2048);
     DbAssert(length < 2048);
 
-    BlackRoot::IO::FilePath path = BlackRoot::Strings::Wide_To_String(outFile, length);
+    BlackRoot::IO::FilePath path = BlackRoot::Strings::Wide_To_UTF8(outFile, length);
     path = std::experimental::filesystem::canonical(path);
 
     return path;
@@ -49,7 +49,7 @@ BlackRoot::IO::FilePath BlackRoot::System::GetRoamingPath()
         throw new BlackRoot::Debug::Exception("Cannot get roaming path", BRGenDbgInfo);
     }
     
-    BlackRoot::IO::FilePath path = BlackRoot::Strings::Wide_To_String(outFile, wcslen(outFile));
+    BlackRoot::IO::FilePath path = BlackRoot::Strings::Wide_To_UTF8(outFile, wcslen(outFile));
     path = std::experimental::filesystem::canonical(path);
 
     return path;
