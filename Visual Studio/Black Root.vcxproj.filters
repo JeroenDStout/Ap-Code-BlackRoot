@@ -77,9 +77,6 @@
     <ClInclude Include="../Pubc/Assert.h">
       <Filter>Debug</Filter>
     </ClInclude>
-    <ClInclude Include="../Pubc/Distribution.h">
-      <Filter>Math</Filter>
-    </ClInclude>
     <ClInclude Include="..\Pubc\Version.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -157,7 +154,7 @@
     <ClCompile Include="..\Pubc\Sys Alert.cpp">
       <Filter>System</Filter>
     </ClCompile>
-    <ClCompile Include="String Convert.cpp">
+    <ClCompile Include="..\Pubc\String Convert.cpp">
       <Filter>String</Filter>
     </ClCompile>
   </ItemGroup>

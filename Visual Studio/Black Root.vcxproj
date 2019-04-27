@@ -167,7 +167,6 @@
     <ClInclude Include="..\Pubc\Version Reg.h" />
     <ClInclude Include="..\Pubc\Version.h" />
     <ClInclude Include="../Pubc/Rotor.h" />
-    <ClInclude Include="../Pubc/Distribution.h" />
     <ClInclude Include="../Pubc/TemplateUtility.h" />
     <ClInclude Include="../Pubc/Threaded IO Stream.h" />
     <ClInclude Include="../Pubc/Transformation.h" />
@@ -179,6 +178,7 @@
     <ClCompile Include="../Pubc/Files.cpp" />
     <ClCompile Include="..\Pubc\File Wildcard.cpp" />
     <ClCompile Include="..\Pubc\JSON Merge.cpp" />
+    <ClCompile Include="..\Pubc\String Convert.cpp" />
     <ClCompile Include="..\Pubc\Sys Alert.cpp" />
     <ClCompile Include="..\Pubc\Sys Path.cpp" />
     <ClCompile Include="..\Pubc\Sys Sound.cpp" />
@@ -187,7 +187,6 @@
     <ClCompile Include="..\Pubc\Version Reg.cpp" />
     <ClCompile Include="..\Pubc\Version.cpp" />
     <ClCompile Include="../Pubc/Threaded IO Stream.cpp" />
-    <ClCompile Include="String Convert.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\Meta\contributors.json" />
