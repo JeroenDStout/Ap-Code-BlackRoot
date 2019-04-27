@@ -146,12 +146,12 @@ namespace Math {
                 !std::any_of(this->begin(), this->end(), [](auto e) { return std::isnan(e); });
         }
 
-#define BR_MATH_F_TUPLE(type, base_type) \
-        using ScalarType    = typename base_type::ScalarType; \
+#define BR_MATH_F_TUPLE(type) \
+        using ScalarType = typename TupleType::ScalarType; \
         \
         type() { ; } \
         type(const type &rh) { *this = rh; } \
-        template<typename... Args, typename = typename std::enable_if<sizeof...(Args) == Size>::type> \
+        template<typename... Args, typename = typename std::enable_if_t<sizeof...(Args) == Size>> \
             type(Args... e) { int i = 0; for (const ScalarType p : std::initializer_list<ScalarType>({e...})) { this->as_tuple()[i++] = p; } } \
         type& operator=(const type &rh) { return type::interpret(this->as_tuple() = rh.as_tuple()); } \
         static type& interpret(TupleType & rh) { return *(type*)(&rh); } \
