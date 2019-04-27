@@ -103,10 +103,10 @@ namespace Math {
 
             // -- Inheritance
 
-#define BR_MATH_F_VECTOR(t, p) \
-    using TupleType       = typename VectorType::TupleType; \
-    \
-    BR_MATH_F_TUPLE(t, p) \
+#define BR_MATH_F_VECTOR(t) \
+        using TupleType       = typename VectorType::TupleType; \
+        \
+        BR_MATH_F_TUPLE(t) \
         t& operator+= (const t& rhs) { return t::interpret(this->as_vector() += rhs.as_vector()); } \
         friend t operator+ (t lhs, const t& rhs) { return t::interpret(lhs.as_vector() += rhs.as_vector()); } \
         t& operator-= (const t& rhs) { return t::interpret(this->as_vector() -= rhs.as_vector()); } \
@@ -117,7 +117,7 @@ namespace Math {
         friend t operator/ (t lhs, const ScalarType& rhs) { return t::interpret(lhs.as_vector() /= rhs); }
         
         struct VectorAbstract : public VectorType, public Tuple1dAbstractMem {
-            BR_MATH_F_VECTOR(VectorAbstract, VectorDef);
+            BR_MATH_F_VECTOR(VectorAbstract);
         };
     };
 
@@ -135,11 +135,11 @@ namespace Math {
 
             // -- Inheritance
 
-#define BR_MATH_F_COVECTOR(t, p) \
-    BR_MATH_F_VECTOR(t, p)
+#define BR_MATH_F_COVECTOR(t) \
+    BR_MATH_F_VECTOR(t)
         
         struct CovectorAbstract : public TupleAbstractMem, public CovectorType {
-            BR_MATH_F_COVECTOR(CovectorAbstract, CovectorType);
+            BR_MATH_F_COVECTOR(CovectorAbstract);
         };
     };
 
@@ -185,7 +185,7 @@ namespace Math {
 
         template<typename = typename std::enable_if<3 == Size>>
         OrthoVectorAbstract operator^ (const OrthoVectorType& rhs) const {
-            OrthoVectorType::OrthovectorAbstract tmp;
+            OrthoVectorType::OrthoVectorAbstract tmp;
                 // xyzzy !
             tmp[0] = (*this)[1] * rhs[2] - (*this)[2] * rhs[1];
             tmp[1] = (*this)[2] * rhs[0] - (*this)[0] * rhs[2];
@@ -219,10 +219,10 @@ namespace Math {
 
             // -- Inheritance
         
-#define BR_MATH_F_ORTHOVECTOR(t, p) \
+#define BR_MATH_F_ORTHOVECTOR(t) \
     using VectorType      = typename OrthoVectorType::VectorType; \
     \
-    BR_MATH_F_VECTOR(t, p) \
+    BR_MATH_F_VECTOR(t) \
     \
     template<typename = typename std::enable_if<3 == Size>> \
     t operator^ (const t& rhs) { auto q = this->as_ortho_vector() ^ rhs.as_ortho_vector(); return t::interpret(q); }
@@ -231,7 +231,7 @@ namespace Math {
 
         struct OrthoVectorAbstract : public OrthoVectorType, public Tuple1dAbstractMem {
             using OrthoVectorType = OrthoVectorType;
-            BR_MATH_F_ORTHOVECTOR(OrthoVectorAbstract, OrthoVectorType);
+            BR_MATH_F_ORTHOVECTOR(OrthoVectorAbstract);
         };
     };
 

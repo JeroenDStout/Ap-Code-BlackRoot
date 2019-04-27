@@ -164,7 +164,7 @@ namespace Math {
         };
         struct Tuple1dAbstract : public Tuple1dDef<t, size>, public Tuple1dAbstractMem {
             using TupleType = Tuple1dDef<t, size>;
-            BR_MATH_F_TUPLE(Tuple1dAbstract, TupleType);
+            BR_MATH_F_TUPLE(Tuple1dAbstract);
         };
     };
     
