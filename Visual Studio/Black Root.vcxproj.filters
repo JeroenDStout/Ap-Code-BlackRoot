@@ -27,6 +27,9 @@
     <Filter Include="System">
       <UniqueIdentifier>{120413bb-533d-4f6e-a659-b750648f2897}</UniqueIdentifier>
     </Filter>
+    <Filter Include="String">
+      <UniqueIdentifier>{fd7b053e-d82e-4f49-9f69-615c81e5465c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="../Pubc/Files.h">
@@ -116,6 +119,9 @@
     <ClInclude Include="..\Pubc\Sys Alert.h">
       <Filter>System</Filter>
     </ClInclude>
+    <ClInclude Include="..\Pubc\String Convert.h">
+      <Filter>String</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="../Pubc/Files.cpp">
@@ -150,6 +156,9 @@
     </ClCompile>
     <ClCompile Include="..\Pubc\Sys Alert.cpp">
       <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="String Convert.cpp">
+      <Filter>String</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
