@@ -147,23 +147,23 @@ namespace Math {
         }
 
 #define BR_MATH_F_TUPLE(type) \
-        using ScalarType = typename TupleType::ScalarType; \
+        using ScalarType = typename Tuple1dType::ScalarType; \
         \
         type() { ; } \
         type(const type &rh) { *this = rh; } \
         template<typename... Args, typename = typename std::enable_if_t<sizeof...(Args) == Size>> \
             type(Args... e) { int i = 0; for (const ScalarType p : std::initializer_list<ScalarType>({e...})) { this->as_tuple()[i++] = p; } } \
         type& operator=(const type &rh) { return type::interpret(this->as_tuple() = rh.as_tuple()); } \
-        static type& interpret(TupleType & rh) { return *(type*)(&rh); } \
-        static type && interpret(TupleType && rh) { return std::move(*(type*)(&rh)); } \
-        static const type& interpret(const TupleType & rh) { return *(const type*)(&rh); } \
+        static type& interpret(Tuple1dType & rh) { return *(type*)(&rh); } \
+        static type && interpret(Tuple1dType && rh) { return std::move(*(type*)(&rh)); } \
+        static const type& interpret(const Tuple1dType & rh) { return *(const type*)(&rh); } \
         const type& copy() const { return *(const type*)(this); }
         
         struct Tuple1dAbstractMem {
             ScalarType e[size];
         };
         struct Tuple1dAbstract : public Tuple1dDef<t, size>, public Tuple1dAbstractMem {
-            using TupleType = Tuple1dDef<t, size>;
+            using Tuple1dType = Tuple1dDef<t, size>;
             BR_MATH_F_TUPLE(Tuple1dAbstract);
         };
     };
@@ -176,7 +176,6 @@ namespace Math {
         using Tuple2dType   = Tuple2dDef<t, rows, columns>;
 
         using ScalarType    = typename Tuple1dType::ScalarType;
-        using TupleType     = typename Tuple1dType::TupleType;
 
         using TupleRowType  = Tuple1dDef<t, columns>;
         using Tuple2dImpl   = Tuple2dAbstract;
@@ -236,13 +235,13 @@ namespace Math {
             // -- Operators
 
         Tuple2dType& operator=(const Tuple2dType &rh) {
-            TupleType::operator=(rh); return *this;
+            Tuple1dType::operator=(rh); return *this;
         }
-        bool operator ==(const TupleType &rh) const {
-            return TupleType::operator==(rh);
+        bool operator ==(const Tuple1dType &rh) const {
+            return Tuple1dType::operator==(rh);
         }
-        bool operator !=(const TupleType &rh) const {
-            return TupleType::operator!=(rh);
+        bool operator !=(const Tuple1dType &rh) const {
+            return Tuple1dType::operator!=(rh);
         }
         
             // -- Element & Row access
@@ -297,14 +296,17 @@ namespace Math {
 
             // -- Inheritance
 
-#define BR_MATH_F_TUPLE_2D(t, p) \
-    BR_MATH_F_TUPLE(t, p)
+#define BR_MATH_F_TUPLE_2D(t) \
+    using Tuple1dType   = typename Tuple2dType::Tuple1dType; \
+    \
+    BR_MATH_F_TUPLE(t)
         
         struct Tuple2dAbstractMem {
             t element[rows][columns];
         };
-        struct Tuple2dAbstract : public Tuple2dDef<t, rows, columns>, public Tuple2dAbstractMem {
-            BR_MATH_F_TUPLE(Tuple2dAbstract, Tuple2dType);
+        struct Tuple2dAbstract : public Tuple2dType, public Tuple2dAbstractMem {
+            using Tuple2dType = Tuple2dType;
+            BR_MATH_F_TUPLE(Tuple2dAbstract);
         };
     };
 

@@ -17,7 +17,7 @@ namespace Math {
         using Vector2dType     = Vector2d<n>;
         using OrthoVectorType  = Math::OrthoVectorDef<n, 2>;
 
-        BR_MATH_F_ORTHOVECTOR(Vector2dType, OrthoVectorType);
+        BR_MATH_F_ORTHOVECTOR(Vector2dType);
 
         ScalarType  x, y;
     };
@@ -27,7 +27,7 @@ namespace Math {
         using Vector3dType     = Vector3d<n>;
         using OrthoVectorType  = Math::OrthoVectorDef<n, 3>;
         
-        BR_MATH_F_ORTHOVECTOR(Vector3dType, OrthoVectorType);
+        BR_MATH_F_ORTHOVECTOR(Vector3dType);
 
         ScalarType  x, y, z;
         
@@ -38,7 +38,7 @@ namespace Math {
         using Vector4dType     = Vector4d<n>;
         using OrthoVectorType  = Math::OrthoVectorDef<n, 4>;
         
-        BR_MATH_F_ORTHOVECTOR(Vector4dType, OrthoVectorType);
+        BR_MATH_F_ORTHOVECTOR(Vector4dType);
 
         ScalarType  x, y, z, w;
     };
@@ -48,7 +48,7 @@ namespace Math {
         using VectorNdType     = VectorNd<n, s>;
         using OrthoVectorType  = Math::OrthoVectorDef<n, s>;
 
-        BR_MATH_F_ORTHOVECTOR(VectorNdType, OrthoVectorType);
+        BR_MATH_F_ORTHOVECTOR(VectorNdType);
 
         ScalarType  elem[s];
     };
@@ -58,7 +58,7 @@ namespace Math {
         using Colour3dType     = Colour3d<n>;
         using OrthoVectorType  = Math::OrthoVectorDef<n, 3>;
 
-        BR_MATH_F_ORTHOVECTOR(Colour3dType, OrthoVectorType);
+        BR_MATH_F_ORTHOVECTOR(Colour3dType);
 
         ScalarType  r, g, b;
     };
@@ -68,7 +68,7 @@ namespace Math {
         using Colour4dType     = Colour4d<n>;
         using OrthoVectorType  = Math::OrthoVectorDef<n, 4>;
 
-        BR_MATH_F_ORTHOVECTOR(Colour4dType, OrthoVectorType);
+        BR_MATH_F_ORTHOVECTOR(Colour4dType);
 
         ScalarType  r, g, b, a;
     };
@@ -78,7 +78,7 @@ namespace Math {
         using Matrix2x2Type    = Matrix2x2<n>;
         using MatrixType       = Math::MatrixDef<n, 2, 2>;
 
-        BR_MATH_F_MATRIX(Matrix2x2Type, MatrixType);
+        BR_MATH_F_MATRIX(Matrix2x2Type);
 
         ScalarType  xx, xy,
                     yx, yy;
@@ -89,7 +89,7 @@ namespace Math {
         using Matrix3x3Type    = Matrix3x3<n>;
         using MatrixType       = Math::MatrixDef<n, 3, 3>;
 
-        BR_MATH_F_MATRIX(Matrix3x3Type, MatrixType);
+        BR_MATH_F_MATRIX(Matrix3x3Type);
 
         ScalarType  xx, xy, xz,
                     yx, yy, yz,
@@ -101,7 +101,7 @@ namespace Math {
         using Matrix4x4Type    = Matrix4x4<n>;
         using MatrixType       = Math::MatrixDef<n, 4, 4>;
 
-        BR_MATH_F_MATRIX(Matrix4x4Type, MatrixType);
+        BR_MATH_F_MATRIX(Matrix4x4Type);
 
         ScalarType  xx, xy, xz, xw,
                     yx, yy, yz, yw,
@@ -114,7 +114,7 @@ namespace Math {
         using MatrixNxNType    = MatrixNxN<n, rows, columns>;
         using MatrixType       = Math::MatrixDef<n, rows, columns>;
 
-        BR_MATH_F_MATRIX(MatrixNxNType, MatrixType);
+        BR_MATH_F_MATRIX(MatrixNxNType);
 
         ScalarType  elem[rows][columns];
     };
@@ -123,7 +123,7 @@ namespace Math {
     struct Quaternion : public Math::QuaternionDef<n> {
         using QuaternionType   = Math::QuaternionDef<n>;
 
-        BR_MATH_F_QUATERNION(Quaternion, QuaternionType);
+        BR_MATH_F_QUATERNION(Quaternion);
 
         ScalarType  x, y, z, w;
     };

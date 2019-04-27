@@ -43,7 +43,6 @@ namespace Math {
         
         using Tuple1dType   = Tuple1dDef<t, s>;
         using ScalarType    = Tuple1dType::ScalarType;
-        using TupleType     = Tuple1dType::TupleType;
 
         using VectorType    = VectorDef<t, s>;
         using CovectorType  = CovectorDef<t, s>;
@@ -104,7 +103,7 @@ namespace Math {
             // -- Inheritance
 
 #define BR_MATH_F_VECTOR(t) \
-        using TupleType       = typename VectorType::TupleType; \
+        using Tuple1dType       = typename VectorType::Tuple1dType; \
         \
         BR_MATH_F_TUPLE(t) \
         t& operator+= (const t& rhs) { return t::interpret(this->as_vector() += rhs.as_vector()); } \
@@ -156,7 +155,6 @@ namespace Math {
         using Tuple1dType   = VectorType::Tuple1dType;
         using CovectorType  = VectorType::CovectorType;
         using ScalarType    = Tuple1dType::ScalarType;
-        using TupleType     = Tuple1dType::TupleType;
 
         using OrthoVectorType  = OrthoVectorDef<t, s>;
 
@@ -239,8 +237,15 @@ namespace Math {
     
     template<typename t, int rows, int columns>
     struct MatrixDef : Math::Tuple2dDef<t, rows, columns> {
-        typedef MatrixDef<t, Row_Count, Column_Count>   MatrixType;
-        typedef MatrixDef<t, Row_Count, Column_Count>   EquivalentMatrixType;
+        struct MatrixAbstract;
+
+        using MatrixType    = MatrixDef<t, rows, columns>;
+        using MatrixType    = MatrixDef<t, rows, columns>;
+        using Tuple2dType   = Math::Tuple2dDef<t, rows, columns>;
+
+        using Tuple1dType   = Tuple2dType::Tuple1dType;
+
+        using EquivalentMatrixType = MatrixType;
 
     protected:
         MatrixDef() { ; }
@@ -306,13 +311,13 @@ namespace Math {
 
             // -- Inheritance
 
-#define BR_MATH_F_MATRIX(t, p) \
-    using TupleType       = typename MatrixType::TupleType; \
+#define BR_MATH_F_MATRIX(t) \
+    using Tuple2dType       = typename MatrixType::Tuple2dType; \
     \
-    BR_MATH_F_TUPLE_2D(t, p)
+    BR_MATH_F_TUPLE_2D(t)
         
         struct MatrixAbstract : public MatrixType, public Tuple2dAbstractMem {
-            BR_MATH_F_MATRIX(MatrixAbstract, MatrixType);
+            BR_MATH_F_MATRIX(MatrixAbstract);
         };
     };
 

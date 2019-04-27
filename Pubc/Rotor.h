@@ -77,12 +77,12 @@ namespace Math {
 
             // -- Inheritance
 
-#define BR_MATH_F_QUATERNION(t, p) \
-    BR_MATH_F_TUPLE(t, p)
+#define BR_MATH_F_QUATERNION(t) \
+    BR_MATH_F_TUPLE(t)
         
         struct QuaternionAbstract : public QuaternionType, public Tuple1dAbstractMem {
             using QuaternionType = QuaternionType;
-            BR_MATH_F_QUATERNION(QuaternionAbstract, QuaternionType);
+            BR_MATH_F_QUATERNION(QuaternionAbstract);
         };
     };
 
