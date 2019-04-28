@@ -4,13 +4,16 @@
 
 #pragma once
 
+#include <string>
 #include <uuid.h>
 
 namespace BlackRoot {
 namespace Identify {
 
-    using UUID          = uuids::uuid;
-    using UUIDGenerator = uuids::uuid_system_generator;
+    using UUID            = uuids::uuid;
+    using UUIDGenerator   = uuids::uuid_system_generator;
+    
+    static constexpr auto UUID_To_String = uuids::to_string<char, std::char_traits<char>, std::allocator<char>>;
 
 }
 }
