@@ -13,8 +13,6 @@
 #include <cmath>
 #include <iterator>
 #include <functional>
-#include <initializer_list>
-#include <type_traits>
 
 namespace BlackRoot {
 namespace Math {
@@ -89,6 +87,18 @@ namespace Math {
         TupleType& set_to(const TupleType &rh) {
             return (*this = rh);
         }
+
+        template <int index = 0, typename... UList,
+                    int list_size = Size-index-1,
+                    typename = typename std::enable_if_t<(sizeof...(UList) == list_size)>>
+          void set_to(ScalarType && v, UList &&... vs)
+          {
+            ((ScalarType*)(this))[index] = std::forward<ScalarType>(v);
+            set_to<index+1>(std::forward<UList>(vs)...);
+          }
+     
+        template <int index = 0>
+          void set_to() {}
         
             // -- Operators
 
@@ -102,7 +112,7 @@ namespace Math {
         bool operator !=(const TupleType &rh) const {
             return !std::equal(this->begin(), this->end(), rh.begin());
         }
-        
+
             // -- Element access
 
         ScalarType& operator[](size_t i) {
@@ -145,14 +155,25 @@ namespace Math {
             return !std::is_floating_point<t>::value ||
                 !std::any_of(this->begin(), this->end(), [](auto e) { return std::isnan(e); });
         }
+        
+        //type(std::array<ScalarType, Size> init) { \
+        //    } \
+        //template<typename... Args, typename = typename std::enable_if_t<sizeof...(Args) == Size>> \
+        //    type(Args... e) : type({Args...}) { } \
 
 #define BR_MATH_F_TUPLE(type) \
         using ScalarType = typename Tuple1dType::ScalarType; \
         \
         type() { ; } \
         type(const type &rh) { *this = rh; } \
-        template<typename... Args, typename = typename std::enable_if_t<sizeof...(Args) == Size>> \
-            type(Args... e) { int i = 0; for (const ScalarType p : std::initializer_list<ScalarType>({e...})) { this->as_tuple()[i++] = p; } } \
+        template <typename... UList, \
+                    int size_minus_one = Size-1, \
+                    typename = typename std::enable_if_t<(sizeof...(UList) == size_minus_one)>> \
+          type(ScalarType && v, UList &&... vs) \
+          { \
+            ((ScalarType*)(this))[0] = std::forward<ScalarType>(v); \
+            set_to<1>(std::forward<UList>(vs)...); \
+          } \
         type& operator=(const type &rh) { return type::interpret(this->as_tuple() = rh.as_tuple()); } \
         static type& interpret(Tuple1dType & rh) { return *(type*)(&rh); } \
         static type && interpret(Tuple1dType && rh) { return std::move(*(type*)(&rh)); } \
