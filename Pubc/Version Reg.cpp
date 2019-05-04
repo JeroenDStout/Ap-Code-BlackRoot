@@ -55,7 +55,7 @@ void VersionRegistry::AddLibraries(std::string project, std::vector<Library> lib
         reg.FullProjectLibraries.Add(e);
     }
     proj.Sort();
-    reg.FullProjectContributors.Sort();
+    reg.FullProjectLibraries.Sort();
 }
 
 ProjectContributors & VersionRegistry::GetProjectContributorList(std::string str)
@@ -104,12 +104,12 @@ VersionInformation VersionRegistry::GetMainProjectVersion()
     return VersionRegistry::GetRegistry()->FullProjectVersion;
 }
 
-ProjectContributors VersionRegistry::GetMainProjectContributors()
+ProjectContributors VersionRegistry::GetFullProjectContributors()
 {
     return VersionRegistry::GetRegistry()->FullProjectContributors;
 }
 
-ProjectLibraries VersionRegistry::GetMainProjectLibraries()
+ProjectLibraries VersionRegistry::GetFullProjectLibraries()
 {
     return VersionRegistry::GetRegistry()->FullProjectLibraries;
 }
@@ -177,6 +177,9 @@ std::string VersionRegistry::GetFullContributionString()
         }
         first = false;
 	    ss << elem.Name;
+        if (elem.Creator.size() > 0) {
+	        ss << " (" << elem.Creator << ")";
+        }
     }
 
 	return ss.str();
@@ -213,7 +216,7 @@ void ProjectContributors::Sort()
 void ProjectLibraries::Add(Library con)
 {
     for (auto & prev : this->Libraries) {
-        if (prev.Name != con.Name)
+        if (prev.Name != con.Name && prev.Creator != con.Creator)
             continue;
         return;
     }
@@ -223,6 +226,10 @@ void ProjectLibraries::Add(Library con)
 void ProjectLibraries::Sort()
 {
     std::sort(this->Libraries.begin(), this->Libraries.end(), [](Library a, Library b) {
-        return b.Name > a.Name;
+        auto cmp = b.Name.compare(a.Name);
+        if (cmp == 0) {
+            return b.Creator > a.Creator;
+        }
+        return cmp > 0;
     });
 }

@@ -30,12 +30,12 @@ namespace Repo {
     };
 
     struct Library {
-        std::string Name;
+        std::string Name, Creator, Url;
         
-        Library(const char *s)
-        : Name(s) { ; }
-        Library(std::string s)
-        : Name(s) { ; }
+        Library(const char *name, const char *creator, const char *url)
+        : Name(name), Creator(creator), Url(url) { ; }
+        Library(std::string name, std::string creator, std::string url)
+        : Name(name), Creator(creator), Url(url) { ; }
     };
 
     struct ProjectContributors {
@@ -81,8 +81,8 @@ namespace Repo {
         static void AddLibraries(std::string, std::vector<Library>);
 
         static VersionInformation     GetMainProjectVersion();
-        static ProjectContributors    GetMainProjectContributors();
-        static ProjectLibraries       GetMainProjectLibraries();
+        static ProjectContributors    GetFullProjectContributors();
+        static ProjectLibraries       GetFullProjectLibraries();
 
         static VersionInformationList GetVersionList();
         

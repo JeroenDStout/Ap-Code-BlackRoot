@@ -48,10 +48,24 @@ with open(path_in + "/libraries.json") as f:
 
 first = 1
 for elem in libraries:
+    elem_enum_name = elem["name"];
+
     if not first:
         enum_h += ", "
-    enum_h += '"' + elem["name"] + '"'
-    enum_list.append(elem["name"])
+    enum_h += ' { "' + elem["name"] + '"'
+    if 'creator' in elem:
+        enum_h += ', "' + elem["creator"] + '"'
+        elem_enum_name += " (" + elem["creator"] + ")"
+    else:
+        enum_h += '"'
+    if 'url' in elem:
+        enum_h += ', "' + elem["url"] + '"'
+    else:
+        enum_h += '"'
+    enum_h += " }"
+    
+    enum_list.append(elem_enum_name);
+    
     first = 0
     
 enum_h += " }"
