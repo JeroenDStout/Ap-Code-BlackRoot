@@ -2,5 +2,8 @@
 	"libraries" : [
 	{	"name" : "nlohmann's json",
 		"url"  : "github.com/nlohmann/json"
+	},
+	{	"name" : "Marius Bancila's stduuid",
+		"url"  : "github.com/mariusbancila/stduuid"
 	} ]
 }
