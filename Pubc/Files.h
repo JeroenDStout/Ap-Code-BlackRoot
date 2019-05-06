@@ -195,6 +195,8 @@ namespace IO {
 
     class BaseFileSource : public IFileSource {
     public:
+        using FTime     = typename IFileSource::FTime;
+
         BaseFileSource() { ; }
         ~BaseFileSource() override { ; }
 

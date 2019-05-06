@@ -154,6 +154,7 @@
     <ClInclude Include="../Pubc/Number Types.h" />
     <ClInclude Include="..\Pubc\File Wildcard.h" />
     <ClInclude Include="..\Pubc\Files Types.h" />
+    <ClInclude Include="..\Pubc\FileSource Prefix.h" />
     <ClInclude Include="..\Pubc\FileSource Snooper.h" />
     <ClInclude Include="..\Pubc\First.h" />
     <ClInclude Include="..\Pubc\Matrix Operations.h" />
