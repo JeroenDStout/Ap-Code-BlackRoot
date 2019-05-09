@@ -9,9 +9,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Math">
-      <UniqueIdentifier>{ec3cd106-e2f2-465d-a75b-e9d55d8fe2ef}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utility">
       <UniqueIdentifier>{d93a4d09-6ab2-4ab4-97ce-e484ebc9384d}</UniqueIdentifier>
     </Filter>
@@ -33,6 +30,9 @@
     <Filter Include="Identify">
       <UniqueIdentifier>{7fafa95c-d5ea-40a5-88ba-3d757b66c264}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Types">
+      <UniqueIdentifier>{ec3cd106-e2f2-465d-a75b-e9d55d8fe2ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="../Pubc/Files.h">
@@ -42,28 +42,28 @@
       <Filter>Utility</Filter>
     </ClInclude>
     <ClInclude Include="../Pubc/Tuple.h">
-      <Filter>Math</Filter>
+      <Filter>Types</Filter>
     </ClInclude>
     <ClInclude Include="../Pubc/Transformation.h">
-      <Filter>Math</Filter>
+      <Filter>Types</Filter>
     </ClInclude>
     <ClInclude Include="../Pubc/Tensor.h">
-      <Filter>Math</Filter>
+      <Filter>Types</Filter>
     </ClInclude>
     <ClInclude Include="../Pubc/TemplateUtility.h">
       <Filter>Utility</Filter>
     </ClInclude>
     <ClInclude Include="../Pubc/Rotor.h">
-      <Filter>Math</Filter>
+      <Filter>Types</Filter>
     </ClInclude>
     <ClInclude Include="../Pubc/Number Types.h">
-      <Filter>Math</Filter>
+      <Filter>Types</Filter>
     </ClInclude>
     <ClInclude Include="../Pubc/Math Types.h">
-      <Filter>Math</Filter>
+      <Filter>Types</Filter>
     </ClInclude>
     <ClInclude Include="../Pubc/Math Types Complex.h">
-      <Filter>Math</Filter>
+      <Filter>Types</Filter>
     </ClInclude>
     <ClInclude Include="../Pubc/JSON.h">
       <Filter>Formats</Filter>
@@ -111,7 +111,7 @@
       <Filter>Utility</Filter>
     </ClInclude>
     <ClInclude Include="..\Pubc\Matrix Operations.h">
-      <Filter>Math</Filter>
+      <Filter>Types</Filter>
     </ClInclude>
     <ClInclude Include="..\Pubc\Sys Sound.h">
       <Filter>System</Filter>
@@ -131,6 +131,10 @@
     <ClInclude Include="..\Pubc\FileSource Prefix.h">
       <Filter>Utility</Filter>
     </ClInclude>
+    <ClInclude Include="..\Pubc\Hash ID.h">
+      <Filter>Identify</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Incc\uint128_t\uint128_t.include" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="../Pubc/Files.cpp">

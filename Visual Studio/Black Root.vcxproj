@@ -152,6 +152,7 @@
     <ClInclude Include="../Pubc/JSON.h" />
     <ClInclude Include="../Pubc/Math Types Complex.h" />
     <ClInclude Include="../Pubc/Number Types.h" />
+    <ClInclude Include="..\Pubc\Hash ID.h" />
     <ClInclude Include="..\Pubc\File Wildcard.h" />
     <ClInclude Include="..\Pubc\Files Types.h" />
     <ClInclude Include="..\Pubc\FileSource Prefix.h" />
@@ -205,6 +206,13 @@
       <AdditionalInputs>$(ProjectDir)..\meta\contributors.json;$(ProjectDir)..\meta\libraries.json</AdditionalInputs>
       <BuildInParallel>true</BuildInParallel>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Incc\uint128_t\uint128_t.include">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </DeploymentContent>
+      <FileType>Document</FileType>
+    </ClInclude>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

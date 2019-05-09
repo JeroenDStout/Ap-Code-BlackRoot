@@ -7,5 +7,9 @@
 	{	"name"    : "stduuid",
         "creator" : "Marius Bancila",
 		"url"     : "github.com/mariusbancila/stduuid"
+	},
+	{	"name"    : "uint128_t",
+        "creator" : "Jason Lee",
+		"url"     : "github.com/calccrypto/uint128_t"
 	} ]
 }
