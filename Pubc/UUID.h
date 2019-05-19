@@ -5,7 +5,10 @@
 #pragma once
 
 #include <string>
+
+  // uuid includes some windows junk and needs a rewrite
 #include <uuid.h>
+#undef CopyFile
 
 namespace BlackRoot {
 namespace Identify {
