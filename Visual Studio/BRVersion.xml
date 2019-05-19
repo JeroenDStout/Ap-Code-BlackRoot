@@ -1,0 +1,5 @@
+<ProjectSchemaDefinitions xmlns="http://schemas.microsoft.com/build/2009/properties">
+  <ItemType Name="BRVersionDef" DisplayName="Black Root Version" />
+  <ContentType Name="BRVersionDef" ItemType="BRVersionDef" DisplayName="Black Root Version" />
+  <FileExtension Name=".brversion" ContentType="BRVersionDef" />
+</ProjectSchemaDefinitions>

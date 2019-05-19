@@ -1,0 +1,22 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="15.0">
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)BRVersion.xml" />
+    <AvailableItemName Include="BRVersionDef">
+      <Targets>BRBuildVersion</Targets>
+    </AvailableItemName>
+  </ItemGroup>
+  <Target BeforeTargets="ClCompile" Name="BRBuildVersion">
+    <ItemGroup>
+      <BRVersionDef>
+        <Message>Create Repo Version</Message>
+        <Command>cd "$(ProjectDir)../Meta"
+../../BlackRoot/pub_build/create_repo_version.bat "$(ProjectName)"</Command>
+        <BuildInParallel>true</BuildInParallel>
+        <Outputs>this text is here so it always builds</Outputs>
+      </BRVersionDef>
+    </ItemGroup>
+    <CustomBuild Sources="@(BRVersionDef)"
+        MinimalRebuildFromTracking="false"
+    />
+  </Target>
+</Project>
