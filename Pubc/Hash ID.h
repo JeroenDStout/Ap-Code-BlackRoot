@@ -25,11 +25,15 @@ namespace Identify {
         }
 
         constexpr void set_data(size_t i, uint32 value) {
+            static const char hex[16] = {
+              '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
+            };
+
             char * data = (*this)[i];
             data[0] = '0';
             data[1] = 'x';
-            for (int d = 0; d < 16; d++) {
-                data[2+d] = '0' + (uint8(value >> (d*4)) & 0xF);
+            for (int d = 0; d < 8; d++) {
+                data[2+d] = hex[(value >> (d*4)) & 0xF];
             }
             data[18] = 0;
         }
