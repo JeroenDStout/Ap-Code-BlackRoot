@@ -1,0 +1,32 @@
+<ProjectSchemaDefinitions
+  xmlns="http://schemas.microsoft.com/build/2009/properties"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:sys="clr-namespace:System;assembly=mscorlib"
+>
+  <Rule
+    Name="BRNameTableDef"
+    PageTemplate="tool"
+    DisplayName="Table Properties"
+    Order="9">
+    <Rule.DataSource>
+      <DataSource
+        Persistence="ProjectFile"
+        ItemType="BRNameTableDef" />
+    </Rule.DataSource>
+    <Rule.Categories>
+      <Category
+        Name="General">
+        <Category.DisplayName>
+          <sys:String>Table Properties</sys:String>
+        </Category.DisplayName>
+      </Category>
+    </Rule.Categories>
+    <StringProperty
+      Name="Namespace"
+      DisplayName="Namespace"
+      IncludeInCommandLine="False"/>
+  </Rule>
+  <ItemType Name="BRNameTableDef" DisplayName="Black Root Name Table" />
+  <ContentType Name="BRNameTableDef" ItemType="BRNameTableDef" DisplayName="Black Root Name Table" />
+  <FileExtension Name=".brnametable" ContentType="BRNameTableDef" />
+</ProjectSchemaDefinitions>

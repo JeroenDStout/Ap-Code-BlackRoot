@@ -1,0 +1,23 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="15.0">
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)BRNameTable.xml" />
+    <AvailableItemName Include="BRNameTableDef">
+      <Targets>BRBuildNameTables</Targets>
+    </AvailableItemName>
+  </ItemGroup>
+  <Target BeforeTargets="ClCompile" Name="BRBuildNameTables" >
+    <ItemGroup>
+      <BRNameTableDef>
+        <Message>%(Filename)%(Extension)</Message>
+        <Command>python "$(SolutionDir)../BlackRoot/Pub_build/generate_name_tables.py" -input "%(FullPath)" -output_dir "$(ProjectDir).." -namespace "%(BRNameTableDef.Namespace)"</Command>
+        <Outputs>$(ProjectDir)..\-genc\%(Filename).h</Outputs>
+        <BuildInParallel>true</BuildInParallel>
+      </BRNameTableDef>
+    </ItemGroup>
+    <CustomBuild Sources="@(BRNameTableDef)"
+        MinimalRebuildFromTracking="true"
+        TrackerLogDirectory="$(TLogLocation)"
+    >
+    </CustomBuild>
+  </Target>
+</Project>

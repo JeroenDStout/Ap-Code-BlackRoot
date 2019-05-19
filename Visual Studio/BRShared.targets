@@ -1,0 +1,5 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="15.0">
+  <Import Project="$(MSBuildThisFileDirectory)\BRVersion.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)\BRMeta.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)\BRNameTable.targets" />
+</Project>
