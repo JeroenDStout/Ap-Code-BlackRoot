@@ -11,6 +11,10 @@
 #define BR_FILES_PARANOIA
 #endif
 
+#ifdef CopyFile
+#error CopyFile is defined - you probably included windows.h
+#endif
+
 #include "BlackRoot/Pubc/Exception.h"
 #include "BlackRoot/Pubc/Files Types.h"
 
