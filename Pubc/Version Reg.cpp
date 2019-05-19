@@ -18,9 +18,9 @@ VersionRegistry * VersionRegistry::get_registry()
     return Registry ? Registry : (Registry = new VersionRegistry);
 }
 
-void VersionRegistry::set_main_project_version(VersionInformation version)
+void VersionRegistry::set_app_project_version(VersionInformation version)
 {
-    VersionRegistry::get_registry()->Full_Project_Version = version;
+    VersionRegistry::get_registry()->App_Project_Version = version;
 }
 
 void VersionRegistry::add_version(VersionInformation info)
@@ -45,7 +45,7 @@ void VersionRegistry::update_full_project_hash()
     for (auto & it : this->Per_Project_Versions)
       hash.push_back(it.VersionHash);
 
-    this->Full_Project_Version.VersionHash = BlackRoot::Identify::fnv1a_128((char*)(hash.data()), sizeof(uint128) * hash.size());
+    this->Full_Project_Hash = BlackRoot::Identify::fnv1a_128((char*)(hash.data()), sizeof(uint128) * hash.size());
 }
 
 void VersionRegistry::add_contributors(std::string project, std::vector<Contributor> contributors)
@@ -120,6 +120,11 @@ VersionInformation VersionRegistry::get_app_project_version()
     return VersionRegistry::get_registry()->App_Project_Version;
 }
 
+uint128 VersionRegistry::get_full_project_hash()
+{
+    return VersionRegistry::get_registry()->Full_Project_Hash;
+}
+
 ProjectContributors VersionRegistry::get_full_project_contributors()
 {
     return VersionRegistry::get_registry()->Full_Project_Contributors;
@@ -143,6 +148,7 @@ std::string VersionRegistry::get_app_project_string()
     ss << "***" << std::endl;
     ss << "*** " << reg.App_Project_Version.Name << std::endl;
     ss << "***  " << reg.App_Project_Version.Version << std::endl;
+    ss << "***  " << Identify::generate_hash_name_32(uint32(reg.get_full_project_hash())).get() << std::endl;
     ss << "***  " << reg.App_Project_Version.BuildTool << std::endl;
     ss << "***";
 
@@ -160,11 +166,9 @@ std::string VersionRegistry::get_version_string()
             ss << std::endl;
         }
 
-        Identify::HashSugar128 sugar(version.VersionHash);
-
         first = false;
 	    ss << version.Name << " " << version.Version << " (" << version.BranchName << ")" << std::endl;
-	    ss << " \"" << Identify::generate_hash_name_32(uint32(version.VersionHash)).get() << "\" " << sugar[1] << std::endl;
+	    ss << " " << Identify::generate_hash_name_32(uint32(version.VersionHash)).get() << std::endl;
 	    ss << " " << version.Licence << std::endl;
 	    ss << " " << version.BuildTool;
     }
@@ -214,6 +218,18 @@ std::string VersionRegistry::get_boot_string()
     ss << VersionRegistry::get_version_string();
 
     return ss.str();
+}
+
+void VersionInformation::create_hash()
+{
+    std::string combined;
+    combined.append(this->Name);
+    combined.append(this->Licence);
+    combined.append(this->Version);
+    combined.append(this->BranchName);
+    combined.append(this->BranchTime);
+    combined.append(this->BuildTool);
+    this->VersionHash = BlackRoot::Identify::fnv1a_128(combined.c_str(), combined.size());
 }
 
 void ProjectContributors::add(Contributor con)

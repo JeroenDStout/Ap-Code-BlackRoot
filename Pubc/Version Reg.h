@@ -70,8 +70,8 @@ namespace Repo {
         std::vector<ProjectLibraries>       Per_Project_Libraries;
 
         VersionInformation                  App_Project_Version;
-
-        VersionInformation                  Full_Project_Version;
+        
+        uint128                             Full_Project_Hash;
         ProjectContributors                 Full_Project_Contributors;
         ProjectLibraries                    Full_Project_Libraries;
         
@@ -82,14 +82,15 @@ namespace Repo {
     public:
         static VersionRegistry * get_registry();
         
-        static void set_main_project_version(VersionInformation);
+        static void set_app_project_version(VersionInformation);
 
         static void add_version(VersionInformation);
         static void add_contributors(std::string, std::vector<Contributor>);
         static void add_libraries(std::string, std::vector<Library>);
 
         static VersionInformation     get_app_project_version();
-
+        
+        static uint128                get_full_project_hash();
         static ProjectContributors    get_full_project_contributors();
         static ProjectLibraries       get_full_project_libraries();
 
@@ -124,7 +125,7 @@ namespace Repo {
 
         struct RegisterMainProject {
             RegisterMainProject(VersionInformationFunc x) {
-                VersionRegistry::set_main_project_version(x());
+                VersionRegistry::set_app_project_version(x());
             }
         };
 
