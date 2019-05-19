@@ -56,7 +56,7 @@ namespace Identify {
         uint128 ret = offset;
         for (std::size_t i = 0; i < count; i++) {
             ret *= prime;
-            ret ^= s[count];
+            ret ^= s[i];
         }
 
         return ret;
