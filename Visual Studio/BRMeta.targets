@@ -1,0 +1,23 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="15.0">
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)BRMeta.xml" />
+    <AvailableItemName Include="BRMetaDef">
+      <Targets>BRBuildMeta</Targets>
+    </AvailableItemName>
+  </ItemGroup>
+  <Target BeforeTargets="ClCompile" Name="BRBuildMeta">
+    <ItemGroup>
+      <BRMetaDef>
+        <Message>Generating meta</Message>
+        <Command>python "$(SolutionDir)../BlackRoot/Pub_build/generate_meta.py" "$(ProjectName)" "$(ProjectDir)../Meta" "$(ProjectDir)../-genc"</Command>
+        <Outputs>$(ProjectDir)..\-genc\def_contribute.h</Outputs>
+        <AdditionalInputs>$(ProjectDir)..\meta\contributors.json;$(ProjectDir)..\meta\libraries.json</AdditionalInputs>
+        <BuildInParallel>true</BuildInParallel>
+      </BRMetaDef>
+    </ItemGroup>
+    <CustomBuild Sources="@(BRMetaDef)"
+        MinimalRebuildFromTracking="true"
+        TrackerLogDirectory="$(TLogLocation)"
+    />
+  </Target>
+</Project>

@@ -1,0 +1,8 @@
+<ProjectSchemaDefinitions xmlns="http://schemas.microsoft.com/build/2009/properties">
+
+ <StringProperty Name="ExecutionDescription" DisplayName="Execution Description" IncludeInCommandLine="False" Visible="False" />
+ 
+  <ItemType Name="BRMetaDef" DisplayName="Black Root Meta" />
+  <ContentType Name="BRMetaDef" ItemType="BRMetaDef" DisplayName="Black Root Meta" />
+  <FileExtension Name=".brmeta" ContentType="BRMetaDef" />
+</ProjectSchemaDefinitions>
