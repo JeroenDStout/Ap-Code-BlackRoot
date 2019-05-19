@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Core">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Formats">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
@@ -32,6 +28,13 @@
     </Filter>
     <Filter Include="Types">
       <UniqueIdentifier>{ec3cd106-e2f2-465d-a75b-e9d55d8fe2ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Version">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Identify\gen">
+      <UniqueIdentifier>{58bb1240-91b2-4492-a41d-f953a8721f64}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -81,13 +84,13 @@
       <Filter>Debug</Filter>
     </ClInclude>
     <ClInclude Include="..\Pubc\Version.h">
-      <Filter>Core</Filter>
+      <Filter>Version</Filter>
     </ClInclude>
     <ClInclude Include="..\Pubc\Version Reg.h">
-      <Filter>Core</Filter>
+      <Filter>Version</Filter>
     </ClInclude>
     <ClInclude Include="..\Pubc\Register.h">
-      <Filter>Core</Filter>
+      <Filter>Version</Filter>
     </ClInclude>
     <ClInclude Include="..\Pubc\Stringstream.h">
       <Filter>Utility</Filter>
@@ -134,7 +137,12 @@
     <ClInclude Include="..\Pubc\Hash ID.h">
       <Filter>Identify</Filter>
     </ClInclude>
-    <ClInclude Include="..\Incc\uint128_t\uint128_t.include" />
+    <ClInclude Include="..\Pubc\Hash Name.h">
+      <Filter>Identify</Filter>
+    </ClInclude>
+    <ClInclude Include="..\-genc\Hash Names.h">
+      <Filter>Identify\gen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="../Pubc/Files.cpp">
@@ -144,10 +152,10 @@
       <Filter>Utility</Filter>
     </ClCompile>
     <ClCompile Include="..\Pubc\Version.cpp">
-      <Filter>Core</Filter>
+      <Filter>Version</Filter>
     </ClCompile>
     <ClCompile Include="..\Pubc\Version Reg.cpp">
-      <Filter>Core</Filter>
+      <Filter>Version</Filter>
     </ClCompile>
     <ClCompile Include="..\Pubc\JSON Merge.cpp">
       <Filter>Utility</Filter>
@@ -176,18 +184,33 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\Meta\libraries.json">
-      <Filter>Meta</Filter>
+      <Filter>Version</Filter>
     </Text>
     <Text Include="..\Meta\contributors.json">
-      <Filter>Meta</Filter>
-    </Text>
-    <Text Include="..\Meta\generate_meta.py">
-      <Filter>Meta</Filter>
+      <Filter>Version</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\Meta\generate_meta.txt">
+    <BRVersionDef Include="..\Meta\.brversion">
+      <Filter>Version</Filter>
+    </BRVersionDef>
+  </ItemGroup>
+  <ItemGroup>
+    <BRMetaDef Include="..\Meta\.brmeta">
+      <Filter>Version</Filter>
+    </BRMetaDef>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Pub_build\create_repo_version.bat">
       <Filter>Meta</Filter>
-    </CustomBuild>
+    </None>
+    <None Include="..\Pub_build\generate_meta.py">
+      <Filter>Meta</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BRNameTableDef Include="..\Pubex\Hash Names.brnametable">
+      <Filter>Identify</Filter>
+    </BRNameTableDef>
   </ItemGroup>
 </Project>
