@@ -6,145 +6,165 @@
 
 #include "BlackRoot/Pubc/Stringstream.h"
 #include "BlackRoot/Pubc/Version Reg.h"
+#include "BlackRoot/Pubc/Hash ID.h"
+#include "BlackRoot/Pubc/Hash Name.h"
 
 using namespace BlackRoot::Repo;
 
 VersionRegistry * VersionRegistry::Registry = nullptr;
 
-VersionRegistry * VersionRegistry::GetRegistry()
+VersionRegistry * VersionRegistry::get_registry()
 {
     return Registry ? Registry : (Registry = new VersionRegistry);
 }
 
-void VersionRegistry::SetMainProjectVersion(VersionInformation version)
+void VersionRegistry::set_main_project_version(VersionInformation version)
 {
-    VersionRegistry::GetRegistry()->FullProjectVersion = version;
+    VersionRegistry::get_registry()->Full_Project_Version = version;
 }
 
-void VersionRegistry::AddVersion(VersionInformation info)
+void VersionRegistry::add_version(VersionInformation info)
 {
-    auto & reg  = *VersionRegistry::GetRegistry();
+    auto & reg = *VersionRegistry::get_registry();
 
-    reg.PerProjectVersions.push_back(info);
+    info.create_hash();
+    reg.Per_Project_Versions.push_back(info);
     
-    std::sort(reg.PerProjectVersions.begin(), reg.PerProjectVersions.end(), [](VersionInformation a, VersionInformation b) {
+    std::sort(reg.Per_Project_Versions.begin(), reg.Per_Project_Versions.end(), [](VersionInformation a, VersionInformation b) {
         return b.Name > a.Name;
     });
+
+    reg.update_full_project_hash();
 }
 
-void VersionRegistry::AddContributors(std::string project, std::vector<Contributor> contributors)
+void VersionRegistry::update_full_project_hash()
 {
-    auto & reg  = *VersionRegistry::GetRegistry();
-    auto & proj = reg.GetProjectContributorList(project);
+    std::vector<uint128> hash;
+    hash.reserve(this->Per_Project_Versions.size());
+
+    for (auto & it : this->Per_Project_Versions)
+      hash.push_back(it.VersionHash);
+
+    this->Full_Project_Version.VersionHash = BlackRoot::Identify::fnv1a_128((char*)(hash.data()), sizeof(uint128) * hash.size());
+}
+
+void VersionRegistry::add_contributors(std::string project, std::vector<Contributor> contributors)
+{
+    auto & reg  = *VersionRegistry::get_registry();
+    auto & proj = reg.get_project_contributor_list(project);
 
     for (auto & e : contributors) {
-        proj.Add(e);
-        reg.FullProjectContributors.Add(e);
+        proj.add(e);
+        reg.Full_Project_Contributors.add(e);
     }
-    proj.Sort();
-    reg.FullProjectContributors.Sort();
+    proj.sort();
+    reg.Full_Project_Contributors.sort();
 }
 
-void VersionRegistry::AddLibraries(std::string project, std::vector<Library> libraries)
+void VersionRegistry::add_libraries(std::string project, std::vector<Library> libraries)
 {
-    auto & reg  = *VersionRegistry::GetRegistry();
-    auto & proj = reg.GetProjectLibraryList(project);
+    auto & reg  = *VersionRegistry::get_registry();
+    auto & proj = reg.get_project_library_list(project);
 
     for (auto & e : libraries) {
-        proj.Add(e);
-        reg.FullProjectLibraries.Add(e);
+        proj.add(e);
+        reg.Full_Project_Libraries.add(e);
     }
-    proj.Sort();
-    reg.FullProjectLibraries.Sort();
+    proj.sort();
+    reg.Full_Project_Libraries.sort();
 }
 
-ProjectContributors & VersionRegistry::GetProjectContributorList(std::string str)
+ProjectContributors & VersionRegistry::get_project_contributor_list(std::string str)
 {
-    auto & reg  = *VersionRegistry::GetRegistry();
+    auto & reg  = *VersionRegistry::get_registry();
 
-    auto elem = std::find_if(reg.PerProjectContributors.begin(), reg.PerProjectContributors.end(),
+    auto elem = std::find_if(reg.Per_Project_Contributors.begin(), reg.Per_Project_Contributors.end(),
       [&str](const ProjectContributors& x) {
         return x.Project == str;
     });
 
-    if (elem != std::end(reg.PerProjectContributors))
+    if (elem != std::end(reg.Per_Project_Contributors))
         return *elem;
 
     ProjectContributors con;
     con.Project = str;
-    reg.PerProjectContributors.push_back(con);
-    return reg.PerProjectContributors.back();
+    reg.Per_Project_Contributors.push_back(con);
+    return reg.Per_Project_Contributors.back();
 }
 
-ProjectLibraries & VersionRegistry::GetProjectLibraryList(std::string str)
+ProjectLibraries & VersionRegistry::get_project_library_list(std::string str)
 {
-    auto & reg  = *VersionRegistry::GetRegistry();
+    auto & reg  = *VersionRegistry::get_registry();
 
-    auto elem = std::find_if(reg.PerProjectLibraries.begin(), reg.PerProjectLibraries.end(),
+    auto elem = std::find_if(reg.Per_Project_Libraries.begin(), reg.Per_Project_Libraries.end(),
       [&str](const ProjectLibraries& x) {
         return x.Project == str;
     });
 
-    if (elem != std::end(reg.PerProjectLibraries))
+    if (elem != std::end(reg.Per_Project_Libraries))
         return *elem;
 
     ProjectLibraries con;
     con.Project = str;
-    reg.PerProjectLibraries.push_back(con);
-    return reg.PerProjectLibraries.back();
+    reg.Per_Project_Libraries.push_back(con);
+    return reg.Per_Project_Libraries.back();
 }
 
-VersionInformationList VersionRegistry::GetVersionList()
+VersionInformationList VersionRegistry::get_version_list()
 {
-    return VersionRegistry::GetRegistry()->PerProjectVersions;
+    return VersionRegistry::get_registry()->Per_Project_Versions;
 }
 
-VersionInformation VersionRegistry::GetMainProjectVersion()
+VersionInformation VersionRegistry::get_app_project_version()
 {
-    return VersionRegistry::GetRegistry()->FullProjectVersion;
+    return VersionRegistry::get_registry()->App_Project_Version;
 }
 
-ProjectContributors VersionRegistry::GetFullProjectContributors()
+ProjectContributors VersionRegistry::get_full_project_contributors()
 {
-    return VersionRegistry::GetRegistry()->FullProjectContributors;
+    return VersionRegistry::get_registry()->Full_Project_Contributors;
 }
 
-ProjectLibraries VersionRegistry::GetFullProjectLibraries()
+ProjectLibraries VersionRegistry::get_full_project_libraries()
 {
-    return VersionRegistry::GetRegistry()->FullProjectLibraries;
+    return VersionRegistry::get_registry()->Full_Project_Libraries;
 }
 
-std::string VersionRegistry::GetMainProjectString()
+std::string VersionRegistry::get_app_project_string()
 {
-    auto & reg  = *VersionRegistry::GetRegistry();
+    auto & reg  = *VersionRegistry::get_registry();
 
-    if (reg.FullProjectVersion.Name.length() == 0) {
+    if (reg.App_Project_Version.Name.length() == 0) {
         return "";
     }
     
     std::stringstream ss;
 
     ss << "***" << std::endl;
-    ss << "*** " << reg.FullProjectVersion.Name << std::endl;
-    ss << "***  " << reg.FullProjectVersion.Version << std::endl;
-    ss << "***  " << reg.FullProjectVersion.BuildTool << std::endl;
+    ss << "*** " << reg.App_Project_Version.Name << std::endl;
+    ss << "***  " << reg.App_Project_Version.Version << std::endl;
+    ss << "***  " << reg.App_Project_Version.BuildTool << std::endl;
     ss << "***";
 
     return ss.str();
 }
 
-std::string VersionRegistry::GetVersionString()
+std::string VersionRegistry::get_version_string()
 {
     std::stringstream ss;
 
     bool first = true;
 
-    for (auto & version : VersionRegistry::GetRegistry()->PerProjectVersions) {
+    for (auto & version : VersionRegistry::get_registry()->Per_Project_Versions) {
         if (!first) {
             ss << std::endl;
         }
+
+        Identify::HashSugar128 sugar(version.VersionHash);
+
         first = false;
 	    ss << version.Name << " " << version.Version << " (" << version.BranchName << ")" << std::endl;
+	    ss << " \"" << Identify::generate_hash_name_32(uint32(version.VersionHash)).get() << "\" " << sugar[1] << std::endl;
 	    ss << " " << version.Licence << std::endl;
 	    ss << " " << version.BuildTool;
     }
@@ -152,14 +172,14 @@ std::string VersionRegistry::GetVersionString()
 	return ss.str();
 }
 
-std::string VersionRegistry::GetFullContributionString()
+std::string VersionRegistry::get_full_contribution_string()
 {
     std::stringstream ss;
 
     bool first = true;
 
     ss << "This software contains contributions by\n ";
-    for (auto & elem : VersionRegistry::GetRegistry()->FullProjectContributors.Contibutors) {
+    for (auto & elem : VersionRegistry::get_registry()->Full_Project_Contributors.Contibutors) {
         if (!first) {
             ss << ", ";
         }
@@ -171,7 +191,7 @@ std::string VersionRegistry::GetFullContributionString()
 
     first = true;
 
-    for (auto & elem : VersionRegistry::GetRegistry()->FullProjectLibraries.Libraries) {
+    for (auto & elem : VersionRegistry::get_registry()->Full_Project_Libraries.Libraries) {
         if (!first) {
             ss << ", ";
         }
@@ -185,18 +205,18 @@ std::string VersionRegistry::GetFullContributionString()
 	return ss.str();
 }
 
-std::string VersionRegistry::GetBootString()
+std::string VersionRegistry::get_boot_string()
 {
     std::stringstream ss;
     
-    ss << VersionRegistry::GetMainProjectString() << std::endl << std::endl;
-    ss << VersionRegistry::GetFullContributionString() << std::endl << std::endl;
-    ss << VersionRegistry::GetVersionString();
+    ss << VersionRegistry::get_app_project_string() << std::endl << std::endl;
+    ss << VersionRegistry::get_full_contribution_string() << std::endl << std::endl;
+    ss << VersionRegistry::get_version_string();
 
     return ss.str();
 }
 
-void ProjectContributors::Add(Contributor con)
+void ProjectContributors::add(Contributor con)
 {
     for (auto & prev : this->Contibutors) {
         if (prev.Name != con.Name)
@@ -206,14 +226,14 @@ void ProjectContributors::Add(Contributor con)
     this->Contibutors.push_back(con);
 }
 
-void ProjectContributors::Sort()
+void ProjectContributors::sort()
 {
     std::sort(this->Contibutors.begin(), this->Contibutors.end(), [](Contributor a, Contributor b) {
         return b.Name > a.Name;
     });
 }
 
-void ProjectLibraries::Add(Library con)
+void ProjectLibraries::add(Library con)
 {
     for (auto & prev : this->Libraries) {
         if (prev.Name != con.Name && prev.Creator != con.Creator)
@@ -223,7 +243,7 @@ void ProjectLibraries::Add(Library con)
     this->Libraries.push_back(con);
 }
 
-void ProjectLibraries::Sort()
+void ProjectLibraries::sort()
 {
     std::sort(this->Libraries.begin(), this->Libraries.end(), [](Library a, Library b) {
         auto cmp = b.Name.compare(a.Name);

@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "BlackRoot/Pubc/Stringstream.h"
+#include "BlackRoot/Pubc/Number Types.h"
 
 namespace BlackRoot {
 namespace Repo {
@@ -18,6 +19,9 @@ namespace Repo {
 		std::string BranchName;
 		std::string BranchTime;
 		std::string BuildTool;
+        uint128 VersionHash;
+
+        void create_hash();
 	};
 
     struct Contributor {
@@ -42,16 +46,16 @@ namespace Repo {
         std::string                 Project;
         std::vector<Contributor>    Contibutors;
 
-        void Add(Contributor);
-        void Sort();
+        void add(Contributor);
+        void sort();
     };
 
     struct ProjectLibraries {
         std::string                 Project;
         std::vector<Library>        Libraries;
 
-        void Add(Library);
-        void Sort();
+        void add(Library);
+        void sort();
     };
 
     using VersionInformationFunc = const VersionInformation &(__cdecl *)();
@@ -61,61 +65,66 @@ namespace Repo {
     protected:
         static VersionRegistry * Registry;
         
-        VersionInformationList              PerProjectVersions;
-        VersionInformation                  FullProjectVersion;
-        std::vector<ProjectContributors>    PerProjectContributors;
-        ProjectContributors                 FullProjectContributors;
-        std::vector<ProjectLibraries>       PerProjectLibraries;
-        ProjectLibraries                    FullProjectLibraries;
-        
-        ProjectContributors &  GetProjectContributorList(std::string);
-        ProjectLibraries &     GetProjectLibraryList(std::string);
+        VersionInformationList              Per_Project_Versions;
+        std::vector<ProjectContributors>    Per_Project_Contributors;
+        std::vector<ProjectLibraries>       Per_Project_Libraries;
 
+        VersionInformation                  App_Project_Version;
+
+        VersionInformation                  Full_Project_Version;
+        ProjectContributors                 Full_Project_Contributors;
+        ProjectLibraries                    Full_Project_Libraries;
+        
+        ProjectContributors &  get_project_contributor_list(std::string);
+        ProjectLibraries &     get_project_library_list(std::string);
+
+        void update_full_project_hash();
     public:
-        static VersionRegistry * GetRegistry();
+        static VersionRegistry * get_registry();
         
-        static void SetMainProjectVersion(VersionInformation);
+        static void set_main_project_version(VersionInformation);
 
-        static void AddVersion(VersionInformation);
-        static void AddContributors(std::string, std::vector<Contributor>);
-        static void AddLibraries(std::string, std::vector<Library>);
+        static void add_version(VersionInformation);
+        static void add_contributors(std::string, std::vector<Contributor>);
+        static void add_libraries(std::string, std::vector<Library>);
 
-        static VersionInformation     GetMainProjectVersion();
-        static ProjectContributors    GetFullProjectContributors();
-        static ProjectLibraries       GetFullProjectLibraries();
+        static VersionInformation     get_app_project_version();
 
-        static VersionInformationList GetVersionList();
+        static ProjectContributors    get_full_project_contributors();
+        static ProjectLibraries       get_full_project_libraries();
+
+        static VersionInformationList get_version_list();
         
-        static std::string            GetBootString();
+        static std::string            get_boot_string();
         
-        static std::string            GetMainProjectString();
-        static std::string            GetVersionString();
-        static std::string            GetFullContributionString();
+        static std::string            get_app_project_string();
+        static std::string            get_version_string();
+        static std::string            get_full_contribution_string();
     };
 
     namespace Helper {
 
         struct RegisterVersion {
             RegisterVersion(VersionInformationFunc x) {
-                VersionRegistry::AddVersion(x());
+                VersionRegistry::add_version(x());
             }
         };
 
         struct RegisterContributors {
             RegisterContributors(std::string p, std::vector<Contributor> c) {
-                VersionRegistry::AddContributors(p, c);
+                VersionRegistry::add_contributors(p, c);
             }
         };
 
         struct RegisterLibraries {
             RegisterLibraries(std::string p, std::vector<Library> l) {
-                VersionRegistry::AddLibraries(p, l);
+                VersionRegistry::add_libraries(p, l);
             }
         };
 
         struct RegisterMainProject {
             RegisterMainProject(VersionInformationFunc x) {
-                VersionRegistry::SetMainProjectVersion(x());
+                VersionRegistry::set_main_project_version(x());
             }
         };
 
