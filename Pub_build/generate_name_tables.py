@@ -64,22 +64,24 @@ full_tables = []
 for table in raw_tables:
     data = list(filter(None, table.split("#Names")))
     table_name, table_size = filter(None, data[0].split())
-    table_list = list(set(filter(None, data[1].split())))
+    table_list = list(set(filter(None, data[1].split("\n"))))
     cleaned_list = []
     
     min_length = 999
     max_length = 0
     
     for name in table_list:
-        if len(name) < 2:
+        clean_name = unidecode.unidecode(" ".join(w.capitalize() for w in name.strip().split()))
+    
+        if len(clean_name) < 2:
           continue
-        if len(name) > 15:
+        if len(clean_name) > 15:
           continue
         
-        min_length = min(min_length, len(name))
-        max_length = max(max_length, len(name))
+        min_length = min(min_length, len(clean_name))
+        max_length = max(max_length, len(clean_name))
           
-        cleaned_list.append(unidecode.unidecode(name.capitalize()))
+        cleaned_list.append(clean_name)
         
     table_list = sorted(cleaned_list)
     random.Random(1234).shuffle(table_list)
@@ -101,7 +103,7 @@ with open(path_out_json, "w") as text_file:
     
 with open(path_out_cpp, "w") as text_file:
     text_file.write('''\
-/* aaaThis Source Code Form is subject to the terms of the Mozilla Public
+/* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
  
@@ -120,10 +122,10 @@ namespace ''' + " {\nnamespace ".join(split_namespace) + ''' {
     for table in full_tables:
         text_file.write('    namespace ' + table['name'] + ' {\n')
         
-        text_file.write('        static size_t const count = ' + str(len(table['list'])) + ';\n')
-        text_file.write('        static size_t const min_length = ' + str(table['min']) + ';\n')
-        text_file.write('        static size_t const max_length = ' + str(table['max']) + ';\n')
-        text_file.write('        static char * const table[' + str(len(table['list'])) + '] = {\n          "' + '", "'.join(table['list']) + '"\n        };\n')
+        text_file.write('        size_t const count = ' + str(len(table['list'])) + ';\n')
+        text_file.write('        size_t const min_length = ' + str(table['min']) + ';\n')
+        text_file.write('        size_t const max_length = ' + str(table['max']) + ';\n')
+        text_file.write('        char * const table[' + str(len(table['list'])) + '] = {\n          "' + '", "'.join(table['list']) + '"\n        };\n')
         text_file.write('\n')
         text_file.write('        constexpr char * const get(size_t i) {\n')
         text_file.write('            return table[i % ' + str(len(table['list'])) + '];\n')
