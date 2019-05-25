@@ -35,29 +35,29 @@ namespace Identify {
         char const * city   = Tables::City::get(      0xFF & (data >>  0) );
 
         size_t write_point = 0;
-        char const * parcer = 0;
+        char const * parcer = nullptr;
         
         parcer = adj;
-        while (parcer[0] != 0) {
+        while (*parcer != 0) {
             ret.name[write_point++] = *(parcer++);
         }
         ret.name[write_point++] = ' ';
         
         parcer = first;
-        while (parcer[0] != 0) {
+        while (*parcer != 0) {
             ret.name[write_point++] = *(parcer++);
         }
         ret.name[write_point++] = ' ';
         
         parcer = family;
-        while (parcer[0] != 0) {
+        while (*parcer != 0) {
             ret.name[write_point++] = *(parcer++);
         }
         ret.name[write_point++] = ',';
         ret.name[write_point++] = ' ';
         
         parcer = city;
-        while (parcer[0] != 0) {
+        while (*parcer != 0) {
             ret.name[write_point++] = *(parcer++);
         }
         ret.name[write_point++] = 0x0;
